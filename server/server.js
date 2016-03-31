@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var config = require('./config.js');
 var path = require('path');
+var db = require('./db')
 
 
 var app = express();
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
-console.log(__dirname + "../client")
+
 
 
 app.get("/", function(req, res){
