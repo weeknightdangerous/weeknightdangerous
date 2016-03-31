@@ -10,8 +10,8 @@ var app = express();
  // https://api.instagram.com/v1/locations/search?lat=48.858844&lng=2.294351&access_token=1965135.c1a9f0d.73ddfdeb1818469f9308b8a7a71058aa
 
 api.use({
-  client_id: config.CLIENT_ID,
-  client_secret: config.CLIENT_SECRET
+  client_id: config.INSTA.CLIENT_ID,
+  client_secret: config.INSTA.CLIENT_SECRET
 });
  
 var redirect_uri = config.REDIRECT_URL;
