@@ -1,5 +1,5 @@
 angular.module('trailApp.nav', [])
 
-// .controller('navigation', function($scope) {
+.controller('navigation', function($scope) {
 	
-// })
+})
