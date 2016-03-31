@@ -1,0 +1,25 @@
+{
+  "name": "weeknightdangerous",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weeknightdangerous/weeknightdangerous.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weeknightdangerous/weeknightdangerous/issues"
+  },
+  "homepage": "https://github.com/weeknightdangerous/weeknightdangerous#readme",
+  "dependencies": {
+    "axios": "^0.9.1",
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4"
+  }
+}
