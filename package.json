@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/weeknightdangerous/weeknightdangerous.git"
   },
-  "author": "",
+  "author": "weeknightdangerous",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/weeknightdangerous/weeknightdangerous/issues"
@@ -22,7 +22,9 @@
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "jade": "^1.11.0",
-    "nodemon": "^1.9.1",
-    "path": "^0.12.7"
+    "instagram-node": "^0.5.8",
+    "knex": "^0.10.0",
+    "path": "^0.12.7",
+    "pg": "^4.5.2"
   }
 }
