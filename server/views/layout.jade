@@ -1,9 +1,13 @@
 doctype html
-html(ng-app='sampleApp')
+html(ng-app='trailApp')
   head
     title= "TrailRPark"
-    link(rel="stylesheet", href='../client/styles/styles.css')
+    link(rel="stylesheet", href='./styles/main.css')
 
-  body(ng-controller="SampleController")
+  body
     block content
-    script(src='path/to/angular')
+
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js")
+    script(src="./bower_components/angular-ui-router/release/angular-ui-router.js")
+    script(src="./app/myApp.js")
+    script(src="./app/nav/nav.js")
