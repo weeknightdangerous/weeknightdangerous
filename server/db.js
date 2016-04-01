@@ -8,7 +8,9 @@ knex.schema.hasTable('users').then(function(exists){
 	if (!exists) {
     knex.schema.createTable('users', function(table){
       table.increments('uid').primary();
-      table.string('username', 255)
+      table.string('username', 255);
+      table.string('imageUrl', 255);
+      table.string('full_name', 255);
     }).then(function(){
       console.log("Created users table")
     })
@@ -20,6 +22,7 @@ knex.schema.hasTable('favs').then(function(exists){
     knex.schema.createTable('favs', function(table){
       table.increments('id').primary();
       table.integer('user_id').references('uid').inTable('users');
+      table.integer('trail_id')
     }).then(function(){
       console.log("Created favs table")
     })
