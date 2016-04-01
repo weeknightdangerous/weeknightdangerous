@@ -24,10 +24,17 @@ app.get("/", function(req, res){
 // This is where you would initially send users to authorize 
 app.get('/authorize_user', ig.authorize_user);
 // This is your redirect URI 
-app.get('/insta/api', ig.handleauth);
-
-app.get('/trails/api', trails.get_trails);
-
+app.get('/handle_auth', ig.handleauth);
+// This is your 'get all trails' api call
+app.get('/api/trails/alltrails', trails.allTrails);
+// This is your 'get single trail' api call (requires unique_id)
+app.get('/api/trails/trail', trails.singleTrails);
+// This is your constrained homepage call for instagram bg images api call
+app.get('/api/insta/home', ig.homeImages);
+// This is your results page bg images api call
+app.get('/api/insta/results', ig.resultsImages);
+// This is your trail profile images api call
+app.get('/api/insta/trail', ig.trailImages);
 
 var port = process.env.PORT || 3000;
 
