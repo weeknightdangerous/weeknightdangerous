@@ -1,1 +1,8 @@
-comment.html
+<div class="comment">
+  <form novalidate>
+    <p>Hi, let us know your comment</p>
+    <textarea rows="4" cols="50" ng-model="user.comment" required /></textarea><br />
+    <input type="button" ng-click="reset()" value="Reset" />
+    <input type="submit" ng-click="update()" value="Save" />
+  </form>
+</div>
