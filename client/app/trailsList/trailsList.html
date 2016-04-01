@@ -1,0 +1,15 @@
+<p>Total number of phones: "riing"</p>
+<div class="trailsListContainer">
+	
+	<div ng-repeat="trail in data" class="trailsListTrailWrap">
+		<div class="trailsListTitle">{{trail.name}}</div>
+			<img class="trailsListImg" src={{trail.url}}></img>
+			<p>{{trail.discription}}</p>
+			<div class="trailsListRating">"{{trail.rating}}"</div>
+			<button
+				class="btn trailsListBtn"
+				ng-show="trail.page < trail.pages"
+				ng-click="trail">
+			</button>
+	</div>
+</div>
