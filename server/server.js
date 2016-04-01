@@ -26,7 +26,7 @@ app.get("/", function(req, res){
 // This is where you would initially send users to authorize 
 app.get('/authorize_user', ig.authorize_user);
 // This is your redirect URI 
-app.get('/insta/api', ig.handleauth);
+app.get('/handle_auth', ig.handleauth);
 
 app.get('/trails/api', trails.get_trails);
 

@@ -44,24 +44,24 @@ exports.handleauth = function(req, res) {
                   res.send(resp)
                 })
             } else {
-              console.log("Returning User!");
-              res.send(user)
+              console.log("Returning User!", user);
+              dbhelpers.addSession(user.uid, result.access_token)
+                .then(function(resp){
+                  res.send(resp)
+                })   
             }
           })
-
-
-
-
-
-      // api.media_search(48.4335645654, 2.345645645, function(err, medias, remaining, limit) {
-      //   console.log(medias)
-      // });
-      //api.location_search({ lat: 48.565464564, lng: 2.34656589 }, [options,] function(err, result, remaining, limit) {});
- 
-      console.log('Yay! Access token is ' + result.access_token);
-      res.send('You made it!!');
     }
   });
 };
  
+
+
+ // api.media_search(48.4335645654, 2.345645645, function(err, medias, remaining, limit) {
+      //   console.log(medias)
+      // });
+      //api.location_search({ lat: 48.565464564, lng: 2.34656589 }, [options,] function(err, result, remaining, limit) {});
+ 
+      //console.log('Yay! Access token is ' + result.access_token);
+      //res.send('You made it!!');
  
