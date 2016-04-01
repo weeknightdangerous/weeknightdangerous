@@ -1,0 +1,23 @@
+{
+  "name": "weeknightdangerous",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "weeknightdangerous"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/weeknightdangerous/weeknightdangerous",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}
