@@ -1,14 +1,11 @@
-angular.module('trailApp.comments', [])
-    .controller('commentsCtrl', ['$scope', function($scope) {
-      $scope.master = {};
+angular.module('trailApp.comment', [])
 
-      $scope.update = function(user) {
+    .controller('commentsCtrl', function($scope) {
+      console.log('comment controller is working')
+      $scope.comments = {};
+
+      $scope.update = function() {
         
       };
 
-      $scope.reset = function() {
-        $scope.user = angular.copy($scope.master);
-      };
-
-      $scope.reset();
-    }]);
+    });

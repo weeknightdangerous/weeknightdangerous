@@ -3,6 +3,7 @@ extends layout
 block content
   header.main_header
    .nav(ui-view="nav")
-   .nav(ui-view="topNav") 
-   .nav(ui-view="profile")
+   .topNav(ui-view="topNav") 
+  .trailProfile(ui-view="profile")
+  .comment(ui-view="comment")
     
