@@ -3,11 +3,19 @@ html(ng-app='trailApp')
   head
     title= "TrailRPark"
     link(rel="stylesheet", href='./styles/main.css')
+    link(rel="stylesheet", href="./app/nav/nav.css")
+    link(rel="stylesheet", href="./app/topNav/topNav.css")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
 
   body
     block content
 
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js")
     script(src="./bower_components/angular-ui-router/release/angular-ui-router.js")
+    script(src="./app/services/services.js")
     script(src="./app/myApp.js")
     script(src="./app/nav/nav.js")
+    Script(src="./app/topNav/topNav.js")
+    script(src="./app/trailsList/trailsListApp.js")
+    script(src="./app/trailProfile/trailProfile.js")  
+

@@ -1,1 +1,10 @@
-comment.html
+<div class="comments">
+  <form novalidate class="css-form">
+    <p>Hi {{user}}, let us know your comment</p>
+    Comment: <input type="textarea" ng-model="user.comment" required /><br />
+    <input type="button" ng-click="reset()" value="Reset" />
+    <input type="submit" ng-click="update(user)" value="Save" />
+  </form>
+  <pre>user = {{user | json}}</pre>
+  <pre>master = {{master | json}}</pre>
+</div>

@@ -1,5 +1,18 @@
 
-<div id ="nav">
-	<a href="#" id="logo"><img src="./mainImg/logo.png" alt="Logo text goes here"></a>
-
+<div class ="nav home" ng-if="showTopNav">
+  <div>
+    <ul class="list-inline">
+      <li><a href="#" id="logo"><img src="./mainImg/logo.png" alt="Logo text goes here" width="240px" height="240px"></a></li>
+    	<li><button class="btn">Sign In</button></li>  
+    </ul>
+  </div>
+  <div>
+    <form novalidate class="css-form">
+    <p>1. Pick a state</p>
+    State: <input type="text" ng-model="user.state" required /><br />
+    <p>2. Pick a city</p>
+    City: <input type="text" ng-model="user.city" required /><br />
+    <input type="submit" ng-click="showList()" value="GO!" />
+  </form>
+  </div>
 </div>	
