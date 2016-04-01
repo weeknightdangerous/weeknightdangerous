@@ -35,7 +35,8 @@ knex.schema.hasTable('sessions').then(function(exists){
       table.integer('user_id')
         .references('uid')
         .inTable('users');
-      table.string('access_token', 255)
+      table.string('access_token', 255);
+      table.string('session_id', 255);
     }).then(function(){
       console.log("Created sessions table")
     })

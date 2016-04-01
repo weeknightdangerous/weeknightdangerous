@@ -4,7 +4,8 @@ var cookieParser = require('cookie-parser');
 // var config = require('./config.js');
 var path = require('path');
 var ig = require('./instagram');
-var db = require('./db')
+var db = require('./db');
+var dbhelpers = require('./dbhelpers')
 
 
 
