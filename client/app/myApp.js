@@ -5,6 +5,7 @@ angular.module('trailApp', [
   'trailApp.topNav',
   'trailApp.profile',
   'trailApp.comment',
+  'trailApp.trailsList',
   'ui.router'
   ])
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -23,16 +24,15 @@ angular.module('trailApp', [
       .state("results", {
         url: '/results',
         views: {
-
               'topNav': { 
                 templateUrl: 'app/topNav/topNav.html',
                 controller: 'topNav' 
               },
 
-              'trailList': { 
-                templateUrl: 'app/trailsList/trailsListApp.html',
-                controller: 'test' 
-              }
+              'trailsList': {
+                templateUrl: 'app/trailsList/trailsList.html',
+                controller: 'TrailsListCtrl'
+            }
         }
       })
       .state("profile", {
