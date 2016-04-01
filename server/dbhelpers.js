@@ -3,8 +3,8 @@ var uuid = require('uuid')
 
 var dbhelpers = {};
 
-dbhelpers.addUser = function(user) {
-  return db('users').insert({username: user})
+dbhelpers.addUser = function(userObj) {
+  return db('users').insert(userObj)
     .then(function(resp){ 
       console.log("addUser response :", resp);
       return resp 
@@ -15,7 +15,7 @@ dbhelpers.findUserByName = function(username) {
   return db('users').where({username: username})
     .then(function(resp){
       console.log("findUser response: ", resp);
-      return resp
+      return resp[0]
     })
 };
 

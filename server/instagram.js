@@ -3,11 +3,13 @@ var express = require('express');
 var api = require('instagram-node').instagram();
 var config = require('./config');
 var app = express();
+var dbhelpers = require('./dbhelpers')
  
 // app.configure(function() {
 //   // The usual... 
 // });
- // https://api.instagram.com/v1/locations/search?lat=48.858844&lng=2.294351&access_token=1965135.c1a9f0d.73ddfdeb1818469f9308b8a7a71058aa
+ // https://api.instagram.com/v1/locations/search?lat=48.858844&lng=2.294351&access_token=
+ //1965135.c1a9f0d.73ddfdeb1818469f9308b8a7a71058aa
 
 api.use({
   client_id: config.INSTA.CLIENT_ID,
@@ -27,6 +29,29 @@ exports.handleauth = function(req, res) {
       console.log(err.body);
       res.send("Didn't work");
     } else {
+        var userObj = {
+          username: result.user.username,
+          imageUrl: result.user.profile_picture,
+          full_name: result.user.full_name
+        };
+
+        dbhelpers.findUserByName(userObj.username)
+          .then(function(user){
+            if(!user) {
+              console.log("New User!");
+              dbhelpers.addUser(userObj)
+                .then(function(resp){
+                  res.send(resp)
+                })
+            } else {
+              console.log("Returning User!");
+              res.send(user)
+            }
+          })
+
+
+
+
 
       // api.media_search(48.4335645654, 2.345645645, function(err, medias, remaining, limit) {
       //   console.log(medias)

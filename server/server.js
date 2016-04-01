@@ -26,6 +26,8 @@ app.get("/", function(req, res){
 	res.render('index')
 })
 
+
+
 // This is where you would initially send users to authorize 
 app.get('/authorize_user', ig.authorize_user);
 // This is your redirect URI 
