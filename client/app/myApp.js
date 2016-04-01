@@ -1,7 +1,6 @@
 angular.module('trailApp', [
   'trailApp.nav',
   'trailApp.services',
-  'trailsListApp',
   'trailApp.topNav',
   'trailApp.profile',
   'trailApp.comment',
