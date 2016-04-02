@@ -3,23 +3,24 @@ var express = require('express');
 var axios = require('axios');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var utilities = require('./utility.js');
+var utilities = require('./utility');
 var app = express();
 
 exports.allTrails = function(req, res) {
   
   var city = req.query.city;
   var state = req.query.state;
-  // var city = 'Jackson';
-  // var state = 'Wyoming';
+  // var city = 'Austin';
+  // var state = 'Texas';
   axios({
     method: 'get',
     url: 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]=' + city + '&q[state_cont]=' + state,
     headers: {'X-Mashape-Key': config.TRAILS.API_KEY}
   })
   .then(function(allTrails){
-    //console.log('we got the data',allTrails)
-    var cleanData = utilities.cleanTrails(allTrails);
+    //console.log('we got the data',allTrails.data.places)
+    //pass in '2' for hiking trails (only worrying about those for now)
+    var cleanData = utilities.cleanTrails(allTrails.data.places, '2');
     res.json(cleanData);
   })
 }
