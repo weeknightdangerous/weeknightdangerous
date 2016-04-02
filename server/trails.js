@@ -20,6 +20,7 @@ exports.allTrails = function(req, res) {
   .then(function(allTrails){
     //console.log('we got the data',allTrails.data.places)
     //pass in '2' for hiking trails (only worrying about those for now)
+    // we filter out all other trail usage in the cleanTrails utility
     var cleanData = utilities.cleanTrails(allTrails.data.places, '2');
     res.json(cleanData);
   })

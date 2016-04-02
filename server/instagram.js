@@ -17,7 +17,9 @@ exports.geoImages = function(req, res){
     res.json(instaPics.data);
   })
 }
+
 exports.locImages = function(req,res){
+  
   var city = req.query.city;
 
   axios({
@@ -29,6 +31,3 @@ exports.locImages = function(req,res){
     res.json(instaPics.data);
   })
 }
-
-
- 
