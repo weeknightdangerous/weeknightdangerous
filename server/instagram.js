@@ -48,6 +48,8 @@ exports.handleauth = function(req, res) {
               dbhelpers.addSession(user.uid, result.access_token)
                 .then(function(resp){
                   res.send(resp)
+
+                  //return cookie with sessionid and also full name
                 })   
             }
           })

@@ -56,7 +56,12 @@ dbhelpers.addSession = function(userID, access_token) {
   
 }
 
-dbhelpers.removeSession = function(userID) {}
+dbhelpers.removeSession = function(session_id) {
+  return db('sessions').where({session_id: session_id}).del()
+    then(function(resp){
+      return resp
+    })
+}
 
 
 
