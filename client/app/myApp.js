@@ -19,7 +19,8 @@ angular.module('trailApp', [
 
               'nav': { 
                 templateUrl: 'app/nav/nav.html',
-                controller: 'navigation' 
+                controller: 'navigation',
+                controllerAs: 'nav' 
               },
               'bkgd': { 
                 templateUrl: 'app/bkgd/bkgd.html',

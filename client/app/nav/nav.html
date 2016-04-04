@@ -1,5 +1,5 @@
 
-<div class ="nav home" ng-if="showTopNav" class="slide">
+<div class ="nav home" class="slide">
   <div>
     <ul class="list-inline">
       <li><a href="#" id="logo"><img src="./mainImg/logo.png" alt="Logo text goes here" width="157px" height="104px"><h1>Trailr</h1></a></li>
@@ -7,12 +7,14 @@
     </ul>
   </div>
   <div>
-    <form novalidate class="css-form">
+    <form name="queryForm" novalidate class="css-form" ng-submit="nav.showList(nav.location, nav.queryForm.$valid)">
     <p>1. Pick a state</p>
-    State: <input type="text" ng-model="user.state" required /><br />
+    State: <input type="text" ng-model="nav.location.state" required /><br />
     <p>2. Pick a city</p>
-    City: <input type="text" ng-model="user.city" required /><br />
-    <input type="submit" ng-click="showList()" value="GO!" />
+    City: <input type="text" ng-model="nav.location.city" required /><br />
+    <input type="submit" value="GO!" />
   </form>
   </div>
 </div>	
+
+<!--ng-submit="ctrl.createBoard(ctrl.newBoard, ctrl.createForm.$valid)" -->
