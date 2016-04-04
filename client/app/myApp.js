@@ -2,6 +2,8 @@ angular.module('trailApp', [
   'trailApp.nav',
   'trailApp.services',
   'trailApp.topNav',
+  'angularGrid',
+  'trailApp.bkgd',
   'trailApp.profile',
   'trailApp.comment',
   'trailApp.trailsList',
@@ -18,6 +20,10 @@ angular.module('trailApp', [
               'nav': { 
                 templateUrl: 'app/nav/nav.html',
                 controller: 'navigation' 
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
               }
         }
      })

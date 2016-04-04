@@ -2,8 +2,10 @@ extends layout
 
 block content
   header.main_header
-   .nav(ui-view="nav")
-  .topNav(ui-view="topNav") 
+   .nav-wrapper
+    .nav(ui-view="nav")
+   .topNav(ui-view="topNav") 
+  .bkgd(ui-view="bkgd")
   .trails(ui-view="trailsList")
   .trailProfile(ui-view="profile")
   .comment(ui-view="comment")

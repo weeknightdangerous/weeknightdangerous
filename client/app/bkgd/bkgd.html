@@ -1,0 +1,7 @@
+<div>
+    <ul class="dynamic-grid" angular-grid="pics" grid-width="250" gutter-size="10" angular-grid-id="gallery" refresh-on-img-load="false" >
+        <li data-ng-repeat="pic in pics" class="grid" data-ng-clock>
+            <img src="{{pic.media.m}}" class="grid-img" data-actual-width = "{{pic.actualWidth}}"  data-actual-height="{{pic.actualHeight}}" />
+        </li>
+    </ul>
+</div>
