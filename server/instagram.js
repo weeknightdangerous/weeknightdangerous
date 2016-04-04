@@ -11,7 +11,7 @@ exports.geoImages = function(req, res){
 
   axios({
     method: 'get',
-    url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' + config.INSTA.PIRATE_ID,
+    url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' + config.INSTA.PIRATE_ID + '&count=33',
     headers: {}
   })
   .then(function(instaPics){
