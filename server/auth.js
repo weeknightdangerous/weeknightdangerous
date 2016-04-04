@@ -3,7 +3,8 @@ var express = require('express');
 var api = require('instagram-node').instagram();
 var config = require('./config');
 var app = express();
-var dbhelpers = require('./dbhelpers')
+var dbhelpers = require('./dbhelpers');
+var cookieParser = require('cookie-parser');
  
 // app.configure(function() {
 //   // The usual... 
@@ -46,7 +47,8 @@ exports.handleauth = function(req, res) {
               console.log("Returning User!", user);
               dbhelpers.addSession(user.uid, result.access_token)
                 .then(function(resp){
-                  res.send(resp)
+                  res.cookie('trailrpark' , resp.session_id).send('Cookie is set');
+                  
                 })   
             }
           })

@@ -7,10 +7,11 @@ var auth = require('./auth');
 var db = require('./db');
 var ig = require('./instagram');
 var dbhelpers = require('./dbhelpers');
+var cookieParser = require('cookie-parser');
 
 var app = express();
 
-
+app.use(cookieParser())
 app.use(express.static(path.join(__dirname,'../client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
