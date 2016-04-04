@@ -33,7 +33,7 @@ app.get('/api/trails/trail', trails.singleTrail);
 // This is your constrained homepage call for instagram bg images api call
 app.get('/api/insta/geo', ig.geoImages);
 // This is your results page bg images api call
-app.get('/api/insta/loc', ig.locImages);
+//app.get('/api/insta/loc', ig.locImages);
 
 var port = process.env.PORT || 3000;
 

@@ -18,16 +18,16 @@ exports.geoImages = function(req, res){
   })
 }
 
-exports.locImages = function(req,res){
+// exports.locImages = function(req,res){
   
-  var city = req.query.city;
+//   var city = req.query.city;
 
-  axios({
-    method: 'get',
-    url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' + config.INSTA.PIRATE_ID,
-    headers: {}
-  })
-  .then(function(instaPics){
-    res.json(instaPics.data);
-  })
-}
+//   axios({
+//     method: 'get',
+//     url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' + config.INSTA.PIRATE_ID,
+//     headers: {}
+//   })
+//   .then(function(instaPics){
+//     res.json(instaPics.data);
+//   })
+// }
