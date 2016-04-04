@@ -37,11 +37,11 @@ app.get('/api/trails/alltrails', trails.allTrails);
 app.get('/api/trails/trail', trails.singleTrail);
 // This is your constrained homepage call for instagram bg images api call
 
-//app.get('/api/insta/home', ig.homeImages);
+app.get('/api/insta/home', ig.homeImages);
 // This is your results page bg images api call
-//app.get('/api/insta/results', ig.resultsImages);
+app.get('/api/insta/results', ig.resultsImages);
 // This is your trail profile images api call
-//app.get('/api/insta/trail', ig.trailImages);
+app.get('/api/insta/trail', ig.trailImages);
 
 app.get('/api/insta/geo', ig.geoImages);
 // This is your results page bg images api call

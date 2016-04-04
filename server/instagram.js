@@ -5,28 +5,6 @@ var app = express();
 
 exports.geoImages = function(req, res){
 
-
-        dbhelpers.findUserByName(userObj.username)
-          .then(function(user){
-            if(!user) {
-              console.log("New User!");
-              dbhelpers.addUser(userObj)
-                .then(function(resp){
-                  res.send(resp)
-                })
-            } else {
-              console.log("Returning User!", user);
-              dbhelpers.addSession(user.uid, result.access_token)
-                .then(function(resp){
-                  res.send(resp)
-
-                  //return cookie with sessionid and also full name
-                })   
-            }
-          })
-    }
-  };
-};
  
 
   var lat = req.query.lat;
