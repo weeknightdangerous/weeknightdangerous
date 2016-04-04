@@ -1,17 +1,19 @@
 
-exports.cleanTrails = function(data){
+exports.cleanTrails = function(data, type){
   var items = [];
-
+  //console.log(data)
   for (var i = 0; i < data.length; i++) {
+    //console.log(data[i])
     var obj = {}
-    var item = resp.data[i];
+    var item = data[i];
+    
     obj.name = item.name;
     obj.unique_id = item.unique_id;
     obj.directions = item.directions;
     obj.lat = item.lat;
     obj.lon = item.lon;
     for (var j = 0; j < item.activities.length; j++) {
-      if(item.activities[j].activity_type_id == params.type){
+      if(item.activities[j].activity_type_id == type){
         obj.url = item.activities[j].url;
         obj.description = item.activities[j].description;
         obj.length = item.activities[j].length;
@@ -21,6 +23,6 @@ exports.cleanTrails = function(data){
     }
     items.push(obj);
   }
-  //console.log('newArray',items)
+
   return items;
 }
