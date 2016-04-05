@@ -1,4 +1,6 @@
-
+//
+//this cleans out the trails json object a bit and removes data we aren't using
+//
 exports.cleanTrails = function(data, type){
   var items = [];
   //console.log(data)
@@ -25,4 +27,24 @@ exports.cleanTrails = function(data, type){
   }
 
   return items;
+}
+//
+//this cleans out the instagram json object a bit and removes data we aren't using
+//
+exports.cleanGrams = function(feed){
+  //console.log(feed);
+  var grams = [];
+  for (var i = 0; i < feed.data.length; i++) {
+    var obj = {};
+    var item = feed.data[i]
+
+    obj.link = item.link;
+    obj.low_res = item.images.low_resolution.url;
+    obj.high_res = item.images.standard_resolution.url;
+    obj.user ={};
+    obj.user.username = item.user.username;
+    obj.user.profile_pic = item.user.profile_picture;
+    grams.push(obj);
+  }
+  return grams;
 }
