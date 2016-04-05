@@ -37,8 +37,6 @@ angular.module('trailApp.services', [])
     })
   };
 
-
-
   return {
     getLocation: getLocation,
     getTrail: getTrail,
@@ -48,7 +46,12 @@ angular.module('trailApp.services', [])
 
 .service('imageService',['$q','$http',function($q,$http){
         this.loadImages = function(){
-            return $http.jsonp("https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK");
+            // return $http.jsonp("https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK");
+            return $http({
+              method: 'GET', 
+              url: '/api/insta/geoImages',
+              params: {"lat":'38.5733',"lng":'-109.5498'}
+            })
         };
 }])
 
