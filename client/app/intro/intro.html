@@ -18,7 +18,6 @@
       <p>{{trail.description}}</p>
       <div class="trailsListRating">"{{trail.rating}}"</div>
       <button
-        ui-sref="trail.detail({trail.unique_id})"
         class="btn trailsListBtn"
         ng-click="intro.getTrail(trail.unique_id)">
         Find out more >>
@@ -26,4 +25,4 @@
   </div>
 </div>
 
-<!-- ng-show="trail.page < trail.pages" -->
+<!-- ng-show="trail.page < trail.pages"  ui-sref="trail"-->

@@ -1,6 +1,6 @@
 angular.module('trailApp.intro', [])
 
-.controller('introCtrl', function($location, $window, showTrails) {
+.controller('introCtrl', function($location, $window, $state, showTrails) {
   var intro = this;
 
   intro.showlist = false;
@@ -26,7 +26,10 @@ angular.module('trailApp.intro', [])
 
   intro.getTrail = function(trailId) {
     console.log('trailId: ', trailId);
-    showTrails.getTrailId(trailId);
+
+    $state.go('trail', { trailId: trailId });
+
+    
   }
 
   //helper function to make sure the city and state inputed by the user are capitalized

@@ -1,15 +1,19 @@
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails) {
+.controller('profileCtrl', function($scope, $stateParams, showTrails) {
   var profile = this;
-  var fetchId = function() {
-    profile.id = showTrails.trailId;
-    console.log('profileCtrl fetchId:', profile.id)
-    return profile.id
-  }
+  var trailsId = $stateParams.trailsId;
 
-  fetchId();
+    profile.getTrail = function() {
+       showTrails.getTrail(trailsId)
+        .then(function(trail) {
+            console.log('profileCtrl trail: ', trail)
+            profile.trail = trail;
+        });
+     }
 
+
+    profile.getTrail();
   // showTrails.getTrail(showTrails.trailId)
   // .then(function (result) {
   //   console.log("profileCtrl trailId:", showTrails.trailId)
