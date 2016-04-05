@@ -20,7 +20,8 @@ exports.geocode = function(req, res){
 
     return ig.geoImages(req,res)
     //res.json(firstResultGeo);
-  }).then(function(gram){
-    console.log(grams);
+  }).catch(function(err){
+    console.log(err);
+    return err;
   })
 }
