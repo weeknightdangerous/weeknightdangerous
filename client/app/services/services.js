@@ -1,69 +1,56 @@
 angular.module('trailApp.services', [])
 
-.factory('showTopNav', function($location) {
-
-  var navToggle = function() {
-    console.log('working')
-    var showTopNav = {};
-    if ($location.$$path === '/home') {
-      
-      showTopNav.showTopNav = false;
-      console.log('showTopNav:', showTopNav.showTopNav)
-    } else {
-      showTopNav.showTopNav = true;
-      console.log('showNav:', showTopNav.showTopNav)
-    }
-    return showTopNav;
-  };
-
-  return {
-
-    navToggle: navToggle
-  }
-})
 .factory('showTrails', function($http) {
-  // var items = {
-  //   "city": "Chelan",
-  //   "state": "washington"
-    
-  // };
-  function extract(result) {
-      console.log("extracted result: ", result);
-      return result.data;
-    }
-  var postLocation = function(params) {
-    console.log('postLocation: ', params)
-    $http({
+  var showTrails = this;
+  showTrails.trail = {};
+  showTrails.trailId = 0;
+
+  var getLocation = function(params) {
+    return $http({
       method: 'GET', 
-      url: '/api/alltrails',
+      url: '/api/trails/alltrails',
       params: params
     })
-    .then(extract)
+    .then(function(result) {
+      console.log("getLocation result: ", result.data)
+      return result.data;
+    })
     .catch(function(err) { console.log('postLocation error: ', err)})
-  }
+  };
+
+  var getTrailId = function (trailId) {
+    showTrails.trailId = trailId;
+    console.log('showTrails.trailId:', showTrails.trailId)
+  };
+
+  var getTrail = function(trailId) {
+    return $http({
+      method: 'GET',
+      url: '/api/trails/trail',
+      params: trailId
+    })
+    .then(function(result) {
+      console.log('getTrail result: ', result.data); 
+      showTrails.trail = result.data;
+      console.log("showTrails.trail", showTrails.trail)
+      return result.data;
+    })
+  };
+
+
 
   return {
-    postLocation: postLocation
+    getLocation: getLocation,
+    getTrail: getTrail,
+    getTrailId: getTrailId
   }
-
 })
+
 .service('imageService',['$q','$http',function($q,$http){
         this.loadImages = function(){
             return $http.jsonp("https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK");
         };
 }])
-
-// factory:
-// var getTrails = function(params){
-//     return $http({
-//       method: 'GET',
-//       url: '/api/trails',
-//       params: params
-//     })
-// .then(function(result){
-// return result
-// })
-
 
 
 

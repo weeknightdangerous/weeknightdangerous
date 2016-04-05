@@ -1,5 +1,5 @@
 angular.module('trailApp', [
-  'trailApp.nav',
+  'trailApp.intro',
   'trailApp.services',
   'trailApp.topNav',
   'angularGrid',
@@ -17,10 +17,10 @@ angular.module('trailApp', [
         url: '/home',
         views: {
 
-              'nav': { 
-                templateUrl: 'app/nav/nav.html',
-                controller: 'navigation',
-                controllerAs: 'nav' 
+              'intro': { 
+                templateUrl: 'app/intro/intro.html',
+                controller: 'introCtrl',
+                controllerAs: 'intro' 
               },
               'bkgd': { 
                 templateUrl: 'app/bkgd/bkgd.html',
@@ -31,25 +31,18 @@ angular.module('trailApp', [
       .state("results", {
         url: '/results',
         views: {
-              'topNav': { 
-                templateUrl: 'app/topNav/topNav.html',
-                controller: 'topNav' 
-              },
-
+      
               'trailsList': {
                 templateUrl: 'app/trailsList/trailsList.html',
-                controller: 'TrailsListCtrl'
+                controller: 'TrailsListCtrl',
+                controllerAs: 'trails'
             }
         }
       })
-      .state("profile", {
-        url: '/profile',
+      .state("trail", {
+        url: '/trail',
         views: {
 
-              'topNav': { 
-                templateUrl: 'app/topNav/topNav.html',
-                controller: 'topNav' 
-              },
               'profile': {
                 templateUrl: 'app/trailProfile/trailProfile.html',
                 controller: 'profileCtrl'

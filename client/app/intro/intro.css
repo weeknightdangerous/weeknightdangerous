@@ -1,9 +1,9 @@
-.nav {
+.intro {
 
   display: block;
 }
 
-.nav.home {
+.intro {
   z-index: 10000;
   position: absolute;
   top: 200px;
