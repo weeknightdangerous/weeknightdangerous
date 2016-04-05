@@ -20,5 +20,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
     "angular-animate": "^1.5.3",
+    "angulargrid": "^0.5.4"
+
   }
 }
