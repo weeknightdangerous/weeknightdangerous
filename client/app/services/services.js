@@ -3,7 +3,7 @@ angular.module('trailApp.services', [])
 .factory('showTrails', function($http) {
   var showTrails = this;
   showTrails.trail = {};
-  showTrails.trailId = 0;
+  var trailId;
 
   var getLocation = function(params) {
     return $http({
@@ -19,8 +19,9 @@ angular.module('trailApp.services', [])
   };
 
   var getTrailId = function (trailId) {
-    showTrails.trailId = trailId;
-    console.log('showTrails.trailId:', showTrails.trailId)
+    trailId = trailId;
+    console.log('service getrailId:', trailId)
+    return trailId
   };
 
   var getTrail = function(trailId) {
@@ -42,7 +43,8 @@ angular.module('trailApp.services', [])
   return {
     getLocation: getLocation,
     getTrail: getTrail,
-    getTrailId: getTrailId
+    getTrailId: getTrailId,
+    trailId: trailId
   }
 })
 

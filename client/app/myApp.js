@@ -40,10 +40,10 @@ angular.module('trailApp', [
         }
       })
       .state("trail", {
-        url: '/trail',
+        url:'/trail/:trialId',
         views: {
 
-              'profile': {
+              'trail': {
                 templateUrl: 'app/trailProfile/trailProfile.html',
                 controller: 'profileCtrl'
               },
