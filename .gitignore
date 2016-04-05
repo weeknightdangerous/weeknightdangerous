@@ -29,3 +29,7 @@ bower_components/
 
 #DB Storage
 db/
+
+# ignore generated files from gulp
+client/scripts/app.js
+client/scripts/scripts.js

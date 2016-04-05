@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     util = require('gulp-util'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
+    concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
     browserSync = require('browser-sync').create(),
     shell = require('gulp-shell'),
@@ -24,6 +25,25 @@ gulp.task('minify-css', function() {
     .pipe(clean({compatibility: 'ie8'}))
     .pipe(gulp.dest('client/styles/min'));
 });
+
+gulp.task('concat-dep', function() {
+  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js'])
+    .pipe(concat('scripts.js'))
+    .pipe(gulp.dest('./client/scripts/'));
+});
+
+gulp.task('concat-app', function() {
+  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js'])
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('./client/scripts'));
+});
+
+//uglify js
+gulp.task('uglify', function(){
+  return gulp.src('./client/scripts/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('client/scripts/'));
+})
 
 //sync browser with changes
 gulp.task('browser-sync', function() {
@@ -69,6 +89,6 @@ gulp.task('watch', function() {
 });
 
 //run our default task
-gulp.task('default', ['dev','sass', 'minify-css','watch']);
+gulp.task('default', ['dev','sass','concat-dep','concat-app', 'minify-css','uglify','watch']);
 
 
