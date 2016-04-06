@@ -82,7 +82,9 @@ dbhelpers.findFavsByUserID = function(userID) {
 dbhelpers.addComment = function(userID, comment) {
   return db('comments').insert({
       user_id: userID,
-      comment: comment
+      comment: comment,
+      created_at: new Date(),
+      updated_at: new Date()
     })
     .then(function(resp){
       console.log("addComment response: ", resp)
