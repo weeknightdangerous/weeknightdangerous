@@ -36,8 +36,22 @@ knex.schema.hasTable('sessions').then(function(exists){
       table.integer('user_id').references('uid').inTable('users');
       table.string('access_token', 255);
       table.string('session_id', 255);
+      table.timestamp('created_at').defaultTo(knex.fn.now());
     }).then(function(){
       console.log("Created sessions table")
+    })
+  }
+});
+
+knex.schema.hasTable('comments').then(function(exists){
+  if (!exists) {
+    knex.schema.createTable('comments', function(table){
+      table.increments('id').primary();
+      table.integer('user_id').references('uid').inTable('users');
+      table.string('comment', 255);
+      table.timestamps().defaultTo(knex.fn.now());
+    }).then(function(){
+      console.log("Created comment table")
     })
   }
 });

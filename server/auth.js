@@ -41,7 +41,7 @@ exports.handleauth = function(req, res) {
               console.log("New User!");
               dbhelpers.addUser(userObj)
                 .then(function(resp){
-                  res.send(resp)
+                  res.cookie('trailrpark' , resp.session_id).send('New user cookie is set');
                 })
             } else {
               console.log("Returning User!", user);
