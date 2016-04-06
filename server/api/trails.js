@@ -2,8 +2,8 @@ var http = require('http');
 var express = require('express');
 var axios = require('axios');
 var bodyParser = require('body-parser');
-var config = require('./config');
-var utilities = require('./utility');
+var config = require('../config');
+var utilities = require('../utility');
 var app = express();
 
 exports.allTrails = function(req, res) {

@@ -70,7 +70,7 @@ gulp.task('init-db', shell.task([
   'createdb dev'
 ]));
 
-gulp.task('restart', shell.task([
+gulp.task('restart-db', shell.task([
   'pkill postgres',
   'pg_ctl -D db -l logfile start'
 ]));
