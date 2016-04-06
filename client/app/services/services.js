@@ -29,29 +29,6 @@ angular.module('trailApp.services', [])
     return showTrail;
   }
 
-  // For future use - please do not erase
-  // var getTrailId = function (trailId) {
-  //   trailId = trailId;
-  //   console.log('service getrailId:', trailId)
-  //   return trailId
-  // };
-
-  // var getTrail = function(trailId) {
-  //   console.log("showTrails ID: ", trailId)
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/trails/trail',
-  //     params: {unique_id: 3470}
-  //   })
-  //   .then(function(result) {
-  //     console.log('showTrails service result: ', result.data); 
-  //     showTrails.trail = result.data;
-  //     return result.data;
-  //   })
-  // };
-
-
-
   return {
     getLocation: getLocation,
     getTrail: getTrail,
@@ -59,28 +36,12 @@ angular.module('trailApp.services', [])
   }
 })
 
-.factory('instagram', function($http) {
+.factory('comments', function () {
+  return $http({
+    method: 'POST',
+    url: '/api'
 
-  var getInstagram = function() {
-    console.log('getInstagram service works')
-    var params = {lat: '30.182943', lon: '-97.725541'}
-    return $http({
-      method: 'GET',
-      url: '/api/insta/geo',
-      params: params
-    })
-    .then(function (result) {
-      console.log('instagram raw: ', result.data);
-      return result.data;
-    })
-    .catch(function (err) {
-      console.error('instagram error: ', err);
-    })
-  }
-
-  return {
-    getInstagram: getInstagram
-  }
+  })
 })
 
 .service('imageService',['$q','$http',function($q,$http){
