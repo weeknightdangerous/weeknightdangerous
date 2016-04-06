@@ -10,5 +10,4 @@ var trailsApp = angular.module('trailApp.profile', [])
      }
 
     profile.getTrail();
-
 })

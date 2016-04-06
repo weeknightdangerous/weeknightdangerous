@@ -5819,3 +5819,18 @@ button.close {
 
 .test {
   font-size: 3em; }
+
+.trail_rating {
+  display: inline-block;
+}
+
+.trail_length {
+  display: inline-block;
+}
+
+.favorite_button {
+  display: inline-block;
+}
+.profile_bar {
+  background-color: teal;
+}

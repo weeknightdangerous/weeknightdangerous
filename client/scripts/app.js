@@ -242,7 +242,6 @@ var trailsApp = angular.module('trailApp.profile', [])
      }
 
     profile.getTrail();
-
 })
 
 angular.module('trailApp.comment', [])
