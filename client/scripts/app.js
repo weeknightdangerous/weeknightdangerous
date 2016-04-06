@@ -6,11 +6,12 @@ angular.module('trailApp', [
   'trailApp.bkgd',
   'trailApp.profile',
   'trailApp.comment',
-  'trailApp.trailsList',
+  //'trailApp.trailsList',
   'ui.router',
+  'angular-storage',
   'ngAnimate'
   ])
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
+.config(['$stateProvider', '$urlRouterProvider', 'angular-storage', function($stateProvider, $storeProvider, $urlRouterProvider, $stateparams) {
   $urlRouterProvider.otherwise('/home');
   $stateProvider
      .state("home", {
@@ -24,7 +25,8 @@ angular.module('trailApp', [
               },
               'bkgd': { 
                 templateUrl: 'app/bkgd/bkgd.html',
-                controller: 'bkgdCtrl' 
+                controller: 'bkgdCtrl',
+                controllerAs: 'bkgd' 
               }
         }
      })
@@ -55,7 +57,41 @@ angular.module('trailApp', [
         }
 
       })
+
+  $storeProvider
+    .setStore('cookieStorage');    
 }])
+
+.controller('authCtrl', function (store) {
+
+  var myObj = {
+    name: 'mgonto'
+  };
+  store.set('obj', myObj);
+  var myNewObject = store.get('obj');
+  angular.equals(myNewObject, myObj);
+})
+
+angular.module('app', ['angular-storage'])
+  .config(function(storeProvider) {
+    // Store defaults to localStorage but we can set sessionStorage or cookieStorage.
+    storeProvider.setStore('sessionStorage');
+  })
+  .controller('Controller', function(store) {
+
+  var myObj = {
+    name: 'mgonto'
+  };
+
+  // This will be saved in sessionStorage as obj
+  store.set('obj', myObj);
+
+  // This will look for obj in sessionStorage
+  var myNewObject = store.get('obj');
+  console.log('OAuth new object:', myNewObject)
+
+  angular.equals(myNewObject, myObj); // return true
+});
 
 // For future use - please do not erase
 // .factory('AttachTokens', function ($window) {
@@ -149,6 +185,30 @@ angular.module('trailApp.services', [])
   }
 })
 
+.factory('instagram', function($http) {
+
+  var getInstagram = function() {
+    console.log('getInstagram service works')
+    var params = {lat: '30.182943', lon: '-97.725541'}
+    return $http({
+      method: 'GET',
+      url: '/api/insta/geo',
+      params: params
+    })
+    .then(function (result) {
+      console.log('instagram raw: ', result.data);
+      return result.data;
+    })
+    .catch(function (err) {
+      console.error('instagram error: ', err);
+    })
+  }
+
+  return {
+    getInstagram: getInstagram
+  }
+})
+
 .service('imageService',['$q','$http',function($q,$http){
         this.loadImages = function(){
             return $http.jsonp("https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK");
@@ -174,7 +234,8 @@ angular.module('trailApp.intro', [])
       intro.city = capitalize(location.city);
       intro.state = capitalize(location.state);
 
-      return showTrails.getLocation(location)
+      return 
+      showTrails.getLocation(location)
       .then(function (result) {
         //show list and hide intro form
         intro.showList = true;
@@ -216,20 +277,59 @@ var trailsApp = angular.module('trailApp.topNav', [])
 
 angular.module('trailApp.bkgd', [])
 
-.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService,angularGridInstance) {
-       imageService.loadImages().then(function(data){
-            data.data.items.forEach(function(obj){
-                var desc = obj.description,
-                    width = desc.match(/width="(.*?)"/)[1],
-                    height = desc.match(/height="(.*?)"/)[1];
-                
-                obj.actualHeight  = height;
-                obj.actualWidth = width;
-            });
-           $scope.pics = data.data.items;
-           
-        });;
-    }]);
+.controller('bkgdCtrl', function ($scope,imageService,instagram,angularGridInstance) {
+  var bkgd = this;
+
+  bkgd.getInstagram = function () {
+    console.log('working?')
+
+    instagram.getInstagram()
+    .then(function (result) {
+      bkgd.pics = result.map(function(item) {
+        return item.image.low_res.url;
+      })
+      console.log('controller result:', bkgd.pics);
+    })
+    .catch(function (err) {
+      console.log('controller error:', err);
+    })
+  };       
+
+  //initial call to get the data, turned off during dev to avoid OAuthRateLimitException
+  //bkgd.getInstagram();
+   
+   //old library demo example:
+   imageService.loadImages().then(function(data){
+        data.data.items.forEach(function(obj){
+            var desc = obj.description,
+                width = desc.match(/width="(.*?)"/)[1],
+                height = desc.match(/height="(.*?)"/)[1];
+            
+            obj.actualHeight  = height;
+            obj.actualWidth = width;
+        });
+       $scope.pics = data.data.items;
+       
+    });;
+
+});
+
+   //
+   // Old library demo example: 
+   //
+   // imageService.loadImages().then(function(data){
+   //      console.log('imageService:', data)
+   //      data.data.items.forEach(function(obj){
+   //          var desc = obj.description,
+   //              width = desc.match(/width="(.*?)"/)[1],
+   //              height = desc.match(/height="(.*?)"/)[1];
+            
+   //          obj.actualHeight  = height;
+   //          obj.actualWidth = width;
+   //      });
+   //     $scope.pics = data.data.items;
+       
+   //  });;
 var trailsApp = angular.module('trailApp.profile', [])
 
 .controller('profileCtrl', function(showTrails) {
@@ -259,13 +359,3 @@ angular.module('trailApp.comment', [])
       };
 
     });
-angular.module('trailApp.trailsList', [])
-
-.controller('TrailsListCtrl', function (showTrails) {
-	var trails = this;
-	trails.data = showTrails.trails;
-	console.log(trails.data);
-
-
-
-});

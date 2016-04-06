@@ -6,11 +6,12 @@ angular.module('trailApp', [
   'trailApp.bkgd',
   'trailApp.profile',
   'trailApp.comment',
-  'trailApp.trailsList',
+  //'trailApp.trailsList',
   'ui.router',
+  'angular-storage',
   'ngAnimate'
   ])
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
+.config(['$stateProvider', '$urlRouterProvider', 'angular-storage', function($stateProvider, $storeProvider, $urlRouterProvider, $stateparams) {
   $urlRouterProvider.otherwise('/home');
   $stateProvider
      .state("home", {
@@ -24,7 +25,8 @@ angular.module('trailApp', [
               },
               'bkgd': { 
                 templateUrl: 'app/bkgd/bkgd.html',
-                controller: 'bkgdCtrl' 
+                controller: 'bkgdCtrl',
+                controllerAs: 'bkgd' 
               }
         }
      })
@@ -55,7 +57,41 @@ angular.module('trailApp', [
         }
 
       })
+
+  $storeProvider
+    .setStore('cookieStorage');    
 }])
+
+.controller('authCtrl', function (store) {
+
+  var myObj = {
+    name: 'mgonto'
+  };
+  store.set('obj', myObj);
+  var myNewObject = store.get('obj');
+  angular.equals(myNewObject, myObj);
+})
+
+angular.module('app', ['angular-storage'])
+  .config(function(storeProvider) {
+    // Store defaults to localStorage but we can set sessionStorage or cookieStorage.
+    storeProvider.setStore('sessionStorage');
+  })
+  .controller('Controller', function(store) {
+
+  var myObj = {
+    name: 'mgonto'
+  };
+
+  // This will be saved in sessionStorage as obj
+  store.set('obj', myObj);
+
+  // This will look for obj in sessionStorage
+  var myNewObject = store.get('obj');
+  console.log('OAuth new object:', myNewObject)
+
+  angular.equals(myNewObject, myObj); // return true
+});
 
 // For future use - please do not erase
 // .factory('AttachTokens', function ($window) {

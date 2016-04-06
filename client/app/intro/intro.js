@@ -14,7 +14,8 @@ angular.module('trailApp.intro', [])
       intro.city = capitalize(location.city);
       intro.state = capitalize(location.state);
 
-      return showTrails.getLocation(location)
+      return 
+      showTrails.getLocation(location)
       .then(function (result) {
         //show list and hide intro form
         intro.showList = true;

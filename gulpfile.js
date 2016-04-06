@@ -27,7 +27,7 @@ gulp.task('minify-css', function() {
 });
 
 gulp.task('concat-dep', function() {
-  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js'])
+  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/aO-angular-storage/dist/angular-storage.js'])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('./client/scripts/'));
 });

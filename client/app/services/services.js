@@ -59,6 +59,30 @@ angular.module('trailApp.services', [])
   }
 })
 
+.factory('instagram', function($http) {
+
+  var getInstagram = function() {
+    console.log('getInstagram service works')
+    var params = {lat: '30.182943', lon: '-97.725541'}
+    return $http({
+      method: 'GET',
+      url: '/api/insta/geo',
+      params: params
+    })
+    .then(function (result) {
+      console.log('instagram raw: ', result.data);
+      return result.data;
+    })
+    .catch(function (err) {
+      console.error('instagram error: ', err);
+    })
+  }
+
+  return {
+    getInstagram: getInstagram
+  }
+})
+
 .service('imageService',['$q','$http',function($q,$http){
         this.loadImages = function(){
             return $http.jsonp("https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK");

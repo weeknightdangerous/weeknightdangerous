@@ -19,6 +19,9 @@ exports.geoImages = function(req, res){
     res.json(utilities.cleanGrams(instaPics.data));
     //res.json(instaPics.data);
   })
+  .catch(function(err) {
+    console.error('server error:instagram: ', err)
+  })
 }
 
 // exports.locImages = function(req,res){
