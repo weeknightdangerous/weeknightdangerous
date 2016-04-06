@@ -29,7 +29,7 @@ exports.allTrails = function(req, res) {
 exports.singleTrail = function(req, res) {
   
   var id = req.query.unique_id;
-  console.log(id)
+  //console.log(id)
   // var city = 'Jackson';
   // var state = 'Wyoming';
   axios({
@@ -38,12 +38,11 @@ exports.singleTrail = function(req, res) {
     headers: {'X-Mashape-Key': config.TRAILS.API_KEY}
   })
   .then(function(trail){
-    console.log('we got the data', trail)
+    //console.log('we got the data', trail)
     //pass in '2' for hiking trails (only worrying about those for now)
     // we filter out all other trail usage in the cleanTrails utility
     var cleanData = utilities.cleanTrails(trail.data.places, '2');
+    //console.log(cleanData);
     res.json(cleanData);
-  }).catch(function(err){
-    console.log(err);
   })
 }

@@ -1,8 +1,15 @@
 <div class="comment">
-  <form novalidate>
-    <p>Hi, let us know your comment</p>
-    <textarea rows="4" cols="50" ng-model="user.comment" required /></textarea><br />
-    <input type="button" ng-click="reset()" value="Reset" />
-    <input type="submit" ng-click="update()" value="Save" />
-  </form>
+  <div class="commentList">
+  <h3>User Comments:</h3>
+  <p>User: {{comments.user}}</p>
+  <p>comments: {{user.comment}}</p>
+  </div>
+  <div class="commentForm">
+    <form novalidate>
+      <p>Hi, (placeholder: user name) let us know your comment</p>
+      <textarea rows="4" cols="50" ng-model="user.comment" required /></textarea><br />
+      <input type="button" ng-click="reset()" value="Reset" />
+      <input type="submit" ng-click="update()" value="Save" />
+    </form>
+  </div>
 </div>
