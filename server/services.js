@@ -1,10 +1,12 @@
  
-var db = require('./databse/db')
+var db = require('./database/dbhelpers')
 
 
 exports.addComment =  function() {};
 
-exports.checkCookie =  function() {};
+exports.checkCookie =  function() {
+
+};
 
 exports.addFav = function() {};
 
