@@ -48,7 +48,7 @@ knex.schema.hasTable('comments').then(function(exists){
     knex.schema.createTable('comments', function(table){
       table.increments('id').primary();
       table.integer('user_id').references('uid').inTable('users');
-      table.string('comment', 255);
+      table.string('comment');
       table.timestamps().defaultTo(knex.fn.now());
     }).then(function(){
       console.log("Created comment table")
