@@ -44,9 +44,9 @@ app.get('/api/geo/loc', geo.geocode);
 
 app.post('/comment', checkAuth, services.addComment)
 
-//app.post('/addFav', checkAuth, service.addFav)
+//app.post('/addFav', checkAuth, services.addFav)
 
-//app.get('/myfavs', checkAuth, service.userFavs)
+//app.get('/myfavs', checkAuth, services.userFavs)
 
 
 function checkAuth(req, res, next) {
