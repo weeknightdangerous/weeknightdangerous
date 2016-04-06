@@ -39,8 +39,17 @@ exports.cleanGrams = function(feed){
     var item = feed.data[i]
 
     obj.link = item.link;
-    obj.low_res = item.images.low_resolution.url;
-    obj.high_res = item.images.standard_resolution.url;
+    obj.image = {};
+    obj.image.low_res = {
+      "url":item.images.low_resolution.url,
+      "width":item.images.low_resolution.width,
+      "height":item.images.low_resolution.height
+    };
+    obj.image.high_res = {
+      "url":item.images.standard_resolution.url,
+      "width":item.images.standard_resolution.width,
+      "height":item.images.standard_resolution.height
+    };
     obj.user ={};
     obj.user.username = item.user.username;
     obj.user.profile_pic = item.user.profile_picture;
