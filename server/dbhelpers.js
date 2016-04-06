@@ -19,15 +19,15 @@ dbhelpers.findUserByName = function(username) {
     })
 };
 
-dbhelpers.findUserBySession = function(session){
-  return db('sessions').where({access_token: session})
+dbhelpers.findUserBySession = function(session_id){
+  return db('sessions').where({session_id: session})
   .then(function(resp){
     console.log("findUserBySession response: ", resp);
     return resp
   })
 };
 
-dbhelpers.findFavsByUserID = function(user) {
+dbhelpers.findFavsByUserID = function(userID) {
   return db('favs').where({uid: userID})
     .then(function(resp){
       console.log("findtrail resp: ", resp);
@@ -54,9 +54,15 @@ dbhelpers.addSession = function(userID, access_token) {
       return Object.assign({},resp, {session_id: currentSesh})
     })
   
-}
+};
 
-dbhelpers.removeSession = function(userID) {}
+dbhelpers.removeSession = function(userID) {};
+
+dbhelpers.addComment = function(userID, comment) {};
+
+dbhelpers.addFavorite = function(userID, trailID) {};
+
+
 
 
 
