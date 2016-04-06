@@ -3,7 +3,7 @@ var express = require('express');
 var api = require('instagram-node').instagram();
 var config = require('./config');
 var app = express();
-var dbhelpers = require('./dbhelpers');
+var dbhelpers = require('./database/dbhelpers');
 var cookieParser = require('cookie-parser');
  
 // app.configure(function() {

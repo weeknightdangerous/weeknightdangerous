@@ -2,12 +2,12 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var trails = require('./trails');
+var trails = require('./api/trails');
 var auth = require('./auth');
-var db = require('./db');
-var ig = require('./instagram');
-var geo = require('./geocode');
-var dbhelpers = require('./dbhelpers');
+var db = require('./database/db');
+var ig = require('./api/instagram');
+var geo = require('./api/geocode');
+var dbhelpers = require('./database/dbhelpers');
 var cookieParser = require('cookie-parser');
 
 var app = express();

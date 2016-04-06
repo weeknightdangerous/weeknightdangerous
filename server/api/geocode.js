@@ -1,7 +1,7 @@
 var http = require('http');
 var express = require('express');
 var axios = require('axios');
-var config = require('./config');
+var config = require('../config');
 var ig = require('./instagram')
 var app = express();
 
