@@ -1,10 +1,10 @@
 angular.module('trailApp.services', [])
 
 .factory('showTrails', function($http) {
-  var showTrails = this;
-  showTrails.trail = {};
-  var trailId;
-
+  //container to store the selected trail
+  var showTrail = {};
+ 
+  //http get request to get all the trails that satisfy the params passed in from user input(city, state)
   var getLocation = function(params) {
     return $http({
       method: 'GET', 
@@ -18,33 +18,44 @@ angular.module('trailApp.services', [])
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
 
-  var getTrailId = function (trailId) {
-    trailId = trailId;
-    console.log('service getrailId:', trailId)
-    return trailId
-  };
+  //to make showTrail available to the trailProfile controller
+  var getTrail = function () {
+    return showTrail;
+  }
 
-  var getTrail = function(trailId) {
-    return $http({
-      method: 'GET',
-      url: '/api/trails/trail',
-      params: trailId
-    })
-    .then(function(result) {
-      console.log('getTrail result: ', result.data); 
-      showTrails.trail = result.data;
-      console.log("showTrails.trail", showTrails.trail)
-      return result.data;
-    })
-  };
+  //to store the trail info in showTrail from the trailslist controller
+  var setTrail = function(trail) {
+    showTrail = trail;
+    return showTrail;
+  }
+
+  // For future use - please do not erase
+  // var getTrailId = function (trailId) {
+  //   trailId = trailId;
+  //   console.log('service getrailId:', trailId)
+  //   return trailId
+  // };
+
+  // var getTrail = function(trailId) {
+  //   console.log("showTrails ID: ", trailId)
+  //   return $http({
+  //     method: 'GET',
+  //     url: '/api/trails/trail',
+  //     params: {unique_id: 3470}
+  //   })
+  //   .then(function(result) {
+  //     console.log('showTrails service result: ', result.data); 
+  //     showTrails.trail = result.data;
+  //     return result.data;
+  //   })
+  // };
 
 
 
   return {
     getLocation: getLocation,
     getTrail: getTrail,
-    getTrailId: getTrailId,
-    trailId: trailId
+    setTrail: setTrail
   }
 })
 

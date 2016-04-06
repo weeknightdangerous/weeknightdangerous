@@ -10,7 +10,7 @@ angular.module('trailApp', [
   'ui.router',
   'ngAnimate'
   ])
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
   $urlRouterProvider.otherwise('/home');
   $stateProvider
      .state("home", {
@@ -40,12 +40,13 @@ angular.module('trailApp', [
         }
       })
       .state("trail", {
-        url:'/trail/:trialId',
+        url:'/trail/:trailId',
         views: {
 
               'trail': {
                 templateUrl: 'app/trailProfile/trailProfile.html',
-                controller: 'profileCtrl'
+                controller: 'profileCtrl',
+                controllerAs: 'profile'
               },
               'comment': {
                 templateUrl: 'app/comment/comment.html',
@@ -55,6 +56,8 @@ angular.module('trailApp', [
 
       })
 }])
+
+// For future use - please do not erase
 // .factory('AttachTokens', function ($window) {
 //   // this is an $httpInterceptor
 //   // its job is to stop all out going request
