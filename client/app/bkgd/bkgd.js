@@ -55,4 +55,3 @@ angular.module('trailApp.bkgd', [])
     //     })
     // }
     // $scope.displayGrams();
->>>>>>> master
