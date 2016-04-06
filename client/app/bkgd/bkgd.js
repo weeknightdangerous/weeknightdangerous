@@ -1,10 +1,18 @@
 angular.module('trailApp.bkgd', [])
 
-.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService,angularGridInstance) {
-       imageService.loadImages().then(function(grams){
-           $scope.pics = grams.data;           
-        });;
-    }]);
+.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService, angularGridInstance) {
+  var getHomeImages = function(){
+    imageService.homeImages().then(function(grams){
+      $scope.pics = grams.data;           
+    });
+  }
+  getHomeImages();
+  var getResultImages = function(placename){
+    imageService.locImages(placename).then(function(grams){
+      $scope.pics = grams.data;           
+    });
+  }
+}]);
 
     // $scope.pics = {};
     // $scope.displayGrams = function(){

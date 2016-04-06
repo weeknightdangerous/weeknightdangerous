@@ -36,7 +36,11 @@ angular.module('trailApp', [
                 templateUrl: 'app/trailsList/trailsList.html',
                 controller: 'TrailsListCtrl',
                 controllerAs: 'trails'
-            }
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
+              }
         }
       })
       .state("trail", {
@@ -137,30 +141,43 @@ angular.module('trailApp.services', [])
 })
 
 .service('imageService',['$q','$http',function($q,$http){
-  var randomGeo = [
-                    {
-                      "lat": 38.58201,
-                      "lon": -109.41633
+  //moab
+  //grand teton nat'l park
+  //yosemite
+  //big sur
+  var randomGeos = [{
+                      "lat": 47.9691,
+                      "lon": -123.4983
                     },
                     {
-                    "lat": 37.453605,
-                    "lon": -113.225719
+                      "lat": 43.7904,
+                      "lon": -110.6818
                     },
                     {
-                    "lat": 37.748543,
-                    "lon": -119.588576
-                    }
-                ];
+                      "lat": 37.748543,
+                      "lon": -119.588576
+                    },
+                    {
+                      "lat": 36.3615,
+                      "lon": -121.8563
+                    }];
+  var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
 
-
-
-        this.loadImages = function(){
-            return $http({
-              method: 'GET', 
-              url: '/api/insta/geo',
-              params: {"lat":'37.748543',"lon":'-119.588576'}
-            })
-        };
+  this.homeImages = function(){
+      return $http({
+        method: 'GET', 
+        url: '/api/insta/geo',
+        params: homeLoc
+      })
+  };
+  this.locImages = function(placename){
+      console.log('service called', placename)
+      return $http({
+        method: 'GET', 
+        url: '/api/geo/loc',
+        params: placename
+      })
+  };
 }]);
 
 
@@ -186,7 +203,7 @@ angular.module('trailApp.services', [])
 
 angular.module('trailApp.intro', [])
 
-.controller('introCtrl', function($location, $state, showTrails) {
+.controller('introCtrl', function($scope, $location, $state, showTrails, imageService) {
   var intro = this;
 
   intro.showlist = false;
@@ -199,6 +216,11 @@ angular.module('trailApp.intro', [])
       //make sure the trailList header will have capitalized city and state regardless of user input.
       intro.city = capitalize(location.city);
       intro.state = capitalize(location.state);
+      //get placename for bg
+
+      var placename = {placename: intro.city + ',' + intro.state};
+      imageService.locImages(placename);
+      //end placename for bg
 
       return showTrails.getLocation(location)
       .then(function (result) {
@@ -242,11 +264,19 @@ var trailsApp = angular.module('trailApp.topNav', [])
 
 angular.module('trailApp.bkgd', [])
 
-.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService,angularGridInstance) {
-       imageService.loadImages().then(function(grams){
-           $scope.pics = grams.data;           
-        });;
-    }]);
+.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService, angularGridInstance) {
+  var getHomeImages = function(){
+    imageService.homeImages().then(function(grams){
+      $scope.pics = grams.data;           
+    });
+  }
+  getHomeImages();
+  var getResultImages = function(placename){
+    imageService.locImages(placename).then(function(grams){
+      $scope.pics = grams.data;           
+    });
+  }
+}]);
 
     // $scope.pics = {};
     // $scope.displayGrams = function(){
