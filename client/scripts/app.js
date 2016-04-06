@@ -91,10 +91,10 @@ angular.module('trailApp', [
 angular.module('trailApp.services', [])
 
 .factory('showTrails', function($http) {
-  //container to store the selected trail
-  var showTrail = {};
- 
-  //http get request to get all the trails that satisfy the params passed in from user input(city, state)
+  var showTrails = this;
+  showTrails.trail = {};
+  showTrails.trailId = 0;
+
   var getLocation = function(params) {
     return $http({
       method: 'GET', 
@@ -108,53 +108,79 @@ angular.module('trailApp.services', [])
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
 
-  //to make showTrail available to the trailProfile controller
-  var getTrail = function () {
-    return showTrail;
-  }
+  var getTrailId = function (trailId) {
+    showTrails.trailId = trailId;
+    console.log('showTrails.trailId:', showTrails.trailId)
+  };
 
-  //to store the trail info in showTrail from the trailslist controller
-  var setTrail = function(trail) {
-    showTrail = trail;
-    return showTrail;
-  }
-
-  // For future use - please do not erase
-  // var getTrailId = function (trailId) {
-  //   trailId = trailId;
-  //   console.log('service getrailId:', trailId)
-  //   return trailId
-  // };
-
-  // var getTrail = function(trailId) {
-  //   console.log("showTrails ID: ", trailId)
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/trails/trail',
-  //     params: {unique_id: 3470}
-  //   })
-  //   .then(function(result) {
-  //     console.log('showTrails service result: ', result.data); 
-  //     showTrails.trail = result.data;
-  //     return result.data;
-  //   })
-  // };
+  var getTrail = function(trailId) {
+    return $http({
+      method: 'GET',
+      url: '/api/trails/trail',
+      params: trailId
+    })
+    .then(function(result) {
+      console.log('getTrail result: ', result.data); 
+      showTrails.trail = result.data;
+      console.log("showTrails.trail", showTrails.trail)
+      return result.data;
+    })
+  };
 
 
 
   return {
     getLocation: getLocation,
     getTrail: getTrail,
-    setTrail: setTrail
+    getTrailId: getTrailId
   }
 })
 
 .service('imageService',['$q','$http',function($q,$http){
-        this.loadImages = function(){
-            return $http.jsonp("https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK");
-        };
-}])
+  var randomGeo = [
+                    {
+                      "lat": 38.58201,
+                      "lon": -109.41633
+                    },
+                    {
+                    "lat": 37.453605,
+                    "lon": -113.225719
+                    },
+                    {
+                    "lat": 37.748543,
+                    "lon": -119.588576
+                    }
+                ];
 
+
+
+        this.loadImages = function(){
+            return $http({
+              method: 'GET', 
+              url: '/api/insta/geo',
+              params: {"lat":'37.748543',"lon":'-119.588576'}
+            })
+        };
+}]);
+
+
+
+
+// .factory('showImages', function($http){
+//   var getImages = function(){
+//     return $http({
+//       method: 'GET', 
+//       url: '/api/insta/geo',
+//       params: {"lat":'38.5733',"lon":'-109.5498'}
+//     }).then(function(result){
+//       return result;
+//       console.log(result);
+//     })
+//   }
+//   return {
+//     getImages: getImages
+//   }
+// })
 
 
 
@@ -217,19 +243,21 @@ var trailsApp = angular.module('trailApp.topNav', [])
 angular.module('trailApp.bkgd', [])
 
 .controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService,angularGridInstance) {
-       imageService.loadImages().then(function(data){
-            data.data.items.forEach(function(obj){
-                var desc = obj.description,
-                    width = desc.match(/width="(.*?)"/)[1],
-                    height = desc.match(/height="(.*?)"/)[1];
-                
-                obj.actualHeight  = height;
-                obj.actualWidth = width;
-            });
-           $scope.pics = data.data.items;
-           
+       imageService.loadImages().then(function(grams){
+           $scope.pics = grams.data;           
         });;
     }]);
+
+    // $scope.pics = {};
+    // $scope.displayGrams = function(){
+    //     //console.log('here are the grams');
+    //     showImages.getImages()
+    //     .then(function(pics){
+    //         console.log('here are the grams',pics);
+    //         $scope.pics = pics;
+    //     })
+    // }
+    // $scope.displayGrams();
 var trailsApp = angular.module('trailApp.profile', [])
 
 .controller('profileCtrl', function(showTrails) {

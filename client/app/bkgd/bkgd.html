@@ -1,7 +1,11 @@
 <div>
-    <ul class="dynamic-grid" angular-grid="pics" grid-width="250" gutter-size="10" angular-grid-id="gallery" refresh-on-img-load="false" >
+    <ul class="dynamic-grid" angular-grid="pics" grid-width="150" gutter-size="0" angular-grid-id="gallery" refresh-on-img-load="false" >
         <li data-ng-repeat="pic in pics" class="grid" data-ng-clock>
-            <img src="{{pic.media.m}}" class="grid-img" data-actual-width = "{{pic.actualWidth}}"  data-actual-height="{{pic.actualHeight}}" />
+            <img src="{{pic.image.low_res.url}}" class="grid-img" data-actual-width = "{{pic.image.low_res.width}}"  data-actual-height="{{pic.image.low_res.height}}" />
         </li>
     </ul>
 </div>
+
+<!-- <li ng-repeat="gram in pics.data">
+        {{gram.link}}
+      </li> -->
