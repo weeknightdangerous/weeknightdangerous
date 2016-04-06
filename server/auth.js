@@ -24,7 +24,6 @@ exports.authorize_user = function(req, res) {
  
 exports.handleauth = function(req, res) {
   api.authorize_user(req.query.code, redirect_uri, function(err, result) {
-    console.log(err,result)
     if (err) {
       console.log(err.body);
       res.send("Didn't work");
@@ -63,3 +62,5 @@ exports.handleauth = function(req, res) {
       //   console.log(medias)
       // });
       //api.location_search({ lat: 48.565464564, lng: 2.34656589 }, [options,] function(err, result, remaining, limit) {});
+
+      
