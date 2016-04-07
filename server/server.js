@@ -52,6 +52,7 @@ app.post('/comment', checkAuth, services.addComment)
 function checkAuth(req, res, next) {
   services.checkCookie()
     .then(function(result){
+      console.log('authorized?: ', result);
       if(result) { return next() };
       res.redirect('/')
     })

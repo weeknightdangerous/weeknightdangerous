@@ -1,4 +1,4 @@
- var dbhelpers = require('./database/dbhelpers')
+var dbhelpers = require('./database/dbhelpers')
 
 
 exports.addComment =  function(req, res) {
