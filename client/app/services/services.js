@@ -160,8 +160,6 @@ angular.module('trailApp.services', ['ngCookies'])
 }]);
 
 
-//$cookies.remove("userInfo");
-
 // .factory('showImages', function($http){
 //   var getImages = function(){
 //     return $http({
