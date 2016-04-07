@@ -50,7 +50,7 @@ app.post('/addFav', checkAuth, services.addFav);
 
 
 function checkAuth(req, res, next) {
-  services.checkCookie()
+  services.checkCookie(req,res)
     .then(function(result){
       console.log('authorized?: ', result);
       if(result) { return next() };
