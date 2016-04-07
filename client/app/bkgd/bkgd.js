@@ -1,17 +1,25 @@
 angular.module('trailApp.bkgd', [])
 
 .controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService, angularGridInstance) {
-  var getHomeImages = function(){
-    imageService.homeImages().then(function(grams){
-      $scope.pics = grams.data;           
-    });
-  }
-  getHomeImages();
-  var getResultImages = function(placename){
-    imageService.locImages(placename).then(function(grams){
-      $scope.pics = grams.data;           
-    });
-  }
+  $scope.pics = {};
+    
+  //get our initianl images
+  imageService.getImages()
+  .then(function(data){
+    $scope.pics = data;
+  });
+
+  //then watch the images for changes
+  $scope.$watch(function(){
+    return imageService.getImages(); // This returns a promise
+  }, function(images, oldImages){
+    if(images !== oldImages){ // According to your implementation, your images promise changes reference
+      images.then(function(data){
+        $scope.pics = data;
+        console.log('here is our data:',$scope.pics);
+      });
+    }
+  });
 }]);
 
     // $scope.pics = {};

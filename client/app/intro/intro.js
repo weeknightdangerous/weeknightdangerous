@@ -1,6 +1,9 @@
 angular.module('trailApp.intro', [])
 
 .controller('introCtrl', function($scope, $location, $state, showTrails, imageService) {
+  // run the images service so the background can load
+  imageService.homeImages();
+
   var intro = this;
 
   intro.showlist = false;

@@ -140,7 +140,7 @@ angular.module('trailApp.services', [])
   }
 })
 
-.service('imageService',['$q','$http',function($q,$http){
+.factory('imageService',['$q','$http',function($q,$http){
   //moab
   //grand teton nat'l park
   //yosemite
@@ -162,22 +162,29 @@ angular.module('trailApp.services', [])
                       "lon": -121.8563
                     }];
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
-
-  this.homeImages = function(){
-      return $http({
+  var images = {}
+  var imageServices = {};
+  imageServices.homeImages = function(){
+    console.log('fired home images')
+      images = $http({
         method: 'GET', 
         url: '/api/insta/geo',
         params: homeLoc
       })
   };
-  this.locImages = function(placename){
-      console.log('service called', placename)
-      return $http({
+  imageServices.locImages = function(placename){
+    console.log('fired locImages')
+      images = $http({
         method: 'GET', 
         url: '/api/geo/loc',
         params: placename
       })
   };
+  imageServices.getImages = function(){
+    console.log('fired get images', images)
+    return images;  
+  }
+  return imageServices;
 }]);
 
 
@@ -204,6 +211,9 @@ angular.module('trailApp.services', [])
 angular.module('trailApp.intro', [])
 
 .controller('introCtrl', function($scope, $location, $state, showTrails, imageService) {
+  // run the images service so the background can load
+  imageService.homeImages();
+
   var intro = this;
 
   intro.showlist = false;
@@ -265,17 +275,25 @@ var trailsApp = angular.module('trailApp.topNav', [])
 angular.module('trailApp.bkgd', [])
 
 .controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService, angularGridInstance) {
-  var getHomeImages = function(){
-    imageService.homeImages().then(function(grams){
-      $scope.pics = grams.data;           
-    });
-  }
-  getHomeImages();
-  var getResultImages = function(placename){
-    imageService.locImages(placename).then(function(grams){
-      $scope.pics = grams.data;           
-    });
-  }
+  $scope.pics = {};
+    
+  //get our initianl images
+  imageService.getImages()
+  .then(function(data){
+    $scope.pics = data;
+  });
+
+  //then watch the images for changes
+  $scope.$watch(function(){
+    return imageService.getImages(); // This returns a promise
+  }, function(images, oldImages){
+    if(images !== oldImages){ // According to your implementation, your images promise changes reference
+      images.then(function(data){
+        $scope.pics = data;
+        console.log('here is our data:',$scope.pics);
+      });
+    }
+  });
 }]);
 
     // $scope.pics = {};

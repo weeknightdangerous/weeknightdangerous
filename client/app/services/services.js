@@ -46,7 +46,7 @@ angular.module('trailApp.services', [])
   }
 })
 
-.service('imageService',['$q','$http',function($q,$http){
+.factory('imageService',['$q','$http',function($q,$http){
   //moab
   //grand teton nat'l park
   //yosemite
@@ -68,22 +68,29 @@ angular.module('trailApp.services', [])
                       "lon": -121.8563
                     }];
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
-
-  this.homeImages = function(){
-      return $http({
+  var images = {}
+  var imageServices = {};
+  imageServices.homeImages = function(){
+    console.log('fired home images')
+      images = $http({
         method: 'GET', 
         url: '/api/insta/geo',
         params: homeLoc
       })
   };
-  this.locImages = function(placename){
-      console.log('service called', placename)
-      return $http({
+  imageServices.locImages = function(placename){
+    console.log('fired locImages')
+      images = $http({
         method: 'GET', 
         url: '/api/geo/loc',
         params: placename
       })
   };
+  imageServices.getImages = function(){
+    console.log('fired get images', images)
+    return images;  
+  }
+  return imageServices;
 }]);
 
 
