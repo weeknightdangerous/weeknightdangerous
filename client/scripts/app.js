@@ -330,12 +330,8 @@ angular.module('trailApp.intro', [])
 });
 
 var trailsApp = angular.module('trailApp.topNav', [])
-<<<<<<< HEAD
-.controller('topNav', function($window) {
-=======
 
 .controller('topNav', function($window, Auth) {
->>>>>>> master
 	var nav = this;
   nav.signInToggle = Auth.checkUser();; 
 

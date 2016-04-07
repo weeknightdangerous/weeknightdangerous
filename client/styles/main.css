@@ -5817,36 +5817,44 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-.dynamic-grid {
-  position: relative;
-  display: none; }
+@keyframes appear {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
-.dynamic-grid.angular-grid {
-  display: block; }
+@keyframes disappear {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
 
-.grid {
-  border: 1px solid #cccccc;
-  position: absolute;
-  list-style: none;
-  background: #ffffff;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-transition: all 0.6s ease-out;
-  transition: all 0.6s ease-out;
-  overflow: hidden; }
+.fader.ng-enter {
+  animation: 2s appear; }
 
-.grid-img {
-  width: 100%;
-  vertical-align: middle;
-  -webkit-transition: opacity 0.6s ease-out;
-  transition: opacity 0.6s ease-out;
-  background-color: #fff;
-  opacity: 0;
-  visibility: hidden; }
+.fader.ng-leave {
+  animation: 1s disappear; }
 
-.grid-img.img-loaded {
-  visibility: visible;
-  opacity: 1; }
+.fader {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease;
+  float: left; }
+
+.fader img {
+  width: 150px;
+  height: 150px;
+  -moz-transition: -moz-transform 0.5s ease-in;
+  -webkit-transition: -webkit-transform 0.5s ease-in;
+  -o-transition: -o-transform 0.5s ease-in;
+  padding: 7px; }
+
+.fader img:hover {
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+  z-index: 10; }
 
 .city_state_form {
   color: white;
