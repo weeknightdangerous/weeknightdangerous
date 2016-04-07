@@ -256,8 +256,6 @@ angular.module('trailApp.services', ['ngCookies'])
 }]);
 
 
-//$cookies.remove("userInfo");
-
 // .factory('showImages', function($http){
 //   var getImages = function(){
 //     return $http({
@@ -332,12 +330,8 @@ angular.module('trailApp.intro', [])
 });
 
 var trailsApp = angular.module('trailApp.topNav', [])
-<<<<<<< HEAD
-.controller('topNav', function($window) {
-=======
 
 .controller('topNav', function($window, Auth) {
->>>>>>> master
 	var nav = this;
   nav.signInToggle = Auth.checkUser();; 
 
@@ -349,6 +343,7 @@ var trailsApp = angular.module('trailApp.topNav', [])
     Auth.removeUser();
     console.log('Auth.cookie', Auth.cookie)
     nav.signInToggle = !nav.signInToggle;
+    $window.location.href = '/';
   }
 })
 
