@@ -2,7 +2,6 @@ var dbhelpers = require('./database/dbhelpers')
 
 
 exports.addComment =  function(req, res) {
-  console.log(req)
   dbhelpers.addComment(res.locals.userId.user_id, Number(req.body.trailId), req.body.comment)
     .then(function(resp) {
       res.send(resp)
