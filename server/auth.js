@@ -40,13 +40,13 @@ exports.handleauth = function(req, res) {
               console.log("New User!");
               dbhelpers.addUser(userObj)
                 .then(function(resp){
-                  res.cookie('trailrpark' , resp.session_id).send('New user cookie is set');
+                  res.cookie('trailrpark' , resp.session_id).redirect('/');
                 })
             } else {
               console.log("Returning User!", user);
               dbhelpers.addSession(user.uid, result.access_token)
                 .then(function(resp){
-                  res.cookie('trailrpark' , resp.session_id).send('Cookie is set');
+                  res.cookie('trailrpark' , resp.session_id).redirect('/');
                   
                 })   
             }
