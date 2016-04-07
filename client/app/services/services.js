@@ -112,31 +112,51 @@ angular.module('trailApp.services', ['ngCookies'])
 
 })
 
-.service('imageService',['$q','$http',function($q,$http){
-  var randomGeo = [
-                    {
-                      "lat": 38.58201,
-                      "lon": -109.41633
+.factory('imageService',['$q','$http',function($q,$http){
+  //moab
+  //grand teton nat'l park
+  //yosemite
+  //big sur
+  var randomGeos = [{
+                      "lat": 47.9691,
+                      "lon": -123.4983
                     },
                     {
-                    "lat": 37.453605,
-                    "lon": -113.225719
+                      "lat": 43.7904,
+                      "lon": -110.6818
                     },
                     {
-                    "lat": 37.748543,
-                    "lon": -119.588576
-                    }
-                ];
-
-
-
-        this.loadImages = function(){
-            return $http({
-              method: 'GET', 
-              url: '/api/insta/geo',
-              params: {"lat":'37.748543',"lon":'-119.588576'}
-            })
-        };
+                      "lat": 37.748543,
+                      "lon": -119.588576
+                    },
+                    {
+                      "lat": 36.3615,
+                      "lon": -121.8563
+                    }];
+  var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
+  var images = {}
+  var imageServices = {};
+  imageServices.homeImages = function(){
+    console.log('fired home images')
+      images = $http({
+        method: 'GET', 
+        url: '/api/insta/geo',
+        params: homeLoc
+      })
+  };
+  imageServices.locImages = function(placename){
+    console.log('fired locImages')
+      images = $http({
+        method: 'GET', 
+        url: '/api/geo/loc',
+        params: placename
+      })
+  };
+  imageServices.getImages = function(){
+    console.log('fired get images', images)
+    return images;  
+  }
+  return imageServices;
 }]);
 
 

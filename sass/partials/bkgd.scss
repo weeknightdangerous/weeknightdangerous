@@ -1,0 +1,54 @@
+<<<<<<< HEAD:sass/partials/bkgd.scss
+
+.dynamic-grid{
+            position: relative;
+            display: none;
+        }
+=======
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+>>>>>>> master:client/app/bkgd/bkgd.css
+
+.fader.ng-enter {
+  animation: 2s appear;
+}
+
+.fader.ng-leave {
+  animation: 1s disappear;
+}
+.fader{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+     transition: all 0.5s ease;
+    float: left;
+}
+.fader img{
+    width: 150px;
+    height: 150px;
+    -moz-transition:-moz-transform 0.5s ease-in; 
+    -webkit-transition:-webkit-transform 0.5s ease-in; 
+    -o-transition:-o-transform 0.5s ease-in;
+    padding: 7px
+}
+
+.fader img:hover{
+    -moz-transform:scale(2); 
+    -webkit-transform:scale(2);
+    -o-transform:scale(2);
+    z-index: 10;
+}

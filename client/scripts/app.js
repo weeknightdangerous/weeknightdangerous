@@ -37,7 +37,11 @@ angular.module('trailApp', [
                 templateUrl: 'app/trailsList/trailsList.html',
                 controller: 'TrailsListCtrl',
                 controllerAs: 'trails'
-            }
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
+              }
         }
       })
       .state("trail", {
@@ -204,31 +208,51 @@ angular.module('trailApp.services', ['ngCookies'])
 
 })
 
-.service('imageService',['$q','$http',function($q,$http){
-  var randomGeo = [
-                    {
-                      "lat": 38.58201,
-                      "lon": -109.41633
+.factory('imageService',['$q','$http',function($q,$http){
+  //moab
+  //grand teton nat'l park
+  //yosemite
+  //big sur
+  var randomGeos = [{
+                      "lat": 47.9691,
+                      "lon": -123.4983
                     },
                     {
-                    "lat": 37.453605,
-                    "lon": -113.225719
+                      "lat": 43.7904,
+                      "lon": -110.6818
                     },
                     {
-                    "lat": 37.748543,
-                    "lon": -119.588576
-                    }
-                ];
-
-
-
-        this.loadImages = function(){
-            return $http({
-              method: 'GET', 
-              url: '/api/insta/geo',
-              params: {"lat":'37.748543',"lon":'-119.588576'}
-            })
-        };
+                      "lat": 37.748543,
+                      "lon": -119.588576
+                    },
+                    {
+                      "lat": 36.3615,
+                      "lon": -121.8563
+                    }];
+  var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
+  var images = {}
+  var imageServices = {};
+  imageServices.homeImages = function(){
+    console.log('fired home images')
+      images = $http({
+        method: 'GET', 
+        url: '/api/insta/geo',
+        params: homeLoc
+      })
+  };
+  imageServices.locImages = function(placename){
+    console.log('fired locImages')
+      images = $http({
+        method: 'GET', 
+        url: '/api/geo/loc',
+        params: placename
+      })
+  };
+  imageServices.getImages = function(){
+    console.log('fired get images', images)
+    return images;  
+  }
+  return imageServices;
 }]);
 
 
@@ -252,7 +276,10 @@ angular.module('trailApp.services', ['ngCookies'])
 
 angular.module('trailApp.intro', [])
 
-.controller('introCtrl', function($location, $state, showTrails) {
+.controller('introCtrl', function($scope, $location, $state, showTrails, imageService) {
+  // run the images service so the background can load
+  imageService.homeImages();
+
   var intro = this;
 
   intro.showlist = false;
@@ -265,6 +292,11 @@ angular.module('trailApp.intro', [])
       //make sure the trailList header will have capitalized city and state regardless of user input.
       intro.city = capitalize(location.city);
       intro.state = capitalize(location.state);
+      //get placename for bg
+
+      var placename = {placename: intro.city + ',' + intro.state};
+      imageService.locImages(placename);
+      //end placename for bg
 
       return showTrails.getLocation(location)
       .then(function (result) {
@@ -298,8 +330,12 @@ angular.module('trailApp.intro', [])
 });
 
 var trailsApp = angular.module('trailApp.topNav', [])
+<<<<<<< HEAD
+.controller('topNav', function($window) {
+=======
 
 .controller('topNav', function($window, Auth) {
+>>>>>>> master
 	var nav = this;
   nav.signInToggle = Auth.checkUser();; 
 
@@ -317,11 +353,27 @@ var trailsApp = angular.module('trailApp.topNav', [])
 
 angular.module('trailApp.bkgd', [])
 
-.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService,angularGridInstance) {
-       imageService.loadImages().then(function(grams){
-           $scope.pics = grams.data;           
-        });;
-    }]);
+.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService, angularGridInstance) {
+  $scope.pics = {};
+    
+  //get our initianl images
+  imageService.getImages()
+  .then(function(data){
+    $scope.pics = data;
+  });
+
+  //then watch the images for changes
+  $scope.$watch(function(){
+    return imageService.getImages(); // This returns a promise
+  }, function(images, oldImages){
+    if(images !== oldImages){ // According to your implementation, your images promise changes reference
+      images.then(function(data){
+        $scope.pics = data;
+        console.log('here is our data:',$scope.pics);
+      });
+    }
+  });
+}]);
 
     // $scope.pics = {};
     // $scope.displayGrams = function(){
@@ -346,7 +398,6 @@ var trailsApp = angular.module('trailApp.profile', [])
     
     //initialize the trail data
     profile.getTrail();
-
 })
 
 
