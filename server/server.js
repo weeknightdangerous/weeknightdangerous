@@ -42,9 +42,9 @@ app.get('/api/insta/geo', ig.geoImages);
 app.get('/api/geo/loc', geo.geocode);
 //app.get('/api/insta/loc', ig.locImages);
 
-app.post('/comment', checkAuth, services.addComment)
+app.post('/comment', checkAuth, services.addComment);
 
-//app.post('/addFav', checkAuth, services.addFav)
+app.post('/addFav', checkAuth, services.addFav);
 
 //app.get('/myfavs', checkAuth, services.userFavs)
 

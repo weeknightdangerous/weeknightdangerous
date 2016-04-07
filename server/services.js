@@ -2,7 +2,7 @@ var dbhelpers = require('./database/dbhelpers')
 
 
 exports.addComment =  function(req, res) {
-  dbhelpers.addComment(res.locals.userId, req.data.trailID, req.data.comment)
+  dbhelpers.addComment(res.locals.userId, req.data.trailId, req.data.comment)
     .then(function(resp) {
       res.send(resp)
     })
@@ -20,7 +20,15 @@ exports.checkCookie =  function(req, res) {
     })
 };
 
-exports.addFav = function() {};
+exports.addFav = function(req, res) {
+  dbhelpers.findUserBySession(req.cookies.trailrpark)
+    .then(function(user){
+      return dbhelpers.addFavorite(user.uid, req.data.trailId)
+    })
+    .then(function(resp){
+      res.send(resp)
+    })
+};
 
 exports.userFavs = function() {};
 
