@@ -79,10 +79,11 @@ dbhelpers.findFavsByUserID = function(userID) {
 
 //Comments Helpers
 
-dbhelpers.addComment = function(userID, comment) {
+dbhelpers.addComment = function(userID, trailID, comment) {
   return db('comments').insert({
       user_id: userID,
       comment: comment,
+      trail_id: trailID,
       created_at: new Date(),
       updated_at: new Date()
     })
