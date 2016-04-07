@@ -232,8 +232,6 @@ angular.module('trailApp.services', ['ngCookies'])
 }]);
 
 
-//$cookies.remove("userInfo");
-
 // .factory('showImages', function($http){
 //   var getImages = function(){
 //     return $http({
@@ -313,6 +311,7 @@ var trailsApp = angular.module('trailApp.topNav', [])
     Auth.removeUser();
     console.log('Auth.cookie', Auth.cookie)
     nav.signInToggle = !nav.signInToggle;
+    $window.location.href = '/';
   }
 })
 
