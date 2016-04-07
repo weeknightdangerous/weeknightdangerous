@@ -1,6 +1,9 @@
 angular.module('trailApp.intro', [])
 
-.controller('introCtrl', function($location, $state, showTrails) {
+.controller('introCtrl', function($scope, $location, $state, showTrails, imageService) {
+  // run the images service so the background can load
+  imageService.homeImages();
+
   var intro = this;
 
   intro.showlist = false;
@@ -13,6 +16,11 @@ angular.module('trailApp.intro', [])
       //make sure the trailList header will have capitalized city and state regardless of user input.
       intro.city = capitalize(location.city);
       intro.state = capitalize(location.state);
+      //get placename for bg
+
+      var placename = {placename: intro.city + ',' + intro.state};
+      imageService.locImages(placename);
+      //end placename for bg
 
       return showTrails.getLocation(location)
       .then(function (result) {

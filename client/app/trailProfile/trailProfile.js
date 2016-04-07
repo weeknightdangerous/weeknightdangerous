@@ -11,7 +11,6 @@ var trailsApp = angular.module('trailApp.profile', [])
     
     //initialize the trail data
     profile.getTrail();
-
 })
 
 
