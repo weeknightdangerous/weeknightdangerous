@@ -27,7 +27,7 @@ gulp.task('minify-css', function() {
 });
 
 gulp.task('concat-dep', function() {
-  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js'])
+  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/angular-cookies/angular-cookies.js'])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('./client/scripts/'));
 });
@@ -70,7 +70,7 @@ gulp.task('init-db', shell.task([
   'createdb dev'
 ]));
 
-gulp.task('restart', shell.task([
+gulp.task('restart-db', shell.task([
   'pkill postgres',
   'pg_ctl -D db -l logfile start'
 ]));
@@ -90,6 +90,6 @@ gulp.task('watch', function() {
 });
 
 //run our default task
-gulp.task('default', ['dev','sass','concat-dep','concat-app', 'minify-css','uglify','watch']);
+gulp.task('default', ['dev','sass','concat-dep','concat-app', 'minify-css','watch']);
 
 

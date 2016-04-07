@@ -7,6 +7,7 @@ angular.module('trailApp', [
   'trailApp.profile',
   'trailApp.comment',
   'trailApp.trailsList',
+  'ngCookies',
   'ui.router',
   'ngAnimate'
   ])
@@ -36,7 +37,11 @@ angular.module('trailApp', [
                 templateUrl: 'app/trailsList/trailsList.html',
                 controller: 'TrailsListCtrl',
                 controllerAs: 'trails'
-            }
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
+              }
         }
       })
       .state("trail", {
@@ -50,7 +55,8 @@ angular.module('trailApp', [
               },
               'comment': {
                 templateUrl: 'app/comment/comment.html',
-                controller: 'commentsCtrl'
+                controller: 'commentsCtrl',
+                controllerAs: 'comments'
               }
         }
 

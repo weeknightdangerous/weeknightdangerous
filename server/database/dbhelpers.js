@@ -3,6 +3,8 @@ var uuid = require('uuid')
 
 var dbhelpers = {};
 
+//Finding user:
+
 dbhelpers.addUser = function(userObj) {
   return db('users').insert(userObj)
     .then(function(resp){ 
@@ -19,21 +21,15 @@ dbhelpers.findUserByName = function(username) {
     })
 };
 
-dbhelpers.findUserBySession = function(session){
-  return db('sessions').where({access_token: session})
+dbhelpers.findUserBySession = function(session_id){
+  return db('sessions').where({session_id: session})
   .then(function(resp){
     console.log("findUserBySession response: ", resp);
     return resp
   })
 };
 
-dbhelpers.findFavsByUserID = function(user) {
-  return db('favs').where({uid: userID})
-    .then(function(resp){
-      console.log("findtrail resp: ", resp);
-      return resp
-    })
-};
+//Session helpers:
 
 function createSessionID (){
   return Promise.resolve(uuid.v4())
@@ -54,9 +50,52 @@ dbhelpers.addSession = function(userID, access_token) {
       return Object.assign({},resp, {session_id: currentSesh})
     })
   
-}
+};
 
-dbhelpers.removeSession = function(userID) {}
+dbhelpers.removeSession = function(userID) {};
+
+//User favorites:
+
+dbhelpers.addFavorite = function(userID, trailID) {
+  return db('favs').insert({
+      user_id: userID,
+      trail_id: trailID
+    })
+  .then(function(resp){
+    console.log('addFavorite response: ', resp);
+    return resp
+  })
+};
+
+dbhelpers.findFavsByUserID = function(userID) {
+  return db('favs').where({uid: userID})
+    .then(function(resp){
+      console.log("findtrail resp: ", resp);
+      return resp
+    })
+};
+
+
+
+//Comments Helpers
+
+dbhelpers.addComment = function(userID, trailID, comment) {
+  return db('comments').insert({
+      user_id: userID,
+      comment: comment,
+      trail_id: trailID,
+      created_at: new Date(),
+      updated_at: new Date()
+    })
+    .then(function(resp){
+      console.log("addComment response: ", resp)
+      return resp
+    })
+};
+
+
+
+
 
 
 

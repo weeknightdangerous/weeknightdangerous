@@ -2,13 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var trails = require('./trails');
+var trails = require('./api/trails');
 var auth = require('./auth');
-var db = require('./db');
-var ig = require('./instagram');
-var geo = require('./geocode');
-var dbhelpers = require('./dbhelpers');
+var db = require('./database/db');
+var ig = require('./api/instagram');
+var geo = require('./api/geocode');
+var dbhelpers = require('./database/dbhelpers');
 var cookieParser = require('cookie-parser');
+var services = require('./services');
 
 var app = express();
 
@@ -40,6 +41,22 @@ app.get('/api/insta/geo', ig.geoImages);
 // This is your results page bg images api call
 app.get('/api/geo/loc', geo.geocode);
 //app.get('/api/insta/loc', ig.locImages);
+
+app.post('/comment', checkAuth, services.addComment);
+
+app.post('/addFav', checkAuth, services.addFav);
+
+//app.get('/myfavs', checkAuth, services.userFavs)
+
+
+function checkAuth(req, res, next) {
+  services.checkCookie()
+    .then(function(result){
+      console.log('authorized?: ', result);
+      if(result) { return next() };
+      res.status(401).send('Not Authorized')
+    })
+};
 
 
 var port = process.env.PORT || 3000;
