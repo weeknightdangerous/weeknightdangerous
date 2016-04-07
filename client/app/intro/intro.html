@@ -1,9 +1,10 @@
  <div class="intro" ng-if="!intro.showList">
     <form name="queryForm" novalidate class="css-form" ng-submit="intro.getList(intro.location, intro.queryForm.$valid)">
-      <p>1. Pick a state</p>
-      State: <input type="text" ng-model="intro.location.state" required /><br />
-      <p>2. Pick a city</p>
-      City: <input type="text" ng-model="intro.location.city" required /><br />
+      <p>1. Pick a city</p>
+      <input type="text"  placeholder="Enter a city here" ng-model="intro.location.city" required /><br />    
+      <p>2. Pick a state</p>
+      <input type="text" placeholder="Enter a state here" ng-model="intro.location.state" required /><br />
+
       <input type="submit" value="GO!" />
     </form>
   </div>  
