@@ -54,7 +54,7 @@ function checkAuth(req, res, next) {
     .then(function(result){
       console.log('authorized?: ', result);
       if(result) { return next() };
-      res.redirect('/')
+      res.status(401).send('Not Authorized')
     })
 };
 

@@ -35,6 +35,12 @@ exports.handleauth = function(req, res) {
               console.log("New User!");
               dbhelpers.addUser(userObj)
                 .then(function(resp){
+                  return dbhelpers.findUserByName(userObj.username)
+                })
+                .then(function(user){
+                  return dbhelpers.addSession(user.uid, result.access_token)
+                })
+                .then(function(resp){
                   res.cookie('trailrpark' , resp.session_id).redirect('/');
                 })
             } else {
