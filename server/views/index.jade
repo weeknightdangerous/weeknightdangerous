@@ -4,9 +4,8 @@ block content
   header.main_header
    .nav-wrapper
    .nav-top(ng-controller="topNav as nav")
-      ul(class="list-inline")
-        li(a href="#" id="logo"): img(src="./mainImg/logo.png" alt="Logo text goes here" width="110px" height="110px")/ 
-        li: button(class="btn .right" ng-click="nav.signIn()") Sign In
+      div(class="list-inline")
+        button(class="btn .right" ng-click="nav.signIn()") Sign In
 
   .intro(ui-view="intro") 
   .bkgd(ui-view="bkgd")
