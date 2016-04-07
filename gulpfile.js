@@ -90,6 +90,6 @@ gulp.task('watch', function() {
 });
 
 //run our default task
-gulp.task('default', ['dev','sass','concat-dep','concat-app', 'minify-css','uglify','watch']);
+gulp.task('default', ['dev','sass','concat-dep','concat-app', 'minify-css','watch']);
 
 
