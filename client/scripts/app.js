@@ -206,7 +206,6 @@ angular.module('trailApp.intro', [])
 });
 
 var trailsApp = angular.module('trailApp.topNav', [])
-
 .controller('topNav', function($window) {
 	var nav = this;
   nav.signIn = function() {

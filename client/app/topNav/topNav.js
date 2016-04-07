@@ -1,5 +1,4 @@
 var trailsApp = angular.module('trailApp.topNav', [])
-
 .controller('topNav', function($window) {
 	var nav = this;
   nav.signIn = function() {

@@ -5,6 +5,15 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+@font-face {
+  font-family: 'Abolition Regular';
+  src: url('../fonts/abolition-regular-webfont.eot');
+  src: url('../fonts/abolition-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/abolition-regular-webfont.woff') format('woff'),
+       url('../fonts/abolition-regular-webfont.ttf') format('truetype');
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -5821,41 +5830,22 @@ button.close {
   font-size: 3em; }
 
 .city_state_form {
-  color: black;
+  color: white;
   text-align: left;
-  padding: 10% 24%;
-  border-top: 10px solid #321401;
-  margin: 105px auto 60px;
-  background: #013214 url('../img/parkerriver.jpg') no-repeat center;
+  padding: 3% 24%;
+  border-top: 10px solid #eebf90;
+  margin: 55px 0 60px;
+  background: #bfee90;
   background-size: cover;
-  box-shadow: inset 0 0 50px 10px rgba(0,0,0, .8);
+  box-shadow: inset 0 0 50px 10px rgba(0,0,0, .5);
   border-radius: 10px;
   z-index: 10000;
-  position: center;
+  position:absolute;
+  top: 25%;
+  left: 25%;
 }
 
-.secondary_content {
-  width: 55%;
-  padding-left: 50px;
-  padding-right: 50px;
-  margin: auto;
-  max-width: 960px;
+.input_search_box {
+  background-color: #fefcf6;
+  color: #3e3007;
 }
-
-/*
-.intro {
-  display: block;
-  z-index: 10000;
-  position: absolute;
-  top: 200px;
-  left: 150px;
-  
-  width: 70%;
-  background-color: mintcream;
-}
-
-.nav-wrapper {
-  position: relative;
-  width: 70%;
-  margin: 0 auto;
-}*/
