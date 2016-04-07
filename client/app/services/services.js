@@ -85,12 +85,13 @@ angular.module('trailApp.services', ['ngCookies'])
 })
 .factory('commentForm', function($http) {
 
-  var postComments = function(comment) {
+  var postComments = function(comment, trailId) {
     console.log('postComments is working')
     return $http({
       method: 'POST',
       url: '/comment',
-      data: comment
+      data: {comment: comment, trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
       console.log('comment service:', result);
@@ -100,6 +101,10 @@ angular.module('trailApp.services', ['ngCookies'])
       console.error('comments service Error: ', err);
     })    
   };
+
+  var getComments = function(trailId) {
+    
+  }
 
   return {
     postComments: postComments

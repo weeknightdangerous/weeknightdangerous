@@ -177,12 +177,13 @@ angular.module('trailApp.services', ['ngCookies'])
 })
 .factory('commentForm', function($http) {
 
-  var postComments = function(comment) {
+  var postComments = function(comment, trailId) {
     console.log('postComments is working')
     return $http({
       method: 'POST',
       url: '/comment',
-      data: comment
+      data: {comment: comment, trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
       console.log('comment service:', result);
@@ -192,6 +193,10 @@ angular.module('trailApp.services', ['ngCookies'])
       console.error('comments service Error: ', err);
     })    
   };
+
+  var getComments = function(trailId) {
+    
+  }
 
   return {
     postComments: postComments
@@ -356,7 +361,7 @@ var trailsApp = angular.module('trailApp.profile', [])
 
 angular.module('trailApp.comment', [])
 
-  .controller('commentsCtrl', function(Auth, commentForm) {
+  .controller('commentsCtrl', function(Auth, commentForm, $location) {
     var comments = this;
     comments.user = false;
 
@@ -368,7 +373,11 @@ angular.module('trailApp.comment', [])
 
     comments.update = function(comment) {
       console.log('comments:', comment)
-      commentForm.postComments(comment)
+      var idStr = $location.$$path;
+      var trailId = idStr.substr(idStr.indexOf('/') + 7)
+      console.log('trailId', trailId)
+
+      commentForm.postComments(comment, trailId)
       .then(function (result) {
         console.log('comments result:', result);
       })

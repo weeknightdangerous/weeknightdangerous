@@ -1,6 +1,6 @@
 angular.module('trailApp.comment', [])
 
-  .controller('commentsCtrl', function(Auth, commentForm) {
+  .controller('commentsCtrl', function(Auth, commentForm, $location) {
     var comments = this;
     comments.user = false;
 
@@ -12,7 +12,11 @@ angular.module('trailApp.comment', [])
 
     comments.update = function(comment) {
       console.log('comments:', comment)
-      commentForm.postComments(comment)
+      var idStr = $location.$$path;
+      var trailId = idStr.substr(idStr.indexOf('/') + 7)
+      console.log('trailId', trailId)
+
+      commentForm.postComments(comment, trailId)
       .then(function (result) {
         console.log('comments result:', result);
       })
