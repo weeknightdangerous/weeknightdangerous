@@ -1,4 +1,4 @@
-angular.module('trailApp.services', [])
+angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
@@ -23,27 +23,93 @@ angular.module('trailApp.services', [])
     console.log('showTrails.trailId:', showTrails.trailId)
   };
 
-  var getTrail = function(trailId) {
-    return $http({
-      method: 'GET',
-      url: '/api/trails/trail',
-      params: trailId
-    })
-    .then(function(result) {
-      console.log('getTrail result: ', result.data); 
-      showTrails.trail = result.data;
-      console.log("showTrails.trail", showTrails.trail)
-      return result.data;
-    })
-  };
+  // var getTrail = function(trailId) {
+  //   return $http({
+  //     method: 'GET',
+  //     url: '/api/trails/trail',
+  //     params: trailId
+  //   })
+  //   .then(function(result) {
+  //     console.log('getTrail result: ', result.data); 
+  //     showTrails.trail = result.data;
+  //     console.log("showTrails.trail", showTrails.trail)
+  //     return result.data;
+  //   })
+  //};
 
+   //to make showTrail available to the trailProfile controller
+  var getTrail = function () {
+    return showTrail;
+  }
+
+  //to store the trail info in showTrail from the trailslist controller
+  var setTrail = function(trail) {
+    showTrail = trail;
+    return showTrail;
+  }
 
 
   return {
     getLocation: getLocation,
     getTrail: getTrail,
-    getTrailId: getTrailId
+    getTrailId: getTrailId,
+    setTrail: setTrail
   }
+})
+
+
+.factory('Auth', function($cookies) {
+  var cookie;
+  var isUser = false;
+
+  var checkUser = function () {
+    cookie = $cookies.get('trailrpark');
+    console.log('service cookie: ', cookie)
+    if (cookie !== undefined) {
+      isUser = true;
+    }
+    console.log('checkUser service: ', isUser);
+    return isUser;
+  };
+
+  var removeUser = function () {
+    $cookies.remove("trailrpark");
+    return isUser = false;
+
+  }
+
+  return {
+    checkUser: checkUser,
+    removeUser: removeUser
+  };  
+})
+.factory('commentForm', function($http) {
+
+  var postComments = function(comment, trailId) {
+    console.log('postComments is working', trailId, comment)
+    return $http({
+      method: 'POST',
+      url: '/comment',
+      data: {comment: comment, trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('comment service:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('comments service Error: ', err);
+    })    
+  };
+
+  var getComments = function(trailId) {
+    
+  }
+
+  return {
+    postComments: postComments
+  } 
+
 })
 
 .factory('imageService',['$q','$http',function($q,$http){
@@ -94,7 +160,7 @@ angular.module('trailApp.services', [])
 }]);
 
 
-
+//$cookies.remove("userInfo");
 
 // .factory('showImages', function($http){
 //   var getImages = function(){

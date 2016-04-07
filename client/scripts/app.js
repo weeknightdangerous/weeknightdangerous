@@ -7,6 +7,7 @@ angular.module('trailApp', [
   'trailApp.profile',
   'trailApp.comment',
   'trailApp.trailsList',
+  'ngCookies',
   'ui.router',
   'ngAnimate'
   ])
@@ -54,7 +55,8 @@ angular.module('trailApp', [
               },
               'comment': {
                 templateUrl: 'app/comment/comment.html',
-                controller: 'commentsCtrl'
+                controller: 'commentsCtrl',
+                controllerAs: 'comments'
               }
         }
 
@@ -92,7 +94,7 @@ angular.module('trailApp', [
 //   });
 // });
 
-angular.module('trailApp.services', [])
+angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
@@ -117,27 +119,93 @@ angular.module('trailApp.services', [])
     console.log('showTrails.trailId:', showTrails.trailId)
   };
 
-  var getTrail = function(trailId) {
-    return $http({
-      method: 'GET',
-      url: '/api/trails/trail',
-      params: trailId
-    })
-    .then(function(result) {
-      console.log('getTrail result: ', result.data); 
-      showTrails.trail = result.data;
-      console.log("showTrails.trail", showTrails.trail)
-      return result.data;
-    })
-  };
+  // var getTrail = function(trailId) {
+  //   return $http({
+  //     method: 'GET',
+  //     url: '/api/trails/trail',
+  //     params: trailId
+  //   })
+  //   .then(function(result) {
+  //     console.log('getTrail result: ', result.data); 
+  //     showTrails.trail = result.data;
+  //     console.log("showTrails.trail", showTrails.trail)
+  //     return result.data;
+  //   })
+  //};
 
+   //to make showTrail available to the trailProfile controller
+  var getTrail = function () {
+    return showTrail;
+  }
+
+  //to store the trail info in showTrail from the trailslist controller
+  var setTrail = function(trail) {
+    showTrail = trail;
+    return showTrail;
+  }
 
 
   return {
     getLocation: getLocation,
     getTrail: getTrail,
-    getTrailId: getTrailId
+    getTrailId: getTrailId,
+    setTrail: setTrail
   }
+})
+
+
+.factory('Auth', function($cookies) {
+  var cookie;
+  var isUser = false;
+
+  var checkUser = function () {
+    cookie = $cookies.get('trailrpark');
+    console.log('service cookie: ', cookie)
+    if (cookie !== undefined) {
+      isUser = true;
+    }
+    console.log('checkUser service: ', isUser);
+    return isUser;
+  };
+
+  var removeUser = function () {
+    $cookies.remove("trailrpark");
+    return isUser = false;
+
+  }
+
+  return {
+    checkUser: checkUser,
+    removeUser: removeUser
+  };  
+})
+.factory('commentForm', function($http) {
+
+  var postComments = function(comment, trailId) {
+    console.log('postComments is working', trailId, comment)
+    return $http({
+      method: 'POST',
+      url: '/comment',
+      data: {comment: comment, trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('comment service:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('comments service Error: ', err);
+    })    
+  };
+
+  var getComments = function(trailId) {
+    
+  }
+
+  return {
+    postComments: postComments
+  } 
+
 })
 
 .factory('imageService',['$q','$http',function($q,$http){
@@ -188,7 +256,7 @@ angular.module('trailApp.services', [])
 }]);
 
 
-
+//$cookies.remove("userInfo");
 
 // .factory('showImages', function($http){
 //   var getImages = function(){
@@ -265,11 +333,19 @@ angular.module('trailApp.intro', [])
 
 var trailsApp = angular.module('trailApp.topNav', [])
 
-.controller('topNav', function($window) {
+.controller('topNav', function($window, Auth) {
 	var nav = this;
-  nav.signIn = function() {
+  nav.signInToggle = Auth.checkUser();; 
+
+  nav.signIn = function () {
     $window.location.assign('/authorize_user');
   };
+
+  nav.signOut = function () {
+    Auth.removeUser();
+    console.log('Auth.cookie', Auth.cookie)
+    nav.signInToggle = !nav.signInToggle;
+  }
 })
 
 angular.module('trailApp.bkgd', [])
@@ -308,33 +384,59 @@ angular.module('trailApp.bkgd', [])
     // $scope.displayGrams();
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails) {
+.controller('profileCtrl', function(showTrails, $scope) {
   var profile = this;
   profile.data = {};
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
     profile.getTrail = function() {
       profile.data = showTrails.getTrail();
-     }
-
+     };
+    
+    //initialize the trail data
     profile.getTrail();
 
 })
 
+
+// angular.module('cookiesExample', ['ngCookies'])
+// .controller('ExampleController', ['$cookies', function($cookies) {
+//   // Retrieving a cookie
+//   var favoriteCookie = $cookies.myFavorite;
+//   // Setting a cookie
+//   $cookies.myFavorite = 'oatmeal';
+// }]);
+
 angular.module('trailApp.comment', [])
 
-    .controller('commentsCtrl', function($scope) {
-      console.log('comment controller is working')
-      $scope.comments = {
-        user: "testUser",
-        text: "Hello world"
-      };
+  .controller('commentsCtrl', function(Auth, commentForm, $location) {
+    var comments = this;
+    comments.user = false;
 
-      $scope.update = function() {
-        console.log('scope.comment:', $scope.comments.user)
-      };
+    comments.isUser = function() {
+      comments.user = Auth.checkUser();
+      console.log('comments.user:', comments.user);
+      
+    }
 
-    });
+    comments.update = function(comment) {
+      console.log('comments:', comment)
+      var idStr = $location.$$path;
+      var trailId = idStr.substr(idStr.indexOf('/') + 7)
+      console.log('trailId', trailId)
+
+      commentForm.postComments(comment, trailId)
+      .then(function (result) {
+        console.log('comments result:', result);
+      })
+      .catch(function (err) {
+        console.error('comments Error:', err);
+      })
+    
+    };
+    //initialize user status: if user is signed in when this page is rendered
+    comments.isUser();
+  });
 angular.module('trailApp.trailsList', [])
 
 .controller('TrailsListCtrl', function (showTrails) {
