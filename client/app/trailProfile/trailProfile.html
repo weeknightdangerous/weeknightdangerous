@@ -1,19 +1,16 @@
 <div class="trailProfile">
-  <p>Trail Profile Goes Here</p>
   <div class="trailsListTrailWrap">
     <div class="trailsListTitle">{{profile.data.name}}</div>
       <!--
       <img class="trailsListImg" src={{trail.url}}></img>
       -->
       <div class="col-xs-9 profile_bar">
-	      <div class="trail_rating">"{{profile.data.rating}}"</div>
-	      <div class="trail_length">"{{profile.data.length}}"</div>
-	      <div class="favorite_button">button goes here</div>
+	      <div class="trail_rating">{{profile.data.rating}} stars</div>
+	      <div class="trail_length">{{profile.data.length}} miles</div>
+        <button type="button" name="favorite_button" class="btn btn-primary btn-lg active">Save for Later!</button>
       </div>
-      <div>Photo Goes here</div>
       <div class="trail_description"><p>{{profile.data.description}}</p></div>
   
       <div class="trail_directions">"{{profile.data.directions}}"</div>
 
-          <div>"{{profile.data}}"</div>
 </div>

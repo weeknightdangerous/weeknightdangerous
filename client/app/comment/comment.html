@@ -6,7 +6,7 @@
   </div>
   <div class="commentForm">
     <form novalidate>
-      <p>Hi, (placeholder: user name) let us know your comment</p>
+      <p>{{user.username}}, what'd you think of this trail?</p>
       <textarea rows="4" cols="50" ng-model="user.comment" required /></textarea><br />
       <input type="button" ng-click="reset()" value="Reset" />
       <input type="submit" ng-click="update()" value="Save" />

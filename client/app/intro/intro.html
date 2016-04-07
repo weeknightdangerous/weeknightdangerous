@@ -4,20 +4,17 @@
       <input ng-model="intro.location.city" class="input_search_box" type="text"  placeholder="Enter a city here" required></input>  
       <h4>2. Pick a state</h4>
       <input ng-model="intro.location.state" class="input_search_box" type="text" placeholder="Enter a state here"  required></input><br />
-      <div> reviewForm is {{queryForm.$valid}} </div>
+      
       <input class="btn btn-primary btn-lg active goBtn" type="submit" value="GO!" />
     </form>
   </div>  
 
 <div class="trailsListContainer" ng-if="intro.showList">
   <h1>Trails in {{intro.city}}, {{intro.state}}</h1>
-  <div ng-repeat="trail in intro.data" class="trailsListTrailWrap">
-    <div class="trailsListTitle">{{trail.name}}</div>
-      <!--
-      <img class="trailsListImg" src={{trail.url}}></img>
-      -->
-      <p>{{trail.description}}</p>
-      <div class="trailsListRating">"{{trail.rating}}"</div>
+  <div ng-repeat="trail in intro.data" class="trail">
+    <div class="trailsListTitle"><h2>{{trail.name}}</h2></div>
+      <p class="description">{{trail.description}}</p>
+      <div class="trailsStars">{{trail.rating}} stars</div>
       <button
         class="btn trailsListBtn"
         ng-click="intro.getTrail(trail)">

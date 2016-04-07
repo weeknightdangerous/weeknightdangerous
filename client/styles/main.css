@@ -5863,6 +5863,40 @@ button.close {
   top: 25%;
   left: 25%; }
 
+.ng-invalid.ng-dirty {
+  border-color: #FA787E; }
+
+.ng-valid.ng-dirty {
+  border-color: #78FA89; }
+
+.input_search_box input.ng-invalid.ng-touched {
+  background-color: #FA787E; }
+
+.input_search_box input.ng-valid.ng-touched {
+  background-color: #78FA89; }
+
+.trail {
+  background: #f7fdf7;
+  width: 60%;
+  min-width: 500px;
+  margin: 30px auto 0;
+  border-top: 20px solid #186218;
+  border-radius: 10px;
+  text-align: left; }
+
+.list .item {
+  border-bottom: 2px solid #edeff0;
+  padding: 17px 0 18px 17px; }
+
+.comment {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.favoriteButton {
+  border-radius: 10px; }
+
 .test {
   font-size: 3em; }
 
