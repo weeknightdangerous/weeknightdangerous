@@ -1,5 +1,16 @@
 //import our main bootstrap file
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "partials/bkgd.scss";
+@import "partials/introForm.scss";
+@import "partials/trailList.scss";
+@import "partials/comments.scss"; 
 .test{
   font-size: 3em;
+}
+
+
+.input_search_box {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #fefcf6;
+  color: #3e3007;
 }

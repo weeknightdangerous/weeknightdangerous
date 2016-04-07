@@ -5817,5 +5817,90 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.dynamic-grid {
+  position: relative;
+  display: none; }
+
+.dynamic-grid.angular-grid {
+  display: block; }
+
+.grid {
+  border: 1px solid #cccccc;
+  position: absolute;
+  list-style: none;
+  background: #ffffff;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-transition: all 0.6s ease-out;
+  transition: all 0.6s ease-out;
+  overflow: hidden; }
+
+.grid-img {
+  width: 100%;
+  vertical-align: middle;
+  -webkit-transition: opacity 0.6s ease-out;
+  transition: opacity 0.6s ease-out;
+  background-color: #fff;
+  opacity: 0;
+  visibility: hidden; }
+
+.grid-img.img-loaded {
+  visibility: visible;
+  opacity: 1; }
+
+.city_state_form {
+  color: white;
+  text-align: left;
+  padding: 3% 24%;
+  border-top: 10px solid #eebf90;
+  margin: 55px 0 60px;
+  background: #bfee90;
+  background-size: cover;
+  box-shadow: inset 0 0 50px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  z-index: 10000;
+  position: absolute;
+  top: 25%;
+  left: 25%; }
+
+.ng-invalid.ng-dirty {
+  border-color: #FA787E; }
+
+.ng-valid.ng-dirty {
+  border-color: #78FA89; }
+
+.input_search_box input.ng-invalid.ng-touched {
+  background-color: #FA787E; }
+
+.input_search_box input.ng-valid.ng-touched {
+  background-color: #78FA89; }
+
+.trail {
+  background: #f7fdf7;
+  width: 60%;
+  min-width: 500px;
+  margin: 30px auto 0;
+  border-top: 20px solid #186218;
+  border-radius: 10px;
+  text-align: left; }
+
+.list .item {
+  border-bottom: 2px solid #edeff0;
+  padding: 17px 0 18px 17px; }
+
+.comment {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.favoriteButton {
+  border-radius: 10px; }
+
 .test {
   font-size: 3em; }
+
+.input_search_box {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #fefcf6;
+  color: #3e3007; }

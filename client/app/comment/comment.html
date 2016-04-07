@@ -4,11 +4,13 @@
   <p>User: {{comments.user}}</p>
   <p>comments: {{user.comment}}</p>
   </div>
+
   <div class="commentForm" ng-if="comments.user">
     <form name="commentForm" ng-submit="comments.update(comments.text, comments.commentForm.$valid)" novalidate>
       <p>Hi, (placeholder: user name) let us know your comment</p>
       <textarea rows="4" cols="50" ng-model="comments.text" required /></textarea><br />
       <input type="submit" value="Save" />
+
     </form>
   </div>
 </div>
