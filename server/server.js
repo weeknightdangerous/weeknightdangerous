@@ -50,8 +50,11 @@ app.post('/comment', checkAuth, services.addComment)
 
 
 function checkAuth(req, res, next) {
-  if(services.checkCookie) { return next() };
-  res.redirect('/')
+  services.checkCookie()
+    .then(function(result){
+      if(result) { return next() };
+      res.redirect('/')
+    })
 };
 
 
