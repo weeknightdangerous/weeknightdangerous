@@ -2,7 +2,8 @@ var dbhelpers = require('./database/dbhelpers')
 
 
 exports.addComment =  function(req, res) {
-  dbhelpers.addComment(res.locals.userId, req.data.trailId, req.data.comment)
+  console.log(req)
+  dbhelpers.addComment(res.locals.userId.user_id, Number(req.body.trailId), req.body.comment)
     .then(function(resp) {
       res.send(resp)
     })
@@ -10,8 +11,10 @@ exports.addComment =  function(req, res) {
 };
 
 exports.checkCookie =  function(req, res) {
+  console.log('cookie:', req.cookies.trailrpark)
   return dbhelpers.findUserBySession(req.cookies.trailrpark)
     .then(function(resp){
+      console.log(resp)
       if (!!resp[0]) {  
         res.locals.userId = resp[0]; 
         return true 
@@ -22,8 +25,9 @@ exports.checkCookie =  function(req, res) {
 
 exports.addFav = function(req, res) {
   dbhelpers.findUserBySession(req.cookies.trailrpark)
+
     .then(function(user){
-      return dbhelpers.addFavorite(user.uid, req.data.trailId)
+      return dbhelpers.addFavorite(user.uid, req.body.trailId)
     })
     .then(function(resp){
       res.send(resp)
