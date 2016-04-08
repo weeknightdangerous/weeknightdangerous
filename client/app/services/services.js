@@ -184,19 +184,23 @@ angular.module('trailApp.services', ['ngCookies'])
   //big sur
   var randomGeos = [{
                       "lat": 47.9691,
-                      "lon": -123.4983
+                      "lon": -123.4983,
+                      "dist": 5000
                     },
                     {
                       "lat": 43.7904,
-                      "lon": -110.6818
+                      "lon": -110.6818,
+                      "dist": 5000
                     },
                     {
                       "lat": 37.748543,
-                      "lon": -119.588576
+                      "lon": -119.588576,
+                      "dist": 5000
                     },
                     {
                       "lat": 36.3615,
-                      "lon": -121.8563
+                      "lon": -121.8563,
+                      "dist": 5000
                     }];
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
   var images = {}
@@ -221,7 +225,7 @@ angular.module('trailApp.services', ['ngCookies'])
     //console.log('fired home images')
       images = $http({
         method: 'GET', 
-        url: '/api/insta/loc',
+        url: '/api/insta/geo',
         params: geo
       })
   };

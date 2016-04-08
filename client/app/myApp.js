@@ -1,6 +1,6 @@
 angular.module('trailApp', [
-  'trailApp.intro',
   'trailApp.services',
+  'trailApp.intro',
   'trailApp.topNav',
   'trailApp.bkgd',
   'trailApp.profile',
@@ -57,10 +57,6 @@ angular.module('trailApp', [
                 templateUrl: 'app/comment/comment.html',
                 controller: 'commentsCtrl',
                 controllerAs: 'comments'
-              },
-              'bkgd': { 
-                templateUrl: 'app/bkgd/bkgd.html',
-                controller: 'bkgdCtrl' 
               }
         }
 

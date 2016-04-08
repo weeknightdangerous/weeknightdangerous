@@ -1,10 +1,11 @@
 //import our main bootstrap file
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "partials/bkgd.scss";
-@import "partials/nav.scss";
-@import "partials/introForm.scss";
-@import "partials/trailList.scss";
-@import "partials/comments.scss"; 
+@import "partials/bkgd";
+@import "partials/nav";
+@import "partials/introForm";
+@import "partials/trailList";
+@import "partials/comments"; 
+@import "partials/trailProfile";
 
 .input_search_box {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

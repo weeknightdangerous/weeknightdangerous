@@ -9,10 +9,11 @@ exports.geoImages = function(req, res){
 
   var lat = req.query.lat;
   var lon = req.query.lon;
+  var dist = req.query.dist;
 
   axios({
     method: 'get',
-    url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' +config.INSTA.PIRATE_ID + '&count=55',
+    url: 'https://api.instagram.com/v1/media/search?distance=' + dist + '&lat=' + lat + '&lng=' + lon + '&client_id=' +config.INSTA.PIRATE_ID + '&count=55',
     headers: {}
   })
   .then(function(instaPics){
@@ -20,6 +21,7 @@ exports.geoImages = function(req, res){
     //res.json(instaPics.data);
   })
 }
+
 
 // exports.locImages = function(req,res){
   

@@ -32,8 +32,14 @@
     position: fixed;
     opacity: .5;
   }
+  &.profile_slides{
+    ul {
+      position: relative;
+      opacity: 1;
+    }
+  }
 }
-.fader {
+.fader, .slide {
   height: auto;
   position: relative;
   float: left;
@@ -65,13 +71,20 @@
     width: 20%;
     padding-bottom: 20%;
   }
+  .slide{
+      width: 20%;
+      padding-bottom: 20%;
+    }
 }
 @media (min-width: $screen-md-min) {
    .fader {
-    width: 11.11%;
-    padding-bottom: 11.11%;
-
-  }
+      width: 11.11%;
+      padding-bottom: 11.11%;
+    }
+    .slide{
+      width: 6.25%;
+      padding-bottom: 6.25%;
+    }
 }
 
 

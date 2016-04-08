@@ -37,14 +37,17 @@ angular.module('trailApp.intro', [])
 
   //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
   intro.getTrail = function(trail) {
+    //console.log('trail Info:',trail)
+    var trailGeo = {
+      "lat": trail.lat,
+      "lon": trail.lon,
+      "dist": '1000'
+    };
+    //console.log('geo loc for trail:', trailGeo);
+    imageService.trailImages(trailGeo);
+    
     // call the service function that will store the trail in showTrails service.
     showTrails.setTrail(trail);
-     var trailGeo = {
-                      "lat": trail.lat,
-                      "lon": trail.lon
-                    };
-                    console.log('geo loc for trail:', trailGeo);
-    //imageService.trailImages(trailGeo);
     var id = trail.unique_id;
     //redirect to /trail and pass in the trail's unique_id as parameter
     $state.go('trail', { trailId: id});
