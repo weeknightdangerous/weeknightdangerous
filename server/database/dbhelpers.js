@@ -93,6 +93,15 @@ dbhelpers.addComment = function(userID, trailID, comment) {
     })
 };
 
+dbhelpers.trailComments = function(trailID) {
+  return db('comments').where({
+      trail_id: trailID
+    })
+    .then(function(resp){
+      return resp
+    })
+  
+};
 
 
 

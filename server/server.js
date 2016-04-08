@@ -27,20 +27,21 @@ app.get("/", function(req, res){
 
 // This is where you would initially send users to authorize 
 app.get('/authorize_user', auth.authorize_user);
-// This is your redirect URI 
 
+// This is your redirect URI 
 app.get('/handle_auth', auth.handleauth);
 
 // This is your 'get all trails' api call
 app.get('/api/trails/alltrails', trails.allTrails);
+
 // This is your 'get single trail' api call (requires unique_id)
 app.get('/api/trails/trail', trails.singleTrail);
-// This is your constrained homepage call for instagram bg images api call
 
+// This is your constrained homepage call for instagram bg images api call
 app.get('/api/insta/geo', ig.geoImages);
+
 // This is your results page bg images api call
 app.get('/api/geo/loc', geo.geocode);
-//app.get('/api/insta/loc', ig.locImages);
 
 app.post('/comment', checkAuth, services.addComment);
 
@@ -50,7 +51,7 @@ app.get('/myfavs', checkAuth, services.userFavs);
 
 app.post('/addFav', checkAuth, services.addFav);
 
-app.get('/commentList')
+app.get('/commentList', services.allTrailComments)
 
 
 
