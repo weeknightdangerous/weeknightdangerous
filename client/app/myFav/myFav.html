@@ -1,0 +1,14 @@
+<div class="myFavContainer">
+  <h1>My Favorite Trails</h1>
+  <div ng-animate="'animate'" ng-repeat="trail in myFav.data" class="trailsListTrailWrap">
+    <div class="trailsListTitle">{{trail.name}}</div>
+      <!--<img class="trailsListImg" src={{trail.url}}></img> -->
+      <p>{{trail.description}}</p>
+      <div class="trailsListRating">"{{trail.rating}}"</div>
+      <button
+        class="btn trailsListBtn"
+        ng-click="myFav.getTrail(trail)">
+        Find out more >>
+      </button>
+  </div>
+</div>

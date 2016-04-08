@@ -2,8 +2,9 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  showTrails.trail = {};
+  //showTrails.trail = {};
   showTrails.trailId = 0;
+  showTrails.list = {}
 
   var getLocation = function(params) {
     return $http({
@@ -13,6 +14,7 @@ angular.module('trailApp.services', ['ngCookies'])
     })
     .then(function(result) {
       console.log("getLocation result: ", result.data)
+      showTrails.list = result.data;
       return result.data;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
@@ -39,13 +41,17 @@ angular.module('trailApp.services', ['ngCookies'])
 
    //to make showTrail available to the trailProfile controller
   var getTrail = function () {
-    return showTrail;
+    return showTrails.trail;
   }
 
   //to store the trail info in showTrail from the trailslist controller
   var setTrail = function(trail) {
-    showTrail = trail;
-    return showTrail;
+    showTrails.trail = trail;
+    return showTrails.trail;
+  }
+
+  var getTrailList = function () {
+
   }
 
 
@@ -83,9 +89,11 @@ angular.module('trailApp.services', ['ngCookies'])
     removeUser: removeUser
   };  
 })
-.factory('commentForm', function($http) {
 
-  var postComments = function(comment, trailId) {
+.factory('commentForm', function($http, $state) {
+  var trailId = $state.params.trailId;
+
+  var postComments = function(comment) {
     console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
@@ -102,13 +110,70 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
-  var getComments = function(trailId) {
+  var getComments = function() {
+    console.log('getComments trailId: ', trailId);
+    return $http({
+      method: 'GET',
+      url: '/commentList',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('get comment service:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('get comments service Error: ', err);
+    })    
     
   }
 
   return {
-    postComments: postComments
+    postComments: postComments,
+    getComments: getComments
   } 
+
+})
+
+.factory('addFav', function($http, $state) {
+
+  var postFav = function() {
+   var trailId = $state.params.trailId;
+    return $http({
+      method: 'POST',
+      url: '/addFav',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('addFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('addFav service Error:', err);
+    })
+  };
+
+  var getFav = function() {
+    console.log('services getFav is working')
+    return $http({
+      method: 'GET',
+      url: '/myfavs',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('getFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('getFav service error', err);
+    })
+  };
+
+  return {
+    postFav: postFav,
+    getFav: getFav
+  }
 
 })
 

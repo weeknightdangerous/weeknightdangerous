@@ -8,6 +8,10 @@ var trailsApp = angular.module('trailApp.topNav', [])
     $window.location.assign('/authorize_user');
   };
 
+  nav.myFav = function () {
+    $window.location.href = '/#/myFav';
+  }
+
   nav.signOut = function () {
     Auth.removeUser();
     console.log('Auth.cookie', Auth.cookie)
