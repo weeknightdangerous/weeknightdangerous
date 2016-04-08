@@ -1,14 +1,14 @@
-<div class="trailsListContainer" ng-if="intro.showList">
-	<h1>Trails in {{intro.city}}, {{intro.state}}</h1>
-	<div ng-repeat="trail in intro.data" class="trailsListTrailWrap">
-		<div class="trailsListTitle">{{trail.name}}</div>
-			<!--<img class="trailsListImg" src={{trail.url}}></img> -->
-			<p>{{trail.description}}</p>
-			<div class="trailsListRating">"{{trail.rating}}"</div>
-			<button
-				class="btn trailsListBtn"
-				ng-click="intro.getTrail(trail)">
-				Find out more >>
-			</button>
-	</div>
+<div class="trailsListContainer" ng-show="intro.showList">
+  <h1>Trails in {{intro.city}}, {{intro.state}}</h1>
+  <div ng-repeat="trail in intro.data" class="trail">
+    <div class="trailsListTitle"><h2>{{trail.name}}</h2></div>
+      <p class="description">{{trail.description}}</p>
+      <div class="trailsStars">{{trail.rating}} stars</div>
+      <button
+        class="btn trailsListBtn"
+        ng-click="intro.getTrail(trail)">
+        Find out more >>
+      </button>
+      <hr/>
+  </div>
 </div>
