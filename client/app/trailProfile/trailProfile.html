@@ -7,7 +7,7 @@
       <div class="col-xs-9 profile_bar">
 	      <div class="trail_rating">{{profile.data.rating}} stars</div>
 	      <div class="trail_length">{{profile.data.length}} miles</div>
-        <button type="button" name="favorite_button" class="btn btn-primary btn-lg active">Save for Later!</button>
+        <button type="button" name="favorite_button" class="btn btn-primary btn-lg active" ng-click="profile.addFav()">add to favorite</button>
       </div>
       <div class="trail_description"><p>{{profile.data.description}}</p></div>
   

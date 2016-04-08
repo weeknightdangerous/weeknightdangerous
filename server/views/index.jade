@@ -8,18 +8,21 @@ block content
           span
             img(alt="brand" src="img/logo2.png")
           h1 TrailrPark
-      div.collapse.navbar-collapse
+      div.collapse.navbar-collapse(ng-controller="topNav as nav")
         ul.nav.navbar-nav
           li(ng-if="!nav.signInToggle")
             a(ng-click="nav.signIn()") Sign In
           li(ng-if="nav.signInToggle")
             a(ng-click="nav.signOut()") Sign Out
+          li(ng-if="nav.signInToggle")
+            a(ng-click="nav.myFav()") My Favorites
         p.navbar-text(ng-if="nav.signInToggle") Signed in as [Username]
     
   .intro(ui-view="intro") 
   .bkgd(ui-view="bkgd")
   .trails(ui-view="trailsList")
   .trailProfile(ui-view="trail")
+  .trailProfile(ui-view="myFav")  
   .comment(ui-view="comment")
 
  

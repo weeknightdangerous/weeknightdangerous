@@ -1,6 +1,6 @@
 <div class="trailsListContainer" ng-if="intro.showList">
 	<h1>Trails in {{intro.city}}, {{intro.state}}</h1>
-	<div ng-repeat="trail in intro.data" class="trailsListTrailWrap">
+	<div ng-animate="'animate'" ng-repeat="trail in intro.data" class="trailsListTrailWrap">
 		<div class="trailsListTitle">{{trail.name}}</div>
 			<!--<img class="trailsListImg" src={{trail.url}}></img> -->
 			<p>{{trail.description}}</p>
