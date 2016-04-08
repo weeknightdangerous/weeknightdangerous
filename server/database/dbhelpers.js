@@ -68,9 +68,10 @@ dbhelpers.addFavorite = function(userID, trailID) {
 };
 
 dbhelpers.findFavsByUserID = function(userID) {
-  return db('favs').where({id: userID})
+  return db('favs').where({user_id: userID})
     .then(function(resp){
       console.log("findtrail resp: ", resp);
+      
       return resp
     })
 };
