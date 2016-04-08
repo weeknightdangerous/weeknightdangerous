@@ -22,6 +22,7 @@ exports.allTrails = function(req, res) {
     //pass in '2' for hiking trails (only worrying about those for now)
     // we filter out all other trail usage in the cleanTrails utility
     var cleanData = utilities.cleanTrails(allTrails.data.places, '2');
+    
     res.json(cleanData);
   })
 }
@@ -32,7 +33,7 @@ exports.singleTrail = function(req, res) {
   //console.log(id)
   // var city = 'Jackson';
   // var state = 'Wyoming';
-  axios({
+  return axios({
     method: 'get',
     url: 'https://trailapi-trailapi.p.mashape.com/?q[unique_id_eq]=' + id,
     headers: {'X-Mashape-Key': config.TRAILS.API_KEY}
@@ -42,7 +43,8 @@ exports.singleTrail = function(req, res) {
     //pass in '2' for hiking trails (only worrying about those for now)
     // we filter out all other trail usage in the cleanTrails utility
     var cleanData = utilities.cleanTrails(trail.data.places, '2');
-    //console.log(cleanData);
-    res.json(cleanData);
+    
+    return cleanData;
+    
   })
 }

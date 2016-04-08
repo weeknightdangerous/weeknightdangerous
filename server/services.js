@@ -43,8 +43,16 @@ exports.userFavs = function(req, res) {
       return dbhelpers.findFavsByUserID(user.user_id)
     })
     .then(function(resp){
-      console.log('all user favorites: ', resp)
-      res.send(resp)
+      return Promise.all(resp.map(function(dbObj) {
+        var trail = {};
+        trail.query = {};
+        trail.query.unique_id = dbObj.trail_id;
+        return trails.singleTrail(trail) 
+      }))
+    })
+    .then(function(resp){
+      var flattenResp = resp.reduce(function(a,b){ return a.concat(b) });
+      res.json(flattenResp);
     })
     .catch(function(err){
       console.log('server userFav err:', err)
