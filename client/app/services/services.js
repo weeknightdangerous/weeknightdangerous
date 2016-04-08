@@ -107,7 +107,7 @@ angular.module('trailApp.services', ['ngCookies'])
   var getComments = function() {
     return $http({
       method: 'GET',
-      url: '/comment',
+      url: '/commentList',
       data: {trailId: trailId},
       headers: {'Content-Type': 'application/json'}
     })
@@ -148,9 +148,10 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
+    console.log('services getFav is working')
     return $http({
       method: 'GET',
-      url: '',
+      url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {

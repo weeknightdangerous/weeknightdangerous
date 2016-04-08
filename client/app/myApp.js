@@ -67,7 +67,7 @@ angular.module('trailApp', [
         views: {
 
               'trail': {
-                templateUrl: 'app/trailsList/trailsList.html',
+                templateUrl: 'app/myFav/myFav.html',
                 controller: 'myFavCtrl',
                 controllerAs: 'myFav'
               },

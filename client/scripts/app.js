@@ -67,7 +67,7 @@ angular.module('trailApp', [
         views: {
 
               'trail': {
-                templateUrl: 'app/trailsList/trailsList.html',
+                templateUrl: 'app/myFav/myFav.html',
                 controller: 'myFavCtrl',
                 controllerAs: 'myFav'
               },
@@ -220,7 +220,7 @@ angular.module('trailApp.services', ['ngCookies'])
   var getComments = function() {
     return $http({
       method: 'GET',
-      url: '/comment',
+      url: '/commentList',
       data: {trailId: trailId},
       headers: {'Content-Type': 'application/json'}
     })
@@ -261,9 +261,10 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
+    console.log('services getFav is working')
     return $http({
       method: 'GET',
-      url: '',
+      url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
@@ -539,10 +540,11 @@ angular.module('trailApp.trailsList', [])
 
 var trailsApp = angular.module('trailApp.myFav', [])
 
-.controller('myFavCtrl', function(addFav) {
+.controller('myFavCtrl', function(addFav, showTrails) {
   var myFav = this;
 
   myFav.getFavList = function() {
+    console.log('myFave.getFavList is working')
     return addFav.getFav()
       .then(function(result) {
         console.log('getFavList client result:', result);
@@ -551,6 +553,17 @@ var trailsApp = angular.module('trailApp.myFav', [])
       .catch(function(err) {
         console.error('getFavList client error:', err);
       })
+  }
+
+  //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
+  myFav.getTrail = function(trail) {
+    // call the service function that will store the trail in showTrails service.
+    showTrails.setTrail(trail);
+    var id = trail.unique_id;
+    //redirect to /trail and pass in the trail's unique_id as parameter
+    $state.go('trail', { trailId: id});
+
+    
   }
 
   //initialize user's favorite trails list
