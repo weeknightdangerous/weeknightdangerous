@@ -5,6 +5,9 @@ var trailsApp = angular.module('trailApp.myFav', [])
 
   myFav.getFavList = function() {
     console.log('myFave.getFavList is working')
+    var data = showTrails.getTrail();
+    console.log('data', data);
+
     return addFav.getFav()
       .then(function(result) {
         console.log('getFavList client result:', result);

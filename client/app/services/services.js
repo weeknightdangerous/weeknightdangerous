@@ -2,8 +2,9 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  showTrails.trail = {};
+  //showTrails.trail = {};
   showTrails.trailId = 0;
+  showTrails.list = {}
 
   var getLocation = function(params) {
     return $http({
@@ -13,6 +14,7 @@ angular.module('trailApp.services', ['ngCookies'])
     })
     .then(function(result) {
       console.log("getLocation result: ", result.data)
+      showTrails.list = result.data;
       return result.data;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
@@ -39,13 +41,17 @@ angular.module('trailApp.services', ['ngCookies'])
 
    //to make showTrail available to the trailProfile controller
   var getTrail = function () {
-    return showTrail;
+    return showTrails.trail;
   }
 
   //to store the trail info in showTrail from the trailslist controller
   var setTrail = function(trail) {
-    showTrail = trail;
-    return showTrail;
+    showTrails.trail = trail;
+    return showTrails.trail;
+  }
+
+  var getTrailList = function () {
+
   }
 
 
@@ -105,6 +111,7 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getComments = function() {
+    console.log('getComments trailId: ', trailId);
     return $http({
       method: 'GET',
       url: '/commentList',
