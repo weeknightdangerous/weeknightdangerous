@@ -14,8 +14,10 @@ exports.checkCookie =  function(req, res) {
   return dbhelpers.findUserBySession(req.cookies.trailrpark)
     .then(function(resp){
       console.log(resp)
+
       if (!!resp) {  
         res.locals.user = resp; 
+
         return true 
       }
       return false
@@ -26,6 +28,7 @@ exports.addFav = function(req, res) {
   dbhelpers.findUserBySession(req.cookies.trailrpark)
     .then(function(user){
       return dbhelpers.addFavorite(user.user_id, req.body.trailId)
+
     })
     .then(function(resp){
       res.send(resp)
