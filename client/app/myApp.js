@@ -5,6 +5,7 @@ angular.module('trailApp', [
   'angularGrid',
   'trailApp.bkgd',
   'trailApp.profile',
+  'trailApp.myFav',
   'trailApp.comment',
   'trailApp.trailsList',
   'ngCookies',
@@ -57,6 +58,22 @@ angular.module('trailApp', [
                 templateUrl: 'app/comment/comment.html',
                 controller: 'commentsCtrl',
                 controllerAs: 'comments'
+              }
+        }
+
+      })
+      .state("myFav", {
+        url:'/myFav',
+        views: {
+
+              'trail': {
+                templateUrl: 'app/trailsList/trailsList.html',
+                controller: 'myFavCtrl',
+                controllerAs: 'myFav'
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
               }
         }
 

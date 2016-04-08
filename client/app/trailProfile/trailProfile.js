@@ -1,6 +1,6 @@
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, $scope) {
+.controller('profileCtrl', function(showTrails, addFav, $scope) {
   var profile = this;
   profile.data = {};
 
@@ -8,16 +8,18 @@ var trailsApp = angular.module('trailApp.profile', [])
     profile.getTrail = function() {
       profile.data = showTrails.getTrail();
      };
+
+    profile.addFav = function() {
+      return addFav.postFav()
+        .then(function (result) {
+          console.log('addFavClient result:', result);
+        })
+        .catch(function (err) {
+          console.error('addFavClient error:', err);
+        })
+
+    } 
     
     //initialize the trail data
     profile.getTrail();
 })
-
-
-// angular.module('cookiesExample', ['ngCookies'])
-// .controller('ExampleController', ['$cookies', function($cookies) {
-//   // Retrieving a cookie
-//   var favoriteCookie = $cookies.myFavorite;
-//   // Setting a cookie
-//   $cookies.myFavorite = 'oatmeal';
-// }]);

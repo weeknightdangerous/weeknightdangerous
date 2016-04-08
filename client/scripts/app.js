@@ -5,6 +5,7 @@ angular.module('trailApp', [
   'angularGrid',
   'trailApp.bkgd',
   'trailApp.profile',
+  'trailApp.myFav',
   'trailApp.comment',
   'trailApp.trailsList',
   'ngCookies',
@@ -57,6 +58,22 @@ angular.module('trailApp', [
                 templateUrl: 'app/comment/comment.html',
                 controller: 'commentsCtrl',
                 controllerAs: 'comments'
+              }
+        }
+
+      })
+      .state("myFav", {
+        url:'/myFav',
+        views: {
+
+              'trail': {
+                templateUrl: 'app/trailsList/trailsList.html',
+                controller: 'myFavCtrl',
+                controllerAs: 'myFav'
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
               }
         }
 
@@ -179,9 +196,11 @@ angular.module('trailApp.services', ['ngCookies'])
     removeUser: removeUser
   };  
 })
-.factory('commentForm', function($http) {
 
-  var postComments = function(comment, trailId) {
+.factory('commentForm', function($http, $state) {
+  var trailId = $state.params.trailId;
+
+  var postComments = function(comment) {
     console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
@@ -198,13 +217,68 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
-  var getComments = function(trailId) {
+  var getComments = function() {
+    return $http({
+      method: 'GET',
+      url: '/comment',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('get comment service:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('get comments service Error: ', err);
+    })    
     
   }
 
   return {
-    postComments: postComments
+    postComments: postComments,
+    getComments: getComments
   } 
+
+})
+
+.factory('addFav', function($http, $state) {
+
+  var postFav = function() {
+   var trailId = $state.params.trailId;
+    return $http({
+      method: 'POST',
+      url: '/addFav',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('addFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('addFav service Error:', err);
+    })
+  };
+
+  var getFav = function() {
+    return $http({
+      method: 'GET',
+      url: '',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('getFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('getFav service error', err);
+    })
+  };
+
+  return {
+    postFav: postFav,
+    getFav: getFav
+  }
 
 })
 
@@ -339,6 +413,10 @@ var trailsApp = angular.module('trailApp.topNav', [])
     $window.location.assign('/authorize_user');
   };
 
+  nav.myFav = function () {
+    $window.location.href = '/#/myFav';
+  }
+
   nav.signOut = function () {
     Auth.removeUser();
     console.log('Auth.cookie', Auth.cookie)
@@ -383,7 +461,7 @@ angular.module('trailApp.bkgd', [])
     // $scope.displayGrams();
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, $scope) {
+.controller('profileCtrl', function(showTrails, addFav, $scope) {
   var profile = this;
   profile.data = {};
 
@@ -391,25 +469,28 @@ var trailsApp = angular.module('trailApp.profile', [])
     profile.getTrail = function() {
       profile.data = showTrails.getTrail();
      };
+
+    profile.addFav = function() {
+      return addFav.postFav()
+        .then(function (result) {
+          console.log('addFavClient result:', result);
+        })
+        .catch(function (err) {
+          console.error('addFavClient error:', err);
+        })
+
+    } 
     
     //initialize the trail data
     profile.getTrail();
 })
-
-
-// angular.module('cookiesExample', ['ngCookies'])
-// .controller('ExampleController', ['$cookies', function($cookies) {
-//   // Retrieving a cookie
-//   var favoriteCookie = $cookies.myFavorite;
-//   // Setting a cookie
-//   $cookies.myFavorite = 'oatmeal';
-// }]);
 
 angular.module('trailApp.comment', [])
 
   .controller('commentsCtrl', function(Auth, commentForm, $location) {
     var comments = this;
     comments.user = false;
+    comments.data = [];
 
     comments.isUser = function() {
       comments.user = Auth.checkUser();
@@ -417,23 +498,33 @@ angular.module('trailApp.comment', [])
       
     }
 
-    comments.update = function(comment) {
-      console.log('comments:', comment)
-      var idStr = $location.$$path;
-      var trailId = idStr.substr(idStr.indexOf('/') + 7)
-      console.log('trailId', trailId)
+    comments.getComments = function() {
+      return commentForm.getComments()
+        .then(function (result) {
+          console.log('get comments client: ', result);
+          return comments.data = result;
+        })
+        .catch(function (err) {
+          console.error('get comments client:', err);
+        })
+    }
 
-      commentForm.postComments(comment, trailId)
-      .then(function (result) {
-        console.log('comments result:', result);
-      })
-      .catch(function (err) {
-        console.error('comments Error:', err);
-      })
+    comments.update = function(comment) {
+
+      return commentForm.postComments(comment)
+        .then(function (result) {
+          console.log('post comments client result:', result);
+          comments.getComments();  
+        })
+        .catch(function (err) {
+          console.error('post comments client Error:', err);
+        })
     
     };
     //initialize user status: if user is signed in when this page is rendered
     comments.isUser();
+    comments.getComments();
+
   });
 angular.module('trailApp.trailsList', [])
 
@@ -445,3 +536,24 @@ angular.module('trailApp.trailsList', [])
 
 
 });
+
+var trailsApp = angular.module('trailApp.myFav', [])
+
+.controller('myFavCtrl', function(addFav) {
+  var myFav = this;
+
+  myFav.getFavList = function() {
+    return addFav.getFav()
+      .then(function(result) {
+        console.log('getFavList client result:', result);
+        myFav.data = result;
+      })
+      .catch(function(err) {
+        console.error('getFavList client error:', err);
+      })
+  }
+
+  //initialize user's favorite trails list
+  myFav.getFavList();
+   
+})

@@ -26,7 +26,7 @@ exports.addFav = function(req, res) {
   dbhelpers.findUserBySession(req.cookies.trailrpark)
 
     .then(function(user){
-      return dbhelpers.addFavorite(user.uid, req.body.trailId)
+      return dbhelpers.addFavorite(user[0].user_id, req.body.trailId)
     })
     .then(function(resp){
       res.send(resp)
