@@ -46,7 +46,11 @@ app.post('/comment', checkAuth, services.addComment);
 
 app.post('/addFav', checkAuth, services.addFav);
 
-app.get('/myfavs', checkAuth, services.userFavs)
+app.get('/myfavs', checkAuth, services.userFavs);
+
+app.post('/addFav', checkAuth, services.addFav);
+
+app.get('/commentList')
 
 
 function checkAuth(req, res, next) {

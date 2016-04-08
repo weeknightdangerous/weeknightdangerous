@@ -2,7 +2,7 @@ var dbhelpers = require('./database/dbhelpers')
 
 
 exports.addComment =  function(req, res) {
-  dbhelpers.addComment(res.locals.userId.user_id, Number(req.body.trailId), req.body.comment)
+  dbhelpers.addComment(res.locals.user.user_id, Number(req.body.trailId), req.body.comment)
     .then(function(resp) {
       res.send(resp)
     })
@@ -15,7 +15,7 @@ exports.checkCookie =  function(req, res) {
     .then(function(resp){
       console.log(resp)
       if (!!resp[0]) {  
-        res.locals.userId = resp[0]; 
+        res.locals.user = resp[0]; 
         return true 
       }
       return false
