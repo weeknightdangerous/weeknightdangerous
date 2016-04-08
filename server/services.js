@@ -44,6 +44,9 @@ exports.userFavs = function(req, res) {
     .then(function(resp){
       res.send(resp)
     })
+    .catch(function(err){
+      console.log('server userFav err:', err)
+    })
 };
 
 exports.allTrailComments = function(req, res) {

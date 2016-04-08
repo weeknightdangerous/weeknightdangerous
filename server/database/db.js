@@ -21,7 +21,7 @@ knex.schema.hasTable('favs').then(function(exists){
   if (!exists) {
     knex.schema.createTable('favs', function(table){
       table.increments('id').primary();
-      table.integer('user_id').references('uid').inTable('users');
+      table.integer('user_id').references('id').inTable('users');
       table.integer('trail_id')
     }).then(function(){
       console.log("Created favs table")

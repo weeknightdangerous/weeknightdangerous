@@ -5,6 +5,7 @@ angular.module('trailApp', [
   'angularGrid',
   'trailApp.bkgd',
   'trailApp.profile',
+  'trailApp.myFav',
   'trailApp.comment',
   'trailApp.trailsList',
   'ngCookies',
@@ -61,6 +62,22 @@ angular.module('trailApp', [
         }
 
       })
+      .state("myFav", {
+        url:'/myFav',
+        views: {
+
+              'trail': {
+                templateUrl: 'app/myFav/myFav.html',
+                controller: 'myFavCtrl',
+                controllerAs: 'myFav'
+              },
+              'bkgd': { 
+                templateUrl: 'app/bkgd/bkgd.html',
+                controller: 'bkgdCtrl' 
+              }
+        }
+
+      })
 }])
 
 // For future use - please do not erase
@@ -98,8 +115,9 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  showTrails.trail = {};
+  //showTrails.trail = {};
   showTrails.trailId = 0;
+  showTrails.list = {}
 
   var getLocation = function(params) {
     return $http({
@@ -109,6 +127,7 @@ angular.module('trailApp.services', ['ngCookies'])
     })
     .then(function(result) {
       console.log("getLocation result: ", result.data)
+      showTrails.list = result.data;
       return result.data;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
@@ -135,13 +154,17 @@ angular.module('trailApp.services', ['ngCookies'])
 
    //to make showTrail available to the trailProfile controller
   var getTrail = function () {
-    return showTrail;
+    return showTrails.trail;
   }
 
   //to store the trail info in showTrail from the trailslist controller
   var setTrail = function(trail) {
-    showTrail = trail;
-    return showTrail;
+    showTrails.trail = trail;
+    return showTrails.trail;
+  }
+
+  var getTrailList = function () {
+
   }
 
 
@@ -179,9 +202,11 @@ angular.module('trailApp.services', ['ngCookies'])
     removeUser: removeUser
   };  
 })
-.factory('commentForm', function($http) {
 
-  var postComments = function(comment, trailId) {
+.factory('commentForm', function($http, $state) {
+  var trailId = $state.params.trailId;
+
+  var postComments = function(comment) {
     console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
@@ -198,13 +223,70 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
-  var getComments = function(trailId) {
+  var getComments = function() {
+    console.log('getComments trailId: ', trailId);
+    return $http({
+      method: 'GET',
+      url: '/commentList',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('get comment service:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('get comments service Error: ', err);
+    })    
     
   }
 
   return {
-    postComments: postComments
+    postComments: postComments,
+    getComments: getComments
   } 
+
+})
+
+.factory('addFav', function($http, $state) {
+
+  var postFav = function() {
+   var trailId = $state.params.trailId;
+    return $http({
+      method: 'POST',
+      url: '/addFav',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('addFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('addFav service Error:', err);
+    })
+  };
+
+  var getFav = function() {
+    console.log('services getFav is working')
+    return $http({
+      method: 'GET',
+      url: '/myfavs',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('getFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('getFav service error', err);
+    })
+  };
+
+  return {
+    postFav: postFav,
+    getFav: getFav
+  }
 
 })
 
@@ -339,6 +421,10 @@ var trailsApp = angular.module('trailApp.topNav', [])
     $window.location.assign('/authorize_user');
   };
 
+  nav.myFav = function () {
+    $window.location.href = '/#/myFav';
+  }
+
   nav.signOut = function () {
     Auth.removeUser();
     console.log('Auth.cookie', Auth.cookie)
@@ -383,7 +469,7 @@ angular.module('trailApp.bkgd', [])
     // $scope.displayGrams();
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, $scope) {
+.controller('profileCtrl', function(showTrails, addFav, $scope) {
   var profile = this;
   profile.data = {};
 
@@ -391,25 +477,28 @@ var trailsApp = angular.module('trailApp.profile', [])
     profile.getTrail = function() {
       profile.data = showTrails.getTrail();
      };
+
+    profile.addFav = function() {
+      return addFav.postFav()
+        .then(function (result) {
+          console.log('addFavClient result:', result);
+        })
+        .catch(function (err) {
+          console.error('addFavClient error:', err);
+        })
+
+    } 
     
     //initialize the trail data
     profile.getTrail();
 })
-
-
-// angular.module('cookiesExample', ['ngCookies'])
-// .controller('ExampleController', ['$cookies', function($cookies) {
-//   // Retrieving a cookie
-//   var favoriteCookie = $cookies.myFavorite;
-//   // Setting a cookie
-//   $cookies.myFavorite = 'oatmeal';
-// }]);
 
 angular.module('trailApp.comment', [])
 
   .controller('commentsCtrl', function(Auth, commentForm, $location) {
     var comments = this;
     comments.user = false;
+    comments.data = [];
 
     comments.isUser = function() {
       comments.user = Auth.checkUser();
@@ -417,23 +506,33 @@ angular.module('trailApp.comment', [])
       
     }
 
-    comments.update = function(comment) {
-      console.log('comments:', comment)
-      var idStr = $location.$$path;
-      var trailId = idStr.substr(idStr.indexOf('/') + 7)
-      console.log('trailId', trailId)
+    comments.getComments = function() {
+      return commentForm.getComments()
+        .then(function (result) {
+          console.log('get comments client: ', result);
+          return comments.data = result;
+        })
+        .catch(function (err) {
+          console.error('get comments client:', err);
+        })
+    }
 
-      commentForm.postComments(comment, trailId)
-      .then(function (result) {
-        console.log('comments result:', result);
-      })
-      .catch(function (err) {
-        console.error('comments Error:', err);
-      })
+    comments.update = function(comment) {
+
+      return commentForm.postComments(comment)
+        .then(function (result) {
+          console.log('post comments client result:', result);
+          comments.getComments();  
+        })
+        .catch(function (err) {
+          console.error('post comments client Error:', err);
+        })
     
     };
     //initialize user status: if user is signed in when this page is rendered
     comments.isUser();
+    comments.getComments();
+
   });
 angular.module('trailApp.trailsList', [])
 
@@ -445,3 +544,39 @@ angular.module('trailApp.trailsList', [])
 
 
 });
+
+var trailsApp = angular.module('trailApp.myFav', [])
+
+.controller('myFavCtrl', function(addFav, showTrails) {
+  var myFav = this;
+
+  myFav.getFavList = function() {
+    console.log('myFave.getFavList is working')
+    var data = showTrails.getTrail();
+    console.log('data', data);
+
+    return addFav.getFav()
+      .then(function(result) {
+        console.log('getFavList client result:', result);
+        myFav.data = result;
+      })
+      .catch(function(err) {
+        console.error('getFavList client error:', err);
+      })
+  }
+
+  //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
+  myFav.getTrail = function(trail) {
+    // call the service function that will store the trail in showTrails service.
+    showTrails.setTrail(trail);
+    var id = trail.unique_id;
+    //redirect to /trail and pass in the trail's unique_id as parameter
+    $state.go('trail', { trailId: id});
+
+    
+  }
+
+  //initialize user's favorite trails list
+  myFav.getFavList();
+   
+})
