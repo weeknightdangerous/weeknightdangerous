@@ -11,7 +11,7 @@ angular.module('trailApp.intro', [])
 
   //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
   intro.getList = function(location) {
-    console.log('showlist is working: ', location)
+    //console.log('showlist is working: ', location)
     //if(isValid) { 
       //make sure the trailList header will have capitalized city and state regardless of user input.
       intro.city = capitalize(location.city);
@@ -39,6 +39,12 @@ angular.module('trailApp.intro', [])
   intro.getTrail = function(trail) {
     // call the service function that will store the trail in showTrails service.
     showTrails.setTrail(trail);
+     var trailGeo = {
+                      "lat": trail.lat,
+                      "lon": trail.lon
+                    };
+                    console.log('geo loc for trail:', trailGeo);
+    //imageService.trailImages(trailGeo);
     var id = trail.unique_id;
     //redirect to /trail and pass in the trail's unique_id as parameter
     $state.go('trail', { trailId: id});

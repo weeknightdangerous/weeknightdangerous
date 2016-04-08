@@ -84,7 +84,7 @@ gulp.task('clear-db', shell.task([
 //watch files
 gulp.task('watch', function() {
   gulp.watch('sass/**/*.scss', ['sass']);
-  gulp.watch('client/styles/*.css', ['minify-css']);
+  gulp.watch('client/styles/main.css', ['minify-css']);
   gulp.watch(['client/app/myApp.js','client/app/**/*.js'],['concat-app']);
   gulp.watch(['client/app/myApp.js','client/app/**/*.js','client/app/**/*.html','client/app/styles/*.css']).on('change', browserSync.reload);
 });

@@ -30,18 +30,34 @@
     
   </div>  
 
-<div class="trailsListContainer" ng-show="intro.showList">
-  <h1>Trails in {{intro.city}}, {{intro.state}}</h1>
-  <div ng-repeat="trail in intro.data" class="trail">
-    <div class="trailsListTitle"><h2>{{trail.name}}</h2></div>
-      <p class="description">{{trail.description}}</p>
-      <div class="trailsStars">{{trail.rating}} stars</div>
-      <button
-        class="btn trailsListBtn"
-        ng-click="intro.getTrail(trail)">
-        Find out more >>
-      </button>
-      <hr/>
+<div class="container">
+  <div class="trailsListContainer" ng-show="intro.showList">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="trails">
+        <h2>Trails in {{intro.city}}, {{intro.state}}</h2>
+        <div ng-repeat="trail in intro.data" class="trail">
+          <div class="row">
+            <div class="col-md-2">
+              <img class="img-responsive" src={{trail.thumbnail}}></img>
+            </div>
+            <div class="col-md-7">
+              <h3>{{trail.name}}</h3>
+              <div class="trailsStars">{{trail.rating}} stars</div>
+            </div>
+            <div class="col-md-3">
+              
+              <button
+                class="btn btn-primary btn-lg btn-block"
+                ng-click="intro.getTrail(trail)">
+                More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
 

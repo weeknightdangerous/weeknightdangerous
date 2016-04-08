@@ -1,0 +1,21 @@
+.navbar{
+  min-height: 65px;
+  h1{
+    display: inline-block;
+    margin: 7px 0 0 15px;
+  }
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  font-size: 25px;
+  padding-top: 20px;
+}
+
+.navbar-brand {
+  padding: 2px 15px;
+  span img{
+    width: 17%;
+    vertical-align: top;
+    margin-top: 5px;
+  }
+}

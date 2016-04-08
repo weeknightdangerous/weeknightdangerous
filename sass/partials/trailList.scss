@@ -1,41 +1,20 @@
+.trailsListContainer{
+  position: absolute;
+  z-index: 20;
+  padding-right: 100px;
+}
+.trails{
+  width: 80%;
+  margin: 0 auto;
+}
 .trail {
   color: #fff;
   font-size: 1.25em;
-  background: rgba(0, 0, 0, 0.8);
-  width: 60%;
-  margin-left:20%;  
-  min-width: 500px;
-  margin: 30px auto 0;
-  border-top: 20px solid #186218;
-  border-radius: 10px;
-  text-align: left; }
-  .list .item {
-    border-bottom: 2px solid #edeff0;
-    padding: 17px 0 18px 17px; }
-
-
-.animate-enter, 
-.animate-leave
-{ 
-    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    position: relative;
-    display: block;
-} 
-
-.animate-enter.animate-enter-active, 
-.animate-leave {
-    opacity: 1;
-    top: 0;
-    height: 30px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-bottom: 1px solid #aaa;
+  button{
+    margin-top: 50px;
+  }
 }
-
-.animate-leave.animate-leave-active,
-.animate-enter {
-    opacity: 0;
-    top: -50px;
-    height: 0px;
-}    
+ 
