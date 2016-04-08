@@ -14,8 +14,8 @@ exports.checkCookie =  function(req, res) {
   return dbhelpers.findUserBySession(req.cookies.trailrpark)
     .then(function(resp){
       console.log(resp)
-      if (!!resp[0]) {  
-        res.locals.user = resp[0]; 
+      if (!!resp) {  
+        res.locals.user = resp; 
         return true 
       }
       return false
@@ -24,16 +24,23 @@ exports.checkCookie =  function(req, res) {
 
 exports.addFav = function(req, res) {
   dbhelpers.findUserBySession(req.cookies.trailrpark)
-
     .then(function(user){
-      return dbhelpers.addFavorite(user[0].user_id, req.body.trailId)
+      return dbhelpers.addFavorite(user.user_id, req.body.trailId)
     })
     .then(function(resp){
       res.send(resp)
     })
 };
 
-exports.userFavs = function() {};
+exports.userFavs = function(req, res) {
+  dbhelpers.findUserBySession(req.cookies.trailrpark)
+    .then(function(user){
+      return dbhelpers.findFavsByUserID(user.user_id)
+    })
+    .then(function(resp){
+      res.send(resp)
+    })
+};
 
 
 

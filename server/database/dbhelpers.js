@@ -25,7 +25,7 @@ dbhelpers.findUserBySession = function(session_id){
   return db('sessions').where({session_id: session_id})
   .then(function(resp){
     console.log("findUserBySession response: ", resp);
-    return resp
+    return resp[0]
   })
 };
 
