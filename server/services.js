@@ -1,4 +1,5 @@
-var dbhelpers = require('./database/dbhelpers')
+var dbhelpers = require('./database/dbhelpers');
+var trails = require('./api/trails');
 
 
 //checkCookie middleware returns a promise that resolves with true or false
@@ -42,6 +43,7 @@ exports.userFavs = function(req, res) {
       return dbhelpers.findFavsByUserID(user.user_id)
     })
     .then(function(resp){
+      console.log('all user favorites: ', resp)
       res.send(resp)
     })
 };
