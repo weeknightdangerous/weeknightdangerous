@@ -5,8 +5,10 @@ var trails = require('./api/trails');
 //checkCookie middleware returns a promise that resolves with true or false
 
 exports.checkCookie =  function(req, res) {
-  console.log('cookie:', req.cookies.trailrpark)
-  return dbhelpers.findUserBySession(req.cookies.trailrpark)
+  console.log('cookie:', req.cookies)
+  var session = JSON.parse(req.cookies.trailrpark).session_id;
+  console.log('this is the session?:', session)
+  return dbhelpers.findUserBySession(session)
     .then(function(resp){
       console.log(resp)
 
