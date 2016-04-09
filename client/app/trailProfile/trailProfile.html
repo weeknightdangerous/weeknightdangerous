@@ -9,11 +9,15 @@
 <div class="profile">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-9">
         <h2>{{profile.data.name}}</h2>
-        <div class="trail_rating">{{profile.data.rating}} stars</div>
-        <div class="trail_length">{{profile.data.length}} miles</div>
+      </div>
+      <div class="col-md-3">
         <button type="button" name="favorite_button" class="btn btn-primary btn-lg active" ng-click="profile.addFav()">add to favorite</button>
+      </div>
+      <div class="col-md-12">
+        <div class="trail_rating">{{profile.data.rating}} stars</div>
+        <h4>{{profile.data.length}} miles</h4>
       </div>
       <div class="col-md-12">
         <p>{{profile.data.description}}</p>
