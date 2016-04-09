@@ -5907,7 +5907,7 @@ button.close {
     vertical-align: top;
     margin-top: 5px; }
 
-.city_state_form {
+.city_state_form, .loader-wrapper {
   background: rgba(0, 0, 0, 0.8);
   padding: 5px 40px 40px;
   position: absolute;
@@ -5916,7 +5916,7 @@ button.close {
   margin: 150px auto 0;
   width: 50%;
   z-index: 10; }
-  .city_state_form h2 {
+  .city_state_form h2, .loader-wrapper h2 {
     text-align: center; }
 
 .ng-invalid.ng-dirty {
@@ -5935,6 +5935,10 @@ button.close {
   position: absolute;
   z-index: 20;
   padding-right: 100px; }
+
+.results-title {
+  color: #0056E0;
+  margin-top: 85px; }
 
 .trails {
   width: 80%;
