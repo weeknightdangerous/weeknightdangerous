@@ -14,6 +14,7 @@ angular.module('trailApp.comment', [])
     comments.getComments = function() {
       return commentForm.getComments()
         .then(function (result) {
+          console.log('getComments result client:', result)
           return comments.data = result;
         })
         .catch(function (err) {
