@@ -1,6 +1,6 @@
 angular.module('trailApp.bkgd', [])
 
-.controller('bkgdCtrl', ['$scope','imageService', 'angularGridInstance', function ($scope,imageService, angularGridInstance) {
+.controller('bkgdCtrl', ['$scope','imageService', function ($scope,imageService) {
   $scope.pics = {};
     
   //get our initianl images
@@ -21,14 +21,3 @@ angular.module('trailApp.bkgd', [])
     }
   });
 }]);
-
-    // $scope.pics = {};
-    // $scope.displayGrams = function(){
-    //     //console.log('here are the grams');
-    //     showImages.getImages()
-    //     .then(function(pics){
-    //         console.log('here are the grams',pics);
-    //         $scope.pics = pics;
-    //     })
-    // }
-    // $scope.displayGrams();
