@@ -5604,11 +5604,11 @@ button.close {
   .carousel-indicators {
     bottom: 20px; } }
 
-.clearfix:before, .clearfix:after {
+.clearfix:before, .comment .commentList .single-comment:before, .clearfix:after, .comment .commentList .single-comment:after {
   content: " ";
   display: table; }
 
-.clearfix:after {
+.clearfix:after, .comment .commentList .single-comment:after {
   clear: both; }
 
 .center-block {
@@ -5907,6 +5907,11 @@ button.close {
     vertical-align: top;
     margin-top: 5px; }
 
+h3 .navbar-text {
+  padding-top: 10px;
+  text-transform: capitalize;
+  color: #286090; }
+
 .city_state_form, .loader-wrapper {
   background: rgba(0, 0, 0, 0.8);
   padding: 5px 40px 40px;
@@ -5957,6 +5962,26 @@ button.close {
   background: #eee; }
   .comment .container {
     background: #fff; }
+  .comment .commentList {
+    padding: 0 0 0 40px; }
+    .comment .commentList .single-comment {
+      background-color: #F5F5F5;
+      margin: 20px 0 0 20px;
+      padding: 10px;
+      border-radius: 20px; }
+      .comment .commentList .single-comment img {
+        float: left;
+        border-radius: 50%; }
+      .comment .commentList .single-comment p {
+        padding-left: 20px;
+        float: left; }
+        .comment .commentList .single-comment p h4 {
+          margin: 20px 0 0 130px; }
+  .comment .commentForm {
+    margin: 65px 40px 0 35px; }
+    .comment .commentForm .comment-text {
+      border-radius: 20px;
+      background-color: #F5F5F5; }
 
 .favoriteButton {
   border-radius: 10px; }

@@ -7,6 +7,39 @@
   .container{
     background: #fff;
   }
+  .commentList {
+    padding: 0 0 0 40px;
+
+    .single-comment {
+      background-color: #F5F5F5;
+      margin: 20px 0 0 20px;
+      padding: 10px;
+      border-radius: 20px;
+      @extend .clearfix;
+    
+      img {
+        float: left;
+        border-radius: 50%;
+      }
+
+      p {
+        h4 {
+          margin: 20px 0 0 130px;
+        }
+        padding-left: 20px;
+        float: left;
+      }
+    }
+    
+  }
+  .commentForm {
+    margin: 65px 40px 0 35px;
+    .comment-text {
+      border-radius: 20px;
+      background-color: #F5F5F5;
+
+    }
+  }
 }
 
 .favoriteButton {
