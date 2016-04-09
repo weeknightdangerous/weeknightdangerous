@@ -4,6 +4,7 @@
       <div class="col-md-12">
         <div class="trails">
         <h2>Trails in {{trails.city}}, {{trails.state}}</h2>
+        <div ng-show="trails.loader" class="loader"></div>
         <div ng-repeat="trail in trails.data" class="trail">
           <div class="row">
             <div class="col-md-2">

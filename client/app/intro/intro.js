@@ -12,13 +12,12 @@ angular.module('trailApp.intro', [])
     showTrails.userLocation(location);
     $window.location.href = '/#/trailsList'
   }
-  $scope.loader = false;
   intro.showlist = false;
   intro.data = [];
 
   //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
   intro.getList = function(location) {
-    $scope.loader="true";
+    
     //console.log('showlist is working: ', location)
     //if(isValid) { 
       //make sure the trailList header will have capitalized city and state regardless of user input.
@@ -33,7 +32,6 @@ angular.module('trailApp.intro', [])
       return showTrails.getLocation(location)
       .then(function (result) {
         //show list and hide intro form
-        $scope.loader = false;
         intro.showList = true;
         intro.data = result;
 
