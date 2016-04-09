@@ -1,8 +1,9 @@
 angular.module('trailApp', [
-  'trailApp.intro',
+  'ui.bootstrap',
   'trailApp.services',
+  'trailApp.directives',
+  'trailApp.intro',
   'trailApp.topNav',
-  'angularGrid',
   'trailApp.bkgd',
   'trailApp.profile',
   'trailApp.myFav',

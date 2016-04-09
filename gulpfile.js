@@ -27,13 +27,13 @@ gulp.task('minify-css', function() {
 });
 
 gulp.task('concat-dep', function() {
-  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/angular-cookies/angular-cookies.js'])
+  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/angular-cookies/angular-cookies.js','bower_components/angular-bootstrap/ui-bootstrap.min.js'])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('./client/scripts/'));
 });
 
 gulp.task('concat-app', function() {
-  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js', 'client/app/myFav/myFav.js'])
+  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js', 'client/app/myFav/myFav.js','client/app/directives/modal.js'])
     .pipe(concat('app.js'))
     .pipe(gulp.dest('./client/scripts'));
 });
@@ -83,8 +83,8 @@ gulp.task('clear-db', shell.task([
 
 //watch files
 gulp.task('watch', function() {
-  gulp.watch('sass/main.scss', ['sass']);
-  gulp.watch('client/styles/*.css', ['minify-css']);
+  gulp.watch('sass/**/*.scss', ['sass']);
+  gulp.watch('client/styles/main.css', ['minify-css']);
   gulp.watch(['client/app/myApp.js','client/app/**/*.js'],['concat-app']);
   gulp.watch(['client/app/myApp.js','client/app/**/*.js','client/app/**/*.html','client/app/styles/*.css']).on('change', browserSync.reload);
 });

@@ -1,17 +1,23 @@
-<div class="comment">
-  <div class="commentList">
-    <div ng-animate="'animate'" ng-repeat="comment in comments.data | filter:query | orderBy: 'created_at':true">
-      <h3>User Comments:</h3>
-      <p>User: {{ comment.user }}</p>
-      <p>comments: {{ comment.comment }}</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="comments">
+        <div class="commentList">
+          <h3>User Comments:</h3>
+          <hr>
+          <div ng-animate="'animate'" ng-repeat="comment in comments.data | filter:query | orderBy: 'created_at':true">
+            <p>User: {{ comment.user }}</p>
+            <p>comments: {{ comment.comment }}</p>
+          </div>
+        </div>  
+        <div class="commentForm" ng-if="comments.user">
+          <form name="commentForm" ng-submit="comments.update(comments.text, comments.commentForm.$valid)" novalidate>
+            <p>Howdy, (placeholder: user name) how's the trail?</p>
+            <textarea rows="4" cols="50" ng-model="comments.text" required /></textarea><br />
+            <input type="submit" value="Save" />
+          </form>
+        </div>
+      </div>
     </div>
-  </div>  
-
-  <div class="commentForm" ng-if="comments.user">
-    <form name="commentForm" ng-submit="comments.update(comments.text, comments.commentForm.$valid)" novalidate>
-      <p>Hi, (placeholder: user name) let us know your comment</p>
-      <textarea rows="4" cols="50" ng-model="comments.text" required /></textarea><br />
-      <input type="submit" value="Save" />
-    </form>
   </div>
 </div>
