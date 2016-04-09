@@ -2,18 +2,29 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  showTrails.trail = {};
+  //showTrails.trail = {};
   showTrails.trailId = 0;
+  showTrails.list = {};
+  showTrails.location;
 
-  var getLocation = function(params) {
+  var userLocation = function(params) {
+    showTrails.location = params;
+    console.log('userLocation service: ', showTrails.location);
+
+  }
+
+  var getTrails = function() {
+    console.log('getLocation service location:', showTrails.location)
     return $http({
       method: 'GET', 
       url: '/api/trails/alltrails',
-      params: params
+      params: showTrails.location
     })
     .then(function(result) {
-      console.log("getLocation result: ", result.data)
-      return result.data;
+      showTrails.list.data = result.data;
+      showTrails.list.location = showTrails.location;
+      console.log("getLocation result: ", showTrails.list)
+      return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
@@ -23,34 +34,26 @@ angular.module('trailApp.services', ['ngCookies'])
     console.log('showTrails.trailId:', showTrails.trailId)
   };
 
-  // var getTrail = function(trailId) {
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/trails/trail',
-  //     params: trailId
-  //   })
-  //   .then(function(result) {
-  //     console.log('getTrail result: ', result.data); 
-  //     showTrails.trail = result.data;
-  //     console.log("showTrails.trail", showTrails.trail)
-  //     return result.data;
-  //   })
-  //};
 
    //to make showTrail available to the trailProfile controller
   var getTrail = function () {
-    return showTrail;
+    return showTrails.trail;
   }
 
   //to store the trail info in showTrail from the trailslist controller
   var setTrail = function(trail) {
-    showTrail = trail;
-    return showTrail;
+    showTrails.trail = trail;
+    return showTrails.trail;
+  }
+
+  var getTrailList = function () {
+
   }
 
 
   return {
-    getLocation: getLocation,
+    userLocation: userLocation,
+    getTrails: getTrails,
     getTrail: getTrail,
     getTrailId: getTrailId,
     setTrail: setTrail
@@ -83,9 +86,11 @@ angular.module('trailApp.services', ['ngCookies'])
     removeUser: removeUser
   };  
 })
-.factory('commentForm', function($http) {
 
-  var postComments = function(comment, trailId) {
+.factory('commentForm', function($http, $state) {
+  var trailId = $state.params.trailId;
+
+  var postComments = function(comment) {
     console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
@@ -102,13 +107,70 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
-  var getComments = function(trailId) {
+  var getComments = function() {
+    console.log('getComments trailId: ', trailId);
+    return $http({
+      method: 'POST',
+      url: '/commentList',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('get comment service:', result.data);
+      return result.data;
+    })
+    .catch(function (err) {
+      console.error('get comments service Error: ', err);
+    })    
     
   }
 
   return {
-    postComments: postComments
+    postComments: postComments,
+    getComments: getComments
   } 
+
+})
+
+.factory('addFav', function($http, $state) {
+
+  var postFav = function() {
+   var trailId = $state.params.trailId;
+    return $http({
+      method: 'POST',
+      url: '/addFav',
+      data: {trailId: trailId},
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('addFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('addFav service Error:', err);
+    })
+  };
+
+  var getFav = function() {
+    console.log('services getFav is working')
+    return $http({
+      method: 'GET',
+      url: '/myfavs',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(function (result) {
+      console.log('getFav service result:', result);
+      return result;
+    })
+    .catch(function (err) {
+      console.error('getFav service error', err);
+    })
+  };
+
+  return {
+    postFav: postFav,
+    getFav: getFav
+  }
 
 })
 
@@ -119,25 +181,29 @@ angular.module('trailApp.services', ['ngCookies'])
   //big sur
   var randomGeos = [{
                       "lat": 47.9691,
-                      "lon": -123.4983
+                      "lon": -123.4983,
+                      "dist": 5000
                     },
                     {
                       "lat": 43.7904,
-                      "lon": -110.6818
+                      "lon": -110.6818,
+                      "dist": 5000
                     },
                     {
                       "lat": 37.748543,
-                      "lon": -119.588576
+                      "lon": -119.588576,
+                      "dist": 5000
                     },
                     {
                       "lat": 36.3615,
-                      "lon": -121.8563
+                      "lon": -121.8563,
+                      "dist": 5000
                     }];
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
   var images = {}
   var imageServices = {};
   imageServices.homeImages = function(){
-    console.log('fired home images')
+    //console.log('fired home images')
       images = $http({
         method: 'GET', 
         url: '/api/insta/geo',
@@ -145,15 +211,23 @@ angular.module('trailApp.services', ['ngCookies'])
       })
   };
   imageServices.locImages = function(placename){
-    console.log('fired locImages')
+    //console.log('fired locImages')
       images = $http({
         method: 'GET', 
         url: '/api/geo/loc',
         params: placename
       })
   };
+  imageServices.trailImages = function(geo){
+    //console.log('fired home images')
+      images = $http({
+        method: 'GET', 
+        url: '/api/insta/geo',
+        params: geo
+      })
+  };
   imageServices.getImages = function(){
-    console.log('fired get images', images)
+    //console.log('fired get images', images)
     return images;  
   }
   return imageServices;

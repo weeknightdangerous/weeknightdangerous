@@ -1,4 +1,5 @@
-var dbhelpers = require('./database/dbhelpers')
+var dbhelpers = require('./database/dbhelpers');
+var trails = require('./api/trails');
 
 
 //checkCookie middleware returns a promise that resolves with true or false
@@ -42,12 +43,24 @@ exports.userFavs = function(req, res) {
       return dbhelpers.findFavsByUserID(user.user_id)
     })
     .then(function(resp){
-      res.send(resp)
+      return Promise.all(resp.map(function(dbObj) {
+        var trail = {};
+        trail.query = {};
+        trail.query.unique_id = dbObj.trail_id;
+        return trails.singleTrail(trail) 
+      }))
+    })
+    .then(function(resp){
+      var flattenResp = resp.reduce(function(a,b){ return a.concat(b) });
+      res.json(flattenResp);
+    })
+    .catch(function(err){
+      console.log('server userFav err:', err)
     })
 };
 
 exports.allTrailComments = function(req, res) {
-  dbhelpers.trailComments(req.body.trialId)
+  dbhelpers.trailComments(req.body.trailId)
     .then(function(resp){
       res.send(resp)
     })

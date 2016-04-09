@@ -33,3 +33,4 @@ db/
 # ignore generated files from gulp
 client/scripts/app.js
 client/scripts/scripts.js
+client/styles/main.css

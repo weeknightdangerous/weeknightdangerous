@@ -1,25 +1,29 @@
 extends layout
 
 block content
-  nav.navbar.navbar-inverse
-    div.container-fluid
+
+  nav.navbar.navbar-inverse.navbar-fixed-top
+    div.container
       div.navbar-header
         a.navbar-brand(href="/#/")
           span
             img(alt="brand" src="img/logo2.png")
           h1 TrailrPark
-      div.collapse.navbar-collapse
+      div.collapse.navbar-collapse(ng-controller="topNav as nav")
         ul.nav.navbar-nav
           li(ng-if="!nav.signInToggle")
             a(ng-click="nav.signIn()") Sign In
           li(ng-if="nav.signInToggle")
             a(ng-click="nav.signOut()") Sign Out
+          li(ng-if="nav.signInToggle")
+            a(ng-click="nav.myFav()") My Favorites
         p.navbar-text(ng-if="nav.signInToggle") Signed in as [Username]
-    
+
   .intro(ui-view="intro") 
-  .bkgd(ui-view="bkgd")
-  .trails(ui-view="trailsList")
+  .trailList(ui-view="trailsList")
   .trailProfile(ui-view="trail")
+  .trailList(ui-view="myFav") 
+  .bkgd(ui-view="bkgd") 
   .comment(ui-view="comment")
 
  
