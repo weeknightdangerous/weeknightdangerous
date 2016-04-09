@@ -1,11 +1,16 @@
 angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, addFav, imageService, $scope) {
+.controller('profileCtrl', function( showTrails, addFav, imageService, $scope) {
    
   var profile = this;
+  
   profile.data = {};
   profile.slides= {};
   profile.loading = true;
+  profile.showModal = false;
+  profile.toggleModal = function(){
+      profile.showModal = !profile.showModal;
+  };
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
     profile.getTrail = function() {

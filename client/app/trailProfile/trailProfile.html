@@ -21,6 +21,21 @@
       </div>
       <div class="col-md-12">
         <p>{{profile.data.description}}</p>
+        <!-- test -->
+        <button ng-click="toggleModal()" class="btn btn-default">Open modal</button>
+    
+  <modal title="Login form" visible="profile.showModal">
+    <form role="form">
+      <div class="form-group">
+        Test
+      </div>
+      <div class="form-group">
+       Test
+      </div>
+      
+    </form>
+  </modal>
+        <!-- end test -->
       </div>
     </div>
   </div>

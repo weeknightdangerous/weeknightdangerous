@@ -1,5 +1,7 @@
 angular.module('trailApp', [
+  'ui.bootstrap',
   'trailApp.services',
+  'trailApp.directives',
   'trailApp.intro',
   'trailApp.topNav',
   'trailApp.bkgd',
