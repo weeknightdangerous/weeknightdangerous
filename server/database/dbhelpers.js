@@ -95,7 +95,8 @@ dbhelpers.addComment = function(userID, trailID, comment) {
 };
 
 dbhelpers.trailComments = function(trailID) {
-  return db('comments').where({
+  return db('comments').join('users', 'comments.user_id', '=', 'users.uid')
+    .where({
       trail_id: trailID
     })
     .then(function(resp){
