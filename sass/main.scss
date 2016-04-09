@@ -26,5 +26,10 @@ h2 {
     margin-bottom: 25px;
     font-size: 3.2em;
 }
-
-  
+.loader{
+  background: transparent url('../img/ripple.gif') no-repeat;
+  background-position: center center;
+  display: block;
+  min-height: 200px;
+  min-width: 100%;
+  }

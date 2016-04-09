@@ -5,6 +5,7 @@ angular.module('trailApp.profile', [])
   var profile = this;
   profile.data = {};
   profile.slides= {};
+  profile.loading = true;
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
     profile.getTrail = function() {
@@ -29,6 +30,7 @@ angular.module('trailApp.profile', [])
     imageService.getImages()
     .then(function(data){
       profile.slides = data;
+      profile.loading = false;
     });
 
 })

@@ -1,4 +1,5 @@
 <div class="bg_container profile_slides">
+  <div class="loader" ng-show="profile.loading"></div>
   <ul>
     <li class="slide" ng-repeat="slide in profile.slides.data">
       <img src="{{slide.image.low_res.url}}">
