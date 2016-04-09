@@ -1,8 +1,18 @@
-var trailsApp = angular.module('trailApp.profile', [])
+angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, addFav, $scope) {
+
+.controller('profileCtrl', function( showTrails, addFav, imageService, $scope, $state) {
+   
   var profile = this;
+  
   profile.data = {};
+  profile.slides= {};
+  profile.loading = true;
+  profile.showModal = false;
+  profile.toggleModal = function(){
+      profile.showModal = !profile.showModal;
+      console.log('toggled');
+  };
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
     profile.getTrail = function() {
@@ -22,4 +32,12 @@ var trailsApp = angular.module('trailApp.profile', [])
     
     //initialize the trail data
     profile.getTrail();
+
+    //grab our images
+    imageService.getImages()
+    .then(function(data){
+      profile.slides = data;
+      profile.loading = false;
+    });
+
 })

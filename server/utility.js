@@ -14,13 +14,19 @@ exports.cleanTrails = function(data, type){
     obj.directions = item.directions;
     obj.lat = item.lat;
     obj.lon = item.lon;
+    obj.thumbnail = 'img/missing_image.jpg';
+    obj.rating = 0;
     for (var j = 0; j < item.activities.length; j++) {
       if(item.activities[j].activity_type_id == type){
         obj.url = item.activities[j].url;
         obj.description = item.activities[j].description;
         obj.length = item.activities[j].length;
-        obj.thumbnail = item.activities[j].thumbnail;
-        obj.rating = item.activities[j].rating;
+        if(item.activities[j].thumbnail){
+          obj.thumbnail = item.activities[j].thumbnail;
+        }
+        if(item.activities[j].rating){
+          obj.rating = Math.floor(item.activities[j].rating);
+        } 
       }
     }
     items.push(obj);

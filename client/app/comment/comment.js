@@ -14,7 +14,6 @@ angular.module('trailApp.comment', [])
     comments.getComments = function() {
       return commentForm.getComments()
         .then(function (result) {
-          console.log('get comments client: ', result);
           return comments.data = result;
         })
         .catch(function (err) {
@@ -23,11 +22,11 @@ angular.module('trailApp.comment', [])
     }
 
     comments.update = function(comment) {
-
       return commentForm.postComments(comment)
         .then(function (result) {
           console.log('post comments client result:', result);
           comments.getComments();  
+          comments.text = '';
         })
         .catch(function (err) {
           console.error('post comments client Error:', err);
