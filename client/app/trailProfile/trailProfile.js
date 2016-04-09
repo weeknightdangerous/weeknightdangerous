@@ -11,6 +11,7 @@ angular.module('trailApp.profile', [])
   profile.showModal = false;
   profile.toggleModal = function(){
       profile.showModal = !profile.showModal;
+      console.log('toggled');
   };
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
