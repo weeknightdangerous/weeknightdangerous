@@ -30,7 +30,7 @@ exports.addComment =  function(req, res) {
 };
 
 exports.addFav = function(req, res) {
-  dbhelpers.findUserBySession(req.cookies.trailrpark)
+  dbhelpers.findUserBySession(JSON.parse(req.cookies.trailrpark).session_id)
     .then(function(user){
       return dbhelpers.addFavorite(user.user_id, req.body.trailId)
     })
@@ -40,7 +40,7 @@ exports.addFav = function(req, res) {
 };
 
 exports.userFavs = function(req, res) {
-  dbhelpers.findUserBySession(req.cookies.trailrpark)
+  dbhelpers.findUserBySession(JSON.parse(req.cookies.trailrpark).session_id)
     .then(function(user){
       return dbhelpers.findFavsByUserID(user.user_id)
     })
