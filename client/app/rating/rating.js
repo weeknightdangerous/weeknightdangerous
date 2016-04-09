@@ -1,4 +1,4 @@
-angular.module('trailApp.rating')
+angular.module('trailApp.rating',[])
 .controller('RatingCtrl', function ($scope) {
   $scope.rate = 3;
   $scope.max = 5;

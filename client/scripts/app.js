@@ -9,8 +9,7 @@ angular.module('trailApp', [
   'trailApp.trailsList',
   'ngCookies',
   'ui.router',
-  'ngAnimate',
-  'ui.bootstrap'
+  'ngAnimate'
   ])
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
   $urlRouterProvider.otherwise('/home');
