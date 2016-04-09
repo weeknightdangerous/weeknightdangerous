@@ -1,6 +1,6 @@
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, addFav, $scope) {
+.controller('profileCtrl', function(showTrails, addFav, $scope, $state) {
   var profile = this;
   profile.data = {};
 

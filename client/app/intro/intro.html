@@ -1,15 +1,15 @@
- <div class="intro" ng-if="!intro.showList">
-    <form name="queryForm" class="search_form city_state_form secondary_content" ng-submit="intro.getList(intro.location, intro.queryForm.$valid)" novalidate>
+ <div class="intro" >
+    <form name="queryForm" class="search_form city_state_form secondary_content" ng-submit="intro.sendLocation(intro.location)" novalidate>
       <h4>1. Pick a city</h4>
       <input ng-model="intro.location.city" class="input_search_box" type="text"  placeholder="Enter a city here" required></input>  
       <h4>2. Pick a state</h4>
       <input ng-model="intro.location.state" class="input_search_box" type="text" placeholder="Enter a state here"  required></input><br />
       
-      <input class="btn btn-primary btn-lg active goBtn" type="submit" value="GO!" />
+      <input class="btn btn-primary btn-lg active goBtn" type="submit" value="GO!">
     </form>
   </div>  
 
-<div class="trailsListContainer" ng-if="intro.showList">
+<!-- <div class="trailsListContainer" ng-if="intro.showList">
   <h1>Trails in {{intro.city}}, {{intro.state}}</h1>
   <div ng-repeat="trail in intro.data" class="trail">
     <div class="trailsListTitle"><h2>{{trail.name}}</h2></div>
@@ -21,6 +21,6 @@
         Find out more >>
       </button>
       <hr/>
-  </div>
+  </div> -->
 </div>
 

@@ -16,7 +16,7 @@ angular.module('trailApp.bkgd', [])
     if(images !== oldImages){ // According to your implementation, your images promise changes reference
       images.then(function(data){
         $scope.pics = data;
-        console.log('here is our data:',$scope.pics);
+        //console.log('here is our data:',$scope.pics);
       });
     }
   });

@@ -30,8 +30,8 @@ angular.module('trailApp', [
               }
         }
      })
-      .state("results", {
-        url: '/results',
+      .state("trailsList", {
+        url: '/trailsList',
         views: {
       
               'trailsList': {
@@ -80,55 +80,33 @@ angular.module('trailApp', [
       })
 }])
 
-// For future use - please do not erase
-// .factory('AttachTokens', function ($window) {
-//   // this is an $httpInterceptor
-//   // its job is to stop all out going request
-//   // then look in local storage and find the user's token
-//   // then add it to the header so the server can validate the request
-//   var attach = {
-//     request: function (object) {
-//       var jwt = $window.localStorage.getItem('com.shortly');
-//       if (jwt) {
-//         object.headers['x-access-token'] = jwt;
-//       }
-//       object.headers['Allow-Control-Allow-Origin'] = '*';
-//       return object;
-//     }
-//   };
-//   return attach;
-// })
-
-// .run(function ($rootScope, $location, Auth) {
-//   // we listen for when angular is trying to change routes
-//   // when it does change routes, we then look for the token in localstorage
-//   // and send that token to the server to see if it is a real user or hasn't expired
-//   // if it's not valid, we then redirect back to signin/signup
-//   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-//     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
-//       $location.path('/signin');
-//     }
-//   });
-// });
-
 angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
   //showTrails.trail = {};
   showTrails.trailId = 0;
-  showTrails.list = {}
+  showTrails.list = {};
+  showTrails.location;
 
-  var getLocation = function(params) {
+  var userLocation = function(params) {
+    showTrails.location = params;
+    console.log('userLocation service: ', showTrails.location);
+
+  }
+
+  var getTrails = function() {
+    console.log('getLocation service location:', showTrails.location)
     return $http({
       method: 'GET', 
       url: '/api/trails/alltrails',
-      params: params
+      params: showTrails.location
     })
     .then(function(result) {
-      console.log("getLocation result: ", result.data)
-      showTrails.list = result.data;
-      return result.data;
+      showTrails.list.data = result.data;
+      showTrails.list.location = showTrails.location;
+      console.log("getLocation result: ", showTrails.list)
+      return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
@@ -138,19 +116,6 @@ angular.module('trailApp.services', ['ngCookies'])
     console.log('showTrails.trailId:', showTrails.trailId)
   };
 
-  // var getTrail = function(trailId) {
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/trails/trail',
-  //     params: trailId
-  //   })
-  //   .then(function(result) {
-  //     console.log('getTrail result: ', result.data); 
-  //     showTrails.trail = result.data;
-  //     console.log("showTrails.trail", showTrails.trail)
-  //     return result.data;
-  //   })
-  //};
 
    //to make showTrail available to the trailProfile controller
   var getTrail = function () {
@@ -169,7 +134,8 @@ angular.module('trailApp.services', ['ngCookies'])
 
 
   return {
-    getLocation: getLocation,
+    userLocation: userLocation,
+    getTrails: getTrails,
     getTrail: getTrail,
     getTrailId: getTrailId,
     setTrail: setTrail
@@ -226,14 +192,14 @@ angular.module('trailApp.services', ['ngCookies'])
   var getComments = function() {
     console.log('getComments trailId: ', trailId);
     return $http({
-      method: 'GET',
+      method: 'POST',
       url: '/commentList',
       data: {trailId: trailId},
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('get comment service:', result);
-      return result;
+      console.log('get comment service:', result.data);
+      return result.data;
     })
     .catch(function (err) {
       console.error('get comments service Error: ', err);
@@ -315,7 +281,7 @@ angular.module('trailApp.services', ['ngCookies'])
   var images = {}
   var imageServices = {};
   imageServices.homeImages = function(){
-    console.log('fired home images')
+    //console.log('fired home images')
       images = $http({
         method: 'GET', 
         url: '/api/insta/geo',
@@ -331,7 +297,7 @@ angular.module('trailApp.services', ['ngCookies'])
       })
   };
   imageServices.getImages = function(){
-    console.log('fired get images', images)
+    //console.log('fired get images', images)
     return images;  
   }
   return imageServices;
@@ -358,56 +324,20 @@ angular.module('trailApp.services', ['ngCookies'])
 
 angular.module('trailApp.intro', [])
 
-.controller('introCtrl', function($scope, $location, $state, showTrails, imageService) {
+.controller('introCtrl', function($window, showTrails, imageService) {
   // run the images service so the background can load
   imageService.homeImages();
 
   var intro = this;
+  var location = intro.location;
 
-  intro.showlist = false;
-  intro.data = [];
-
-  //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
-  intro.getList = function(location) {
-    console.log('showlist is working: ', location)
-    //if(isValid) { 
-      //make sure the trailList header will have capitalized city and state regardless of user input.
-      intro.city = capitalize(location.city);
-      intro.state = capitalize(location.state);
-      //get placename for bg
-
-      var placename = {placename: intro.city + ',' + intro.state};
-      imageService.locImages(placename);
-      //end placename for bg
-
-      return showTrails.getLocation(location)
-      .then(function (result) {
-        //show list and hide intro form
-        intro.showList = true;
-        intro.data = result;
-
-      })
-      .catch(function(err) {
-        console.log('getLocation err: ', err);
-      })
-    //}
-  };
-
-  //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
-  intro.getTrail = function(trail) {
-    // call the service function that will store the trail in showTrails service.
-    showTrails.setTrail(trail);
-    var id = trail.unique_id;
-    //redirect to /trail and pass in the trail's unique_id as parameter
-    $state.go('trail', { trailId: id});
-
+  intro.sendLocation = function(location) {
+    console.log('intro sendLocation: ', location)
+    showTrails.userLocation(location);
+    $window.location.href = '/#/trailsList'
     
   }
-
-  //helper function to make sure the city and state inputed by the user are capitalized
-  function capitalize (string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  
 
 });
 
@@ -451,7 +381,7 @@ angular.module('trailApp.bkgd', [])
     if(images !== oldImages){ // According to your implementation, your images promise changes reference
       images.then(function(data){
         $scope.pics = data;
-        console.log('here is our data:',$scope.pics);
+        //console.log('here is our data:',$scope.pics);
       });
     }
   });
@@ -469,7 +399,7 @@ angular.module('trailApp.bkgd', [])
     // $scope.displayGrams();
 var trailsApp = angular.module('trailApp.profile', [])
 
-.controller('profileCtrl', function(showTrails, addFav, $scope) {
+.controller('profileCtrl', function(showTrails, addFav, $scope, $state) {
   var profile = this;
   profile.data = {};
 
@@ -509,9 +439,7 @@ angular.module('trailApp.comment', [])
     comments.getComments = function() {
       return commentForm.getComments()
         .then(function (result) {
-          console.log('get comments client: ', result);
           return comments.data = result;
-          console.log('get comments client: ', comments.data);
         })
         .catch(function (err) {
           console.error('get comments client:', err);
@@ -523,6 +451,7 @@ angular.module('trailApp.comment', [])
         .then(function (result) {
           console.log('post comments client result:', result);
           comments.getComments();  
+          comments.text = '';
         })
         .catch(function (err) {
           console.error('post comments client Error:', err);
@@ -536,12 +465,64 @@ angular.module('trailApp.comment', [])
   });
 angular.module('trailApp.trailsList', [])
 
-.controller('TrailsListCtrl', function (showTrails) {
+.controller('TrailsListCtrl', function (showTrails, imageService, $state) {
 	var trails = this;
-	trails.data = showTrails.trails;
-	console.log(trails.data);
+
+	trails.data = [];
+  trails.city;
+  trails.state;
+
+  //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
+  trails.getList = function() {
+    //if(isValid) { 
+      // //make sure the trailList header will have capitalized city and state regardless of user input.
+      // trails.city = capitalize(location.city);
+      // trails.state = capitalize(location.state);
+      // //get placename for bg
+
+      // var placename = {placename: trails.city + ',' + trails.state};
+      // imageService.locImages(placename);
+      // //end placename for bg
+
+      return showTrails.getTrails()
+      .then(function (result) {
+        console.log('trailsList ctrl result:', result)
+        trails.data = result.data;
+        var location = result.location;
+        //make sure the trailList header will have capitalized city and state regardless of user input.
+        trails.city = capitalize(location.city);
+        trails.state = capitalize(location.state);
+        //get placename for bg
+
+        var placename = {placename: trails.city + ',' + trails.state};
+        imageService.locImages(placename);
+        //end placename for bg
 
 
+      })
+      .catch(function(err) {
+        console.log('getLocation err: ', err);
+      })
+    //}
+  };
+
+  //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
+  trails.getTrail = function(trail) {
+    // call the service function that will store the trail in showTrails service.
+    showTrails.setTrail(trail);
+    var id = trail.unique_id;
+    //redirect to /trail and pass in the trail's unique_id as parameter
+    $state.go('trail', { trailId: id});
+
+    
+  }
+
+  //helper function to make sure the city and state inputed by the user are capitalized
+  function capitalize (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  trails.getList()
 
 });
 
