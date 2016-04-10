@@ -21,7 +21,13 @@
         <div class="trail_rating">{{profile.data.rating}} stars</div>
         <h4>{{profile.data.length}} miles</h4>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-4">
+        <div id="map">
+          <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+        </div>
+        <p> {{ profile.data.directions }} </p>
+      </div>
+      <div class="col-md-8">
         <p>{{profile.data.description}}</p>
         <!-- test -->
         <button ng-click="profile.toggleModal()" class="btn btn-default">Open modal</button>

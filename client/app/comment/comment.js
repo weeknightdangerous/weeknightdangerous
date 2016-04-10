@@ -22,17 +22,19 @@ angular.module('trailApp.comment', [])
         })
     }
 
-    comments.update = function(comment) {
-      return commentForm.postComments(comment)
-        .then(function (result) {
-          console.log('post comments client result:', result);
-          comments.getComments();  
-          comments.text = '';
-        })
-        .catch(function (err) {
-          console.error('post comments client Error:', err);
-        })
-    
+    comments.update = function(comment, isValid) {
+      console.log('isValid', isValid)
+      if (isValid) {
+        return commentForm.postComments(comment)
+          .then(function (result) {
+            console.log('post comments client result:', result);
+            comments.getComments();  
+            comments.text = '';
+          })
+          .catch(function (err) {
+            console.error('post comments client Error:', err);
+          })
+      }
     };
     //initialize user status: if user is signed in when this page is rendered
     comments.isUser();

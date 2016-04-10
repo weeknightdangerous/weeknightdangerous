@@ -11,9 +11,19 @@ angular.module('trailApp', [
   'trailApp.trailsList',
   'ngCookies',
   'ui.router',
+  'uiGmapgoogle-maps',
   'ngAnimate'
   ])
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
+
+// .config(function(uiGmapGoogleMapApiProvider) {
+//     uiGmapGoogleMapApiProvider.configure({
+//         //    key: 'your api key',
+//         v: '3.20', //defaults to latest 3.X anyhow
+//         libraries: 'weather,geometry,visualization'
+//     });
+// })
+
+.config(['$stateProvider', '$urlRouterProvider', 'uiGmapGoogleMapApiProvider', function($stateProvider, $urlRouterProvider, $stateparams, uiGmapGoogleMapApiProvider) {
   $urlRouterProvider.otherwise('/home');
   $stateProvider
      .state("home", {
@@ -79,4 +89,11 @@ angular.module('trailApp', [
         }
 
       })
+
+      uiGmapGoogleMapApiProvider.configure({
+          
+            key: 'AIzaSyD9-6X31CFcRUlO_lgt-v5Q184fcCpJd_E',
+            v: '3.20', //defaults to latest 3.X anyhow
+            libraries: 'weather,geometry,visualization'
+    });
 }])

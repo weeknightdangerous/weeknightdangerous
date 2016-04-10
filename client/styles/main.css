@@ -5978,10 +5978,13 @@ h3 .navbar-text {
         .comment .commentList .single-comment p h4 {
           margin: 20px 0 0 130px; }
   .comment .commentForm {
-    margin: 65px 40px 0 35px; }
+    padding: 65px 40px 0 20px; }
     .comment .commentForm .comment-text {
       border-radius: 20px;
-      background-color: #F5F5F5; }
+      background-color: #F5F5F5;
+      padding: 20px;
+      border: none;
+      outline: none; }
 
 .favoriteButton {
   border-radius: 10px; }
@@ -6000,6 +6003,9 @@ h3 .navbar-text {
 .profile_slides {
   background: #000;
   overflow: hidden; }
+
+#map {
+  height: 400px; }
 
 .input_search_box {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
