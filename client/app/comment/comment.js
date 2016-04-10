@@ -4,9 +4,12 @@ angular.module('trailApp.comment', [])
     var comments = this;
     comments.user = false;
     comments.data = [];
+    comments.username;
 
     comments.isUser = function() {
       comments.user = Auth.checkUser();
+      comments.username= Auth.getUser();
+  
       console.log('comments.user:', comments.user);
       
     }

@@ -1,7 +1,7 @@
 angular.module('trailApp.profile', [])
 
 
-.controller('profileCtrl', function( showTrails, addFav, imageService, $scope, $state, uiGmapGoogleMapApi) {
+.controller('profileCtrl', function( showTrails, addFav, imageService, $scope, $state) {
    
   var profile = this;
   
@@ -30,26 +30,12 @@ angular.module('trailApp.profile', [])
     };
 
     profile.addMap = function() {
-      return initMap();
+      
     } ;
 
-    function initMap() {
-     
-
-      uiGmapGoogleMapApi.then(function(maps) {
-        $scope.map = {
-          center: {
-                  latitude: 56.162939,
-                  longitude: 10.203921
-          },
-          zoom: 8
-      };
-      });
-    }
     
     //initialize the trail data
     profile.getTrail();
-    profile.addMap();
 
     //grab our images
     imageService.getImages()

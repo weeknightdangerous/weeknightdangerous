@@ -12,9 +12,9 @@
 
     .single-comment {
       background-color: #F5F5F5;
-      margin: 20px 0 0 20px;
+      margin: 20px 20px 0 0px;
       padding: 10px;
-      border-radius: 20px;
+      //border-radius: 20px;
       @extend .clearfix;
     
       img {
@@ -23,17 +23,26 @@
       }
 
       p {
-        h4 {
-          margin: 20px 0 0 130px;
-        }
         padding-left: 20px;
         float: left;
       }
+
+      h4 {
+         margin: 20px 0 10px 130px;
+      }
+
+    }
+
+     
+  }    
+
+  .commentForm {
+    padding: 41px 0px 0 30px;
+
+    .h3 {
+      font-size: 0.8em;
     }
     
-  }
-  .commentForm {
-    padding: 65px 40px 0 20px;
     .comment-text {
       border-radius: 20px;
       background-color: #F5F5F5;

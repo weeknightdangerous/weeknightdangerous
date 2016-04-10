@@ -10,14 +10,16 @@
          <!-- <hr> -->
           <div class="single-comment" ng-repeat="comment in comments.data | filter:query | orderBy: 'created_at':true">
             <img src="{{ comment.imageUrl }} " alt="user image" height="110" width="110">
-            <p><h4>{{ comment.full_name }} says,</h4></br> {{ comment.comment }}</p>
+            <h4>{{ comment.full_name }} says,</h4>
+            <p>{{ comment.comment }}</p>
           </div>
         </div>  
 
         <div class="col-md-6 commentForm" ng-if="comments.user">
           <form name="commentForm" ng-submit="comments.update(comments.text, commentForm.$valid)" novalidate>
-            <p>Howdy, (placeholder: user name) how's the trail?</p>
-            <textarea name="comment" class="comment-text textarea" rows="4" cols="50" ng-model="comments.text" required /></textarea><br />
+            <h3>Howdy, {{ comments.username }} </h3> 
+            <h4>Tell us your experience with this trail</h4>
+            <textarea name="comment" class="comment-text textarea" rows="10" cols="50" ng-model="comments.text" required /></textarea><br />
               <p ng-show="commentForm.comment.$error.required">Opps you forgot to add a comment</p>
             <input type="submit" value="Save" ng-disabled="commentForm.$invalid"/>
           </form>

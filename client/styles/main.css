@@ -5966,19 +5966,20 @@ h3 .navbar-text {
     padding: 0 0 0 40px; }
     .comment .commentList .single-comment {
       background-color: #F5F5F5;
-      margin: 20px 0 0 20px;
-      padding: 10px;
-      border-radius: 20px; }
+      margin: 20px 20px 0 0px;
+      padding: 10px; }
       .comment .commentList .single-comment img {
         float: left;
         border-radius: 50%; }
       .comment .commentList .single-comment p {
         padding-left: 20px;
         float: left; }
-        .comment .commentList .single-comment p h4 {
-          margin: 20px 0 0 130px; }
+      .comment .commentList .single-comment h4 {
+        margin: 20px 0 10px 130px; }
   .comment .commentForm {
-    padding: 65px 40px 0 20px; }
+    padding: 41px 0px 0 30px; }
+    .comment .commentForm .h3 {
+      font-size: 0.8em; }
     .comment .commentForm .comment-text {
       border-radius: 20px;
       background-color: #F5F5F5;
