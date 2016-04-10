@@ -2,16 +2,20 @@ var trailsApp = angular.module('trailApp.myFav', [])
 
 .controller('myFavCtrl', function(addFav, showTrails, $state) {
   var myFav = this;
+  myFav.data;
 
   myFav.getFavList = function() {
     console.log('myFave.getFavList is working')
-    var data = showTrails.getTrail();
-    console.log('data', data);
+    myFav.loader=true;
+    // var data = showTrails.getTrail();
+    // console.log('data', data);
 
-    return addFav.getFav()
+    addFav.getFav()
       .then(function(result) {
         console.log('getFavList client result:', result.data);
+        myFav.loader=false;
         myFav.data = result.data;
+        console.log('myFav.data:', myFav.data)
       })
       .catch(function(err) {
         console.error('getFavList client error:', err);

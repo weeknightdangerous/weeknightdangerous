@@ -16,8 +16,7 @@
             <div class="col-md-7">
               <h3>{{trail.name}}</h3>
               <div class="trailsStars">
-                <span ng-repeat="rating in ratings">{{rating.current}} out of
-                    {{rating.max}}
+                <span ng-repeat="rating in ratings">
                   <div star-rating rating-value=trail.rating max="rating.max" ></div>
                 </span>
               </div>

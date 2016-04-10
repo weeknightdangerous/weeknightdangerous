@@ -18,7 +18,7 @@ angular.module('trailApp.profile', [])
   $scope.ratings = [{
         current: profile.rating,
         max: 5
-    }];
+  }];
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
     profile.getTrail = function() {

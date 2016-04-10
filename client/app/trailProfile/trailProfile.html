@@ -9,23 +9,26 @@
 </div>
 <div class="profile">
   <div class="container">
-  <button ui-sref="trailsList">back</button>
+  <a ui-sref="trailsList">back</a>
     <div class="row">
       <div class="col-md-9">
         <h2>{{profile.data.name}}</h2>
       </div>
-      <div class="col-md-3">
-        <button type="button" name="favorite_button" class="btn btn-primary btn-lg active" ng-click="profile.addFav()">add to favorite</button>
-      </div>
-      <div class="col-md-12">
-        <div class="trail_rating">
+
+      <div class="col-md-12 infoWidget">
+         <div class="col-md-4 widget">
           <span ng-repeat="rating in ratings">
           <div star-rating rating-value=profile.rating max=5></div>
           </span>
-
         </div>
-        <h4>{{profile.data.length}} miles</h4>
+        <div class="col-md-4 widget">       
+          <h4><span class="length">{{profile.data.length}} </span> miles</h4>
+        </div>
+        <div class="col-md-4 widget addFav">
+          <a ng-click="profile.addFav()"><span class="heart">&#x2764 </span>add to favorite</a>
+        </div>
       </div>
+      
       <div class="col-md-4">
         <div id="map">
         </div>
@@ -53,4 +56,4 @@
   </div>
 </div>
   
-      <!-- <div class="trail_directions">"{{profile.data.directions}}"</div> -->
+      <!-- class="btn btn-primary btn-lg active" -->
