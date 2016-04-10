@@ -18,7 +18,12 @@
         <button type="button" name="favorite_button" class="btn btn-primary btn-lg active" ng-click="profile.addFav()">add to favorite</button>
       </div>
       <div class="col-md-12">
-        <div class="trail_rating">{{profile.data.rating}} stars</div>
+        <div class="trail_rating">
+          <span ng-repeat="rating in ratings">
+          <div star-rating rating-value=profile.rating max=5></div>
+          </span>
+
+        </div>
         <h4>{{profile.data.length}} miles</h4>
       </div>
       <div class="col-md-4">

@@ -13,10 +13,17 @@ angular.module('trailApp.profile', [])
       profile.showModal = !profile.showModal;
       console.log('toggled');
   };
+  profile.rating;
+
+  $scope.ratings = [{
+        current: profile.rating,
+        max: 5
+    }];
 
     //get trail info from the stored value in showTrails service by using showTrails.getTrail(); 
     profile.getTrail = function() {
       profile.data = showTrails.getTrail();
+      profile.rating = profile.data.rating;
      };
 
     profile.addFav = function() {
@@ -45,3 +52,4 @@ angular.module('trailApp.profile', [])
     });
 
 })
+

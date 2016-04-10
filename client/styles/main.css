@@ -5958,6 +5958,25 @@ h3 .navbar-text {
   .trail button {
     margin-top: 50px; }
 
+.rating {
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  padding: 0; }
+
+ul.rating {
+  display: inline-block; }
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer; }
+
+.rating .filled {
+  color: #0056e0; }
+
 .comment {
   background: #eee; }
   .comment .container {
@@ -5977,7 +5996,7 @@ h3 .navbar-text {
       .comment .commentList .single-comment h4 {
         margin: 20px 0 10px 130px; }
   .comment .commentForm {
-    padding: 41px 0px 0 30px; }
+    padding: 0 0px 0 30px; }
     .comment .commentForm .h3 {
       font-size: 0.8em; }
     .comment .commentForm .comment-text {

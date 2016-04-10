@@ -1,11 +1,16 @@
 angular.module('trailApp.trailsList', [])
 
-.controller('TrailsListCtrl', function (showTrails, imageService, $state) {
+.controller('TrailsListCtrl', function (showTrails, imageService, $state, $scope) {
 	var trails = this;
 
 	trails.data = [];
   trails.city;
   trails.state;
+
+  $scope.ratings = [{
+        current: 0,
+        max: 5
+  }];
 
   //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
   trails.getList = function() {
