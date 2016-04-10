@@ -67,12 +67,19 @@ angular.module('trailApp.services', ['ngCookies'])
 
   var checkUser = function () {
     cookie = $cookies.get('trailrpark');
-    console.log('service cookie: ', cookie)
+    
     if (cookie !== undefined) {
       isUser = true;
+      cookie = JSON.parse(cookie);
     }
-    console.log('checkUser service: ', isUser);
+
     return isUser;
+  };
+
+  var getUser = function () {
+    if (cookie !== undefined) {
+      return cookie.username;
+   }
   };
 
   var removeUser = function () {
@@ -83,6 +90,7 @@ angular.module('trailApp.services', ['ngCookies'])
 
   return {
     checkUser: checkUser,
+    getUser: getUser,
     removeUser: removeUser
   };  
 })

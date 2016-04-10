@@ -2,6 +2,7 @@ var trailsApp = angular.module('trailApp.topNav', [])
 
 .controller('topNav', function($window, Auth) {
 	var nav = this;
+  nav.user;
   nav.signInToggle = Auth.checkUser();; 
 
   nav.signIn = function () {
@@ -18,4 +19,12 @@ var trailsApp = angular.module('trailApp.topNav', [])
     nav.signInToggle = !nav.signInToggle;
     $window.location.href = '/';
   }
+
+  nav.getUser = function () {
+    nav.user = Auth.getUser();
+  }
+
+  //initialize user information
+  nav.getUser();
+
 })
