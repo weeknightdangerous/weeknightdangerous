@@ -19,9 +19,9 @@ exports.allTrails = function(req, res) {
   })
   .then(function(allTrails){
     //console.log('we got the data',allTrails.data.places)
-    //pass in '2' for hiking trails (only worrying about those for now)
+    //pass in '5' for hiking trails (only worrying about those for now)
     // we filter out all other trail usage in the cleanTrails utility
-    var cleanData = utilities.cleanTrails(allTrails.data.places, '2');
+    var cleanData = utilities.cleanTrails(allTrails.data.places, '5');
     
     res.json(cleanData);
   })
@@ -40,9 +40,9 @@ exports.singleTrail = function(req, res) {
   })
   .then(function(trail){
     //console.log('we got the data', trail)
-    //pass in '2' for hiking trails (only worrying about those for now)
+    //pass in '5' for hiking trails (only worrying about those for now)
     // we filter out all other trail usage in the cleanTrails utility
-    var cleanData = utilities.cleanTrails(trail.data.places, '2');
+    var cleanData = utilities.cleanTrails(trail.data.places, '5');
     
     return cleanData;
     

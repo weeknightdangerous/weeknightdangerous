@@ -1,12 +1,15 @@
 
 <div class="container">
+  <div ng-show="trails.loader" class="loader-wrapper">
+  	<h2 class="text-center">Searching</h2>
+    <div ng-show="trails.loader" class="loader"></div>
+  </div>
   <div class="trailsListContainer">
     <div class="row">
       <div class="col-md-12">
         <div class="trails">
-        <h2>Trails in {{trails.city}}, {{trails.state}}</h2>
-        <div ng-show="trails.loader" class="loader"></div>
-        <div ng-repeat="trail in trails.data" class="trail">
+        <h2 class="results-title" ng-hide="trails.loader">Trails in {{trails.city}}, {{trails.state}}</h2>
+        <div ng-repeat="trail in trails.data | orderBy: '-rating'" class="trail" >
           <div class="row">
             <div class="col-md-2">
               <img class="img-responsive" src={{trail.thumbnail}}></img>
