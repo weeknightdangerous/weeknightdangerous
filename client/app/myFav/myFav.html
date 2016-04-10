@@ -1,8 +1,9 @@
+<!--
 <div class="trailsListContainer">
   <h1>My Favorite Trails</h1>
   <div ng-animate="animate" ng-repeat="trail in myFav.data" class="trailsListTrailWrap">
     <div class="trailsListTitle">{{trail.name}}</div>
-      <!--<img class="trailsListImg" src={{trail.url}}></img> -->
+      <img class="trailsListImg" src={{trail.url}}></img>
       <p>{{trail.description}}</p>
       <div class="trailsListRating">"{{trail.rating}}"</div>
       <button
@@ -10,5 +11,44 @@
         ng-click="myFav.getTrail(trail)">
         Find out more >>
       </button>
+  </div>
+</div>
+-->
+
+<div class="container">
+  <div ng-show="myFav.loader" class="loader-wrapper">
+    <h2 class="text-center">Searching</h2>
+    <div ng-show="myFav.loader" class="loader"></div>
+  </div>
+  <div class="myFavContainer">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="trails">
+        <!--<h2 class="results-title" ng-hide="trails.loader">Trails in {{trails.city}}, {{trails.state}}</h2> -->
+        <div ng-repeat="trail in myFav.data | orderBy: '-rating'" class="trail" >
+          <div class="row">
+            <div class="col-md-2">
+              <img class="img-responsive" src={{trail.thumbnail}}></img>
+            </div>
+            <div class="col-md-7">
+              <h3>{{trail.name}}</h3>
+              <div class="trailsStars">
+                <span ng-repeat="rating in ratings">
+                  <div star-rating rating-value=trail.rating max="rating.max" ></div>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              
+              <button
+                class="btn btn-primary btn-lg btn-block"
+                ng-click="myFav.getTrail(trail)">
+                More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

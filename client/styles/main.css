@@ -5958,6 +5958,31 @@ h3 .navbar-text {
   .trail button {
     margin-top: 50px; }
 
+.rating {
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  padding: 0; }
+
+ul.rating {
+  display: inline-block; }
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer; }
+
+.rating .filled {
+  color: #0056e0; }
+
+.myFavContainer {
+  position: absolute;
+  z-index: 20;
+  padding-right: 100px;
+  top: 150px; }
+
 .comment {
   background: #eee; }
   .comment .container {
@@ -5977,7 +6002,7 @@ h3 .navbar-text {
       .comment .commentList .single-comment h4 {
         margin: 20px 0 10px 130px; }
   .comment .commentForm {
-    padding: 41px 0px 0 30px; }
+    padding: 0 0px 0 30px; }
     .comment .commentForm .h3 {
       font-size: 0.8em; }
     .comment .commentForm .comment-text {
@@ -5995,11 +6020,41 @@ h3 .navbar-text {
   color: #fff;
   clear: both;
   padding: 20px; }
-  .profile button {
-    float: right;
-    margin-top: 20px; }
   .profile p {
     font-size: 1.5em; }
+  .profile .infoWidget {
+    background-color: rgba(119, 119, 119, 0.44);
+    border-radius: 20px 0 30px 0;
+    border: 1px solid darkgrey;
+    margin-bottom: 30px; }
+    .profile .infoWidget .widget {
+      text-align: center;
+      padding: 10px 0;
+      margin: 0;
+      border-right: 1px solid darkgrey;
+      height: 79px; }
+      .profile .infoWidget .widget .star-rating {
+        padding-top: 3px; }
+      .profile .infoWidget .widget ul.rating {
+        font-size: 1.5em;
+        padding: 14px 0 0 15px; }
+      .profile .infoWidget .widget .length {
+        font-size: 2em; }
+      .profile .infoWidget .widget .heart {
+        font-size: 2.8em; }
+    .profile .infoWidget .widget.addFav {
+      border-right: none;
+      position: relative;
+      top: -5px; }
+      .profile .infoWidget .widget.addFav a {
+        color: lightgrey;
+        font-size: 1.2em; }
+        .profile .infoWidget .widget.addFav a:hover {
+          color: #0056e0;
+          text-decoration: none; }
+      .profile .infoWidget .widget.addFav a.myFavAdded {
+        color: #0056e0;
+        pointer-events: none; }
 
 .profile_slides {
   background: #000;
