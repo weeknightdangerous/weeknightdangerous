@@ -9,7 +9,7 @@
 </div>
 <div class="profile">
   <div class="container">
-  <a ui-sref="trailsList">back</a>
+  <a ui-sref="trailsList"> << back</a>
     <div class="row">
       <div class="col-md-9">
         <h2>{{profile.data.name}}</h2>
@@ -25,13 +25,15 @@
           <h4><span class="length">{{profile.data.length}} </span> miles</h4>
         </div>
         <div class="col-md-4 widget addFav">
-          <a ng-click="profile.addFav()"><span class="heart">&#x2764 </span>add to favorite</a>
+          <a ng-click="profile.addFav()" ng-show="profile.myFavAdd"><span class="heart">&#x2764 </span>add to favorites</a>
+          <a class="myFavAdded" ng-show="!profile.myFavAdd"><span class="heart">&#x2764 </span>Added to Favorites</a>
         </div>
       </div>
       
       <div class="col-md-4">
         <div id="map">
         </div>
+        <h3>Directions:</h3>
         <p> {{ profile.data.directions }} </p>
       </div>
       <div class="col-md-8">

@@ -5977,6 +5977,12 @@ ul.rating {
 .rating .filled {
   color: #0056e0; }
 
+.myFavContainer {
+  position: absolute;
+  z-index: 20;
+  padding-right: 100px;
+  top: 150px; }
+
 .comment {
   background: #eee; }
   .comment .container {
@@ -6041,11 +6047,14 @@ ul.rating {
       position: relative;
       top: -5px; }
       .profile .infoWidget .widget.addFav a {
-        color: #0056e0;
+        color: lightgrey;
         font-size: 1.2em; }
         .profile .infoWidget .widget.addFav a:hover {
-          color: lightgrey;
+          color: #0056e0;
           text-decoration: none; }
+      .profile .infoWidget .widget.addFav a.myFavAdded {
+        color: #0056e0;
+        pointer-events: none; }
 
 .profile_slides {
   background: #000;

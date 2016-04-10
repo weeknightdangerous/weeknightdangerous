@@ -8,6 +8,7 @@ angular.module('trailApp.profile', [])
   profile.data = {};
   profile.slides= {};
   profile.loading = true;
+  profile.myFavAdd = true;
   profile.showModal = false;
   profile.toggleModal = function(){
       profile.showModal = !profile.showModal;
@@ -30,6 +31,7 @@ angular.module('trailApp.profile', [])
       return addFav.postFav()
         .then(function (result) {
           console.log('addFavClient result:', result);
+          profile.myFavAdd = false;
         })
         .catch(function (err) {
           console.error('addFavClient error:', err);

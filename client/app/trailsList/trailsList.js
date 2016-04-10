@@ -64,9 +64,6 @@ angular.module('trailApp.trailsList', [])
     //redirect to /trail and pass in the trail's unique_id as parameter
     $state.go('trail', { trailId: id});
 
-
-
-    
   }
 
   //helper function to make sure the city and state inputed by the user are capitalized

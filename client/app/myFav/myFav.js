@@ -1,8 +1,13 @@
 var trailsApp = angular.module('trailApp.myFav', [])
 
-.controller('myFavCtrl', function(addFav, showTrails, $state) {
+.controller('myFavCtrl', function(addFav, showTrails, $state, $scope, imageService) {
   var myFav = this;
   myFav.data;
+
+  $scope.ratings = [{
+        current: 0,
+        max: 5
+  }];
 
   myFav.getFavList = function() {
     console.log('myFave.getFavList is working')
@@ -36,5 +41,10 @@ var trailsApp = angular.module('trailApp.myFav', [])
 
   //initialize user's favorite trails list
   myFav.getFavList();
+
+  imageService.getImages()
+  .then(function(data){
+    $scope.pics = data;
+  });
    
 })
