@@ -40,3 +40,6 @@ angular.module('trailApp.directives', [])
       }
     };
   });
+
+
+

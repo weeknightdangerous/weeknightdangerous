@@ -33,7 +33,7 @@ gulp.task('concat-dep', function() {
 });
 
 gulp.task('concat-app', function() {
-  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js', 'client/app/myFav/myFav.js','client/app/directives/modal.js'])
+  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js', 'client/app/myFav/myFav.js','client/app/directives/modal.js','client/app/rating/rating.js'])
     .pipe(concat('app.js'))
     .pipe(gulp.dest('./client/scripts'));
 });

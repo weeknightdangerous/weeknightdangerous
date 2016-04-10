@@ -1,3 +1,5 @@
-<div ng-controller="RatingCtrl">
-    <uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+<div ng-controller="StarCtrl"> 
+	<span ng-repeat="rating in ratings">
+    <div star-rating rating-value="rating.current" max="rating.max" ></div>
+  </span>
 </div>

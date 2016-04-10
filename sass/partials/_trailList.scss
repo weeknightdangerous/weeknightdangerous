@@ -21,4 +21,9 @@
     margin-top: 50px;
   }
 }
- 
+.starTrail {
+  height: 200px;
+  width: 200px;
+  background: red;
+  z-index: 100; 
+}

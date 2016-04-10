@@ -5953,6 +5953,12 @@ button.close {
   .trail button {
     margin-top: 50px; }
 
+.starTrail {
+  height: 200px;
+  width: 200px;
+  background: red;
+  z-index: 100; }
+
 .comment {
   background: #eee; }
   .comment .container {
