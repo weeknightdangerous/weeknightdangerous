@@ -1,8 +1,14 @@
-angular.module('trailApp.profile', [])
+angular.module('trailApp.profile', ['ui.bootstrap'])
 
 
-.controller('profileCtrl', function( showTrails, addFav, imageService, $scope, $state) {
-   
+.controller('profileCtrl', function( $uibModal,showTrails, addFav, imageService, $scope, $state, NgMap) {
+  //our map
+  NgMap.getMap().then(function(map) {
+    console.log(map.getCenter());
+    console.log('markers', map.markers);
+    console.log('shapes', map.shapes);
+  });
+  
   var profile = this;
   
   profile.data = {};
@@ -10,10 +16,29 @@ angular.module('trailApp.profile', [])
   profile.loading = true;
   profile.myFavAdd = true;
   profile.showModal = false;
-  profile.toggleModal = function(){
-      profile.showModal = !profile.showModal;
-      console.log('toggled');
+
+  //click image, show modal
+  profile.open = function (slide) {
+    profile.selected = slide
+    $uibModal.open({
+      template: '<my-modal modal="modal">' +
+        '<div class="modal-body">' + 
+          '<img class="img-responsive" src="{{ viewer.slide.image.high_res.url }}">' +
+          '<a class="user-link" target="blank" href="{{viewer.slide.link}}">' +
+            '<img class="img-circle profile gram-user" src="{{viewer.slide.user.profile_pic}}">' +
+          '</a>' +
+        '</div>' +
+      '</my-modal>',
+      controller: 'ModalInstanceCtrl as viewer',
+      resolve: {
+        items: function(){
+          console.log(profile.selected)
+          return profile.selected;
+        }
+      }
+    })
   };
+
   profile.rating;
 
   $scope.ratings = [{
@@ -46,12 +71,19 @@ angular.module('trailApp.profile', [])
     //initialize the trail data
     profile.getTrail();
 
-    //grab our images
-    imageService.getImages()
-    .then(function(data){
-      profile.slides = data;
-      profile.loading = false;
-    });
+
+  //grab our images
+  imageService.getImages()
+  .then(function(data){
+    profile.slides = data;
+    profile.loading = false;
+  });
 
 })
+.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
 
+    var viewer = this;
+
+    //I want to get the vehicle data pass to populate the form myModalContent.html
+    viewer.slide = items;
+})

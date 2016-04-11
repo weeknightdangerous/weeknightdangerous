@@ -81,6 +81,11 @@ angular.module('trailApp.services', ['ngCookies'])
       return cookie.username;
    }
   };
+  var getImage = function () {
+    if (cookie !== undefined) {
+      return cookie.image;
+   }
+  };
 
   var removeUser = function () {
     $cookies.remove("trailrpark");
@@ -91,6 +96,7 @@ angular.module('trailApp.services', ['ngCookies'])
   return {
     checkUser: checkUser,
     getUser: getUser,
+    getImage: getImage,
     removeUser: removeUser
   };  
 })
