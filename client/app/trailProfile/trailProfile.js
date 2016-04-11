@@ -32,7 +32,7 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
       controller: 'ModalInstanceCtrl as viewer',
       resolve: {
         items: function(){
-          console.log(profile.selected)
+          // console.log(profile.selected)
           return profile.selected;
         }
       }
@@ -55,7 +55,7 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     profile.addFav = function() {
       return addFav.postFav()
         .then(function (result) {
-          console.log('addFavClient result:', result);
+          // console.log('addFavClient result:', result);
           profile.myFavAdd = false;
         })
         .catch(function (err) {
