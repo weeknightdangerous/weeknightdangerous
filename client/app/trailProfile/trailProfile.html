@@ -3,7 +3,7 @@
   <div class="loader" ng-show="profile.loading"></div>
   <ul>
     <li class="slide" ng-repeat="slide in profile.slides.data">
-      <img ng-click="profile.viewModal(slide)" src="{{slide.image.low_res.url}}">
+      <img ng-click="profile.open(slide)" src="{{slide.image.low_res.url}}">
     </li>
   </ul>
 </div>
@@ -23,21 +23,6 @@
       </div>
       <div class="col-md-12">
         <p>{{profile.data.description}}</p>
-        <!-- test -->
-        <button ng-click="profile.toggleModal()" class="btn btn-default">Open modal</button>
-    
-        <modal title="Login form" visible="profile.showModal">
-          <form role="form">
-            <div class="form-group">
-              Test
-            </div>
-            <div class="form-group">
-             Test
-            </div>
-            
-          </form>
-        </modal>
-        <!-- end test -->
       </div>
     </div>
   </div>

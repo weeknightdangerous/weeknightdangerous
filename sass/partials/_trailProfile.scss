@@ -10,3 +10,18 @@
   background: #000;
   overflow: hidden;
 }
+.gram-user{
+  background: #fff;
+  &:hover{
+    background: #57B1FF;
+  }
+}
+.slide{
+  cursor: pointer;
+}
+.user-link{
+  position: absolute;
+  bottom: 0;
+  bottom: -75px;
+  left: 35%;
+}
