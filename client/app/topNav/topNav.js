@@ -16,7 +16,7 @@ var trailsApp = angular.module('trailApp.topNav', [])
 
   nav.signOut = function () {
     Auth.removeUser();
-    console.log('Auth.cookie', Auth.cookie)
+    //console.log('Auth.cookie', Auth.cookie)
     nav.signInToggle = !nav.signInToggle;
     $window.location.href = '/';
   }
