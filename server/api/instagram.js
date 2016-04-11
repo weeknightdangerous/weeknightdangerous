@@ -18,21 +18,6 @@ exports.geoImages = function(req, res){
   })
   .then(function(instaPics){
     res.json(utilities.cleanGrams(instaPics.data));
-    //res.json(instaPics.data);
   })
 }
 
-
-// exports.locImages = function(req,res){
-  
-//   var city = req.query.city;
-
-//   axios({
-//     method: 'get',
-//     url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' + config.INSTA.PIRATE_ID,
-//     headers: {}
-//   })
-//   .then(function(instaPics){
-//     res.json(instaPics.data);
-//   })
-// }
