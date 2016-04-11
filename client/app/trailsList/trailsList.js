@@ -18,7 +18,6 @@ angular.module('trailApp.trailsList', [])
       return showTrails.getTrails()
       .then(function (result) {
         // console.log('trailsList ctrl result:', result.data)
-
         if (result.data.length === 0) {
           trails.noTrials = true;
         }
