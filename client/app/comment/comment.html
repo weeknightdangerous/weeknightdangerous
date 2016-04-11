@@ -1,20 +1,17 @@
-<div class="container">
-  
+<div class="container"> 
     <div class="col-md-12">
-      <div class="comments">
-       
+      <div class="comments">    
        <div class="row">
-
+       <!-- list of comments based on trailId -->
         <div class="col-md-6 commentList">
           <h3>User Comments:</h3>
-         <!-- <hr> -->
           <div class="single-comment" ng-repeat="comment in comments.data | filter:query | orderBy: 'created_at':true">
             <img src="{{ comment.imageUrl }} " alt="user image" height="110" width="110">
             <h4>{{ comment.full_name }} says,</h4>
             <p>{{ comment.comment }}</p>
           </div>
         </div>  
-
+        <!-- Comment Form to submit comments -->
         <div class="col-md-6 commentForm" ng-if="comments.user">
           <form name="commentForm" ng-submit="comments.update(comments.text, commentForm.$valid)" novalidate>
             <h3>Howdy, {{ comments.username }} </h3> 
@@ -23,8 +20,7 @@
               <p ng-show="commentForm.comment.$error.required">Opps you forgot to add a comment</p>
             <input type="submit" value="Save" ng-disabled="commentForm.$invalid"/>
           </form>
-        </div>
-        
+        </div>        
       </div>
     </div>
   </div>

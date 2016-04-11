@@ -1,26 +1,29 @@
 angular.module('trailApp.comment', [])
 
-  .controller('commentsCtrl', function(Auth, commentForm, $stateParams, $state) {
+  .controller('commentsCtrl', function(Auth, commentForm, $state) {
     var comments = this;
+    //set default user status to false - to hide the commentForm view
     comments.user = false;
     comments.data = [];
+    //storage for username
     comments.username;
+    //get trailId from $state.params and store it in the trailId variable 
     var trailId = $state.params.trailId;
 
     comments.isUser = function() {
+      //set the comments.user status to the returned result of Auth.checkUser(), which will be either a true or false value
       comments.user = Auth.checkUser();
+      //save the username in comments.username so we can use it in the comments html
       comments.username= Auth.getUser();
-  
-      console.log('comments.user:', comments.user);
+      //console.log('comments.user:', comments.user);
       
     }
 
+    //get existing comments 
     comments.getComments = function() {
-      console.log('stateParams', $stateParams);
-      console.log('state.params',$state.params);
       return commentForm.getComments(trailId)
         .then(function (result) {
-          console.log('getComments result client:', result)
+          //console.log('getComments result client:', result)
           return comments.data = result;
         })
         .catch(function (err) {
@@ -28,12 +31,12 @@ angular.module('trailApp.comment', [])
         })
     }
 
+    //post a new comment
     comments.update = function(comment, isValid) {
-      // console.log('isValid', isValid)
       if (isValid) {
         return commentForm.postComments(comment,trailId)
           .then(function (result) {
-            console.log('post comments client result:', result);
+            //console.log('post comments client result:', result);
             comments.getComments();  
             comments.text = '';
           })
@@ -42,8 +45,8 @@ angular.module('trailApp.comment', [])
           })
       }
     };
-    //initialize user status: if user is signed in when this page is rendered
+    //initialize user status: if user is signed in on page render
     comments.isUser();
+    //initialize the existing comments on page render
     comments.getComments();
-
   });

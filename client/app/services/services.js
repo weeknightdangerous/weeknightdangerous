@@ -2,21 +2,17 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  //showTrails.trail = {};
   showTrails.trailId = 0;
   showTrails.list = {};
   showTrails.location;
 
+  //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
     showTrails.location = params;
-<<<<<<< HEAD
     // console.log('userLocation service: ', showTrails.location);
-=======
-   // console.log('userLocation service: ', showTrails.location);
->>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
-
   }
 
+  //get trails using location (city, state) as parameters
   var getTrails = function() {
     // console.log('getLocation service location:', showTrails.location)
     return $http({
@@ -33,6 +29,7 @@ angular.module('trailApp.services', ['ngCookies'])
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
 
+  //get trailId
   var getTrailId = function (trailId) {
     showTrails.trailId = trailId;
     // console.log('showTrails.trailId:', showTrails.trailId)
@@ -50,13 +47,10 @@ angular.module('trailApp.services', ['ngCookies'])
     return showTrails.trail;
   }
 
-<<<<<<< HEAD
-=======
   var getTrailList = function () {
 
   }
 
->>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
   return {
     userLocation: userLocation,
     getTrails: getTrails,
@@ -71,7 +65,9 @@ angular.module('trailApp.services', ['ngCookies'])
   var cookie;
   var isUser = false;
 
+  //check if there's cookie -ie if the user is logged in
   var checkUser = function () {
+    //store cookie object in cookie
     cookie = $cookies.get('trailrpark');
     
     if (cookie !== undefined) {
@@ -82,17 +78,19 @@ angular.module('trailApp.services', ['ngCookies'])
     return isUser;
   };
 
+  //get user name info
   var getUser = function () {
     if (cookie !== undefined) {
       return cookie.username;
    }
   };
+  //get user image
   var getImage = function () {
     if (cookie !== undefined) {
       return cookie.image;
    }
   };
-
+  //destroy cookie when user signs out
   var removeUser = function () {
     $cookies.remove("trailrpark");
     return isUser = false;
@@ -107,8 +105,9 @@ angular.module('trailApp.services', ['ngCookies'])
   };  
 })
 
-.factory('commentForm', function($http) {
 
+.factory('commentForm', function($http) {
+  //post comments
   var postComments = function(comment, trailId) {
     // console.log('postComments is working', trailId, comment)
     return $http({
@@ -126,6 +125,7 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
+  //get comments
   var getComments = function(trailId) {
     // console.log('getComments trailId: ', trailId);
     return $http({
@@ -258,11 +258,9 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
-<<<<<<< HEAD
+
     //below is for the star rating. It's ugly, but it works.
-=======
     //The below is for the star rating. Needs added functionality and user input!
->>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
 .directive('starRating', function () {
     return {
         restrict: 'A',
