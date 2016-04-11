@@ -6,6 +6,7 @@ angular.module('trailApp.trailsList', [])
 	trails.data = [];
   trails.city;
   trails.state;
+  trails.noTrials= false;
 
   $scope.ratings = [{
         current: 0,
@@ -15,19 +16,14 @@ angular.module('trailApp.trailsList', [])
   //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
   trails.getList = function() {
     trails.loader=true;
-    //if(isValid) { 
-      // //make sure the trailList header will have capitalized city and state regardless of user input.
-      // trails.city = capitalize(location.city);
-      // trails.state = capitalize(location.state);
-      // //get placename for bg
-
-      // var placename = {placename: trails.city + ',' + trails.state};
-      // imageService.locImages(placename);
-      // //end placename for bg
-
+   
       return showTrails.getTrails()
       .then(function (result) {
-        console.log('trailsList ctrl result:', result)
+        console.log('trailsList ctrl result:', result.data)
+
+        if (result.data.length === 0) {
+          trails.noTrials = true;
+        }
         trails.data = result.data;
         var location = result.location;
         trails.loader=false;
@@ -45,7 +41,6 @@ angular.module('trailApp.trailsList', [])
       .catch(function(err) {
         console.log('getLocation err: ', err);
       })
-    //}
   };
 
   //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
