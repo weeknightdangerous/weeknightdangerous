@@ -8,6 +8,12 @@
       <div class="col-md-12">
         <div class="trails">
         <h2 class="results-title" ng-hide="trails.loader">Trails in {{trails.city}}, {{trails.state}}</h2>
+
+        <div ng-if="trails.noTrials" class="trail">
+          <h3>Sorry, there's no trails available at this time. Please check back later</h3>
+          <button ui-sref="home" class="btn btn-primary btn-lg btn-block">Go back</button>
+        </div>
+
         <div ng-repeat="trail in trails.data | orderBy: '-rating'" class="trail" >
           <div class="row">
             <div class="col-md-2">
