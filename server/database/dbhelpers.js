@@ -103,6 +103,7 @@ dbhelpers.trailComments = function(trailID) {
       trail_id: trailID
     })
     .then(function(resp){
+      console.log(resp)
       return resp
     })
   
