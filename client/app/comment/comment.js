@@ -1,6 +1,6 @@
 angular.module('trailApp.comment', [])
 
-  .controller('commentsCtrl', function(Auth, commentForm, $location, $state) {
+  .controller('commentsCtrl', function(Auth, commentForm, $stateParams, $state) {
     var comments = this;
     comments.user = false;
     comments.data = [];
@@ -16,7 +16,8 @@ angular.module('trailApp.comment', [])
     }
 
     comments.getComments = function() {
-
+      console.log('stateParams', $stateParams);
+      console.log('state.params',$state.params);
       return commentForm.getComments(trailId)
         .then(function (result) {
           console.log('getComments result client:', result)
