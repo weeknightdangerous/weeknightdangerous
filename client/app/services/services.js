@@ -9,13 +9,12 @@ angular.module('trailApp.services', ['ngCookies'])
   //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
     showTrails.location = params;
-    //console.log('userLocation service: ', showTrails.location);
-
+   // console.log('userLocation service: ', showTrails.location);
   }
 
   //get trails using location (city, state) as parameters
   var getTrails = function() {
-    //console.log('getLocation service location:', showTrails.location)
+    // console.log('getLocation service location:', showTrails.location)
     return $http({
       method: 'GET', 
       url: '/api/trails/alltrails',
@@ -24,7 +23,7 @@ angular.module('trailApp.services', ['ngCookies'])
     .then(function(result) {
       showTrails.list.data = result.data;
       showTrails.list.location = showTrails.location;
-      //console.log("getLocation result: ", showTrails.list)
+      // console.log("getLocation result: ", showTrails.list)
       return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
@@ -33,7 +32,7 @@ angular.module('trailApp.services', ['ngCookies'])
   //get trailId
   var getTrailId = function (trailId) {
     showTrails.trailId = trailId;
-    //console.log('showTrails.trailId:', showTrails.trailId)
+    // console.log('showTrails.trailId:', showTrails.trailId)
   };
 
 
@@ -106,7 +105,7 @@ angular.module('trailApp.services', ['ngCookies'])
 .factory('commentForm', function($http) {
   //post comments
   var postComments = function(comment, trailId) {
-    //console.log('postComments is working', trailId, comment)
+    // console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
       url: '/comment',
@@ -114,7 +113,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('comment service:', result);
+      // console.log('comment service:', result);
       return result;
     })
     .catch(function (err) {
@@ -124,7 +123,7 @@ angular.module('trailApp.services', ['ngCookies'])
 
   //get comments
   var getComments = function(trailId) {
-    //console.log('getComments trailId: ', trailId);
+    // console.log('getComments trailId: ', trailId);
     return $http({
       method: 'POST',
       url: '/commentList',
@@ -132,7 +131,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('get comment service:', result.data);
+      // console.log('get comment service:', result.data);
       return result.data;
     })
     .catch(function (err) {
@@ -191,33 +190,38 @@ angular.module('trailApp.services', ['ngCookies'])
 })
 
 .factory('imageService',['$q','$http',function($q,$http){
+  //this factory is used by multiple controllers!
+  //a collection of random locations for the homepage bg display
   //moab
   //grand teton nat'l park
   //yosemite
   //big sur
   var randomGeos = [{
-                      "lat": 47.9691,
-                      "lon": -123.4983,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 43.7904,
-                      "lon": -110.6818,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 37.748543,
-                      "lon": -119.588576,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 36.3615,
-                      "lon": -121.8563,
-                      "dist": 5000
-                    }];
+      "lat": 47.9691,
+      "lon": -123.4983,
+      "dist": 5000
+    },
+    {
+      "lat": 43.7904,
+      "lon": -110.6818,
+      "dist": 5000
+    },
+    {
+      "lat": 37.748543,
+      "lon": -119.588576,
+      "dist": 5000
+    },
+    {
+      "lat": 36.3615,
+      "lon": -121.8563,
+      "dist": 5000
+    }
+  ];
+  //pick a random location
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
   var images = {}
   var imageServices = {};
+  //get home images
   imageServices.homeImages = function(){
     //console.log('fired home images')
       images = $http({
@@ -226,6 +230,7 @@ angular.module('trailApp.services', ['ngCookies'])
         params: homeLoc
       })
   };
+  //get city/state images
   imageServices.locImages = function(placename){
     //console.log('fired locImages')
       images = $http({
@@ -234,6 +239,7 @@ angular.module('trailApp.services', ['ngCookies'])
         params: placename
       })
   };
+  //get trail images
   imageServices.trailImages = function(geo){
     //console.log('fired home images')
       images = $http({
@@ -248,7 +254,7 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
-
+    //The below is for the star rating. Needs added functionality and user input!
 .directive('starRating', function () {
     return {
         restrict: 'A',

@@ -6,7 +6,7 @@ var utilities = require('../utility');
 var app = express();
 
 exports.geoImages = function(req, res){
-
+  //get our location and distance info for the api call
   var lat = req.query.lat;
   var lon = req.query.lon;
   var dist = req.query.dist;
@@ -21,18 +21,3 @@ exports.geoImages = function(req, res){
     //res.json(instaPics.data);
   })
 }
-
-
-// exports.locImages = function(req,res){
-  
-//   var city = req.query.city;
-
-//   axios({
-//     method: 'get',
-//     url: 'https://api.instagram.com/v1/media/search?distance=5000&lat=' + lat + '&lng=' + lon + '&client_id=' + config.INSTA.PIRATE_ID,
-//     headers: {}
-//   })
-//   .then(function(instaPics){
-//     res.json(instaPics.data);
-//   })
-// }

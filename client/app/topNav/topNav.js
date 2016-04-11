@@ -38,7 +38,6 @@ var trailsApp = angular.module('trailApp.topNav', [])
     nav.image = Auth.getImage();
   }
 
-  //initialize user information
   nav.getUser();
 
 })
