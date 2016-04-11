@@ -11,7 +11,8 @@ angular.module('trailApp', [
   'trailApp.trailsList',
   'ngCookies',
   'ui.router',
-  'ngAnimate'
+  'ngAnimate',
+  'ngMap'
   ])
 
 // .config(function(uiGmapGoogleMapApiProvider) {

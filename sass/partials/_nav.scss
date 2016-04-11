@@ -21,9 +21,16 @@
   }
 }
 
-h3 .navbar-text {
+h3.navbar-text {
   padding-top: 10px;
   text-transform: capitalize;
-  color: #286090;
-
+  color: #286090!important;
+}
+.navbar-right{
+  .img-circle{
+    float:left;
+    height: 35px;
+    width: 35px;
+    margin-top: 20px;
+  }
 }

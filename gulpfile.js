@@ -27,7 +27,7 @@ gulp.task('minify-css', function() {
 });
 
 gulp.task('concat-dep', function() {
-  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/angular-cookies/angular-cookies.js','bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'])
+  return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/angular-cookies/angular-cookies.js','bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js','bower_components/ngmap/build/scripts/ng-map.min.js'])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('./client/scripts/'));
 });

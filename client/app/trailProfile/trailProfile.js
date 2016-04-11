@@ -1,8 +1,14 @@
 angular.module('trailApp.profile', ['ui.bootstrap'])
 
 
-.controller('profileCtrl', function( $uibModal,showTrails, addFav, imageService, $scope, $state) {
-   
+.controller('profileCtrl', function( $uibModal,showTrails, addFav, imageService, $scope, $state, NgMap) {
+  //our map
+  NgMap.getMap().then(function(map) {
+    console.log(map.getCenter());
+    console.log('markers', map.markers);
+    console.log('shapes', map.shapes);
+  });
+  
   var profile = this;
   
   profile.data = {};
