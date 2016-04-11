@@ -101,9 +101,10 @@ angular.module('trailApp.services', ['ngCookies'])
   };  
 })
 
-.factory('commentForm', function($http, $state) {
 
-  var postComments = function(comment) {
+.factory('commentForm', function($http) {
+
+  var postComments = function(comment, trailId) {
     console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
@@ -120,7 +121,7 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
-  var getComments = function() {
+  var getComments = function(trailId) {
     console.log('getComments trailId: ', trailId);
     return $http({
       method: 'POST',

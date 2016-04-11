@@ -13,7 +13,7 @@ exports.geoImages = function(req, res){
 
   axios({
     method: 'get',
-    url: 'https://api.instagram.com/v1/media/search?distance=' + dist + '&lat=' + lat + '&lng=' + lon + '&client_id=' +config.INSTA.PIRATE_ID + '&count=55',
+    url: 'https://api.instagram.com/v1/media/search?distance=' + dist + '&lat=' + lat + '&lng=' + lon + '&client_id=' +config.INSTA.PIRATE_ID + '&count=48',
     headers: {}
   })
   .then(function(instaPics){
