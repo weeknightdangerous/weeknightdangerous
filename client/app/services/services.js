@@ -188,7 +188,6 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('imageService',['$q','$http',function($q,$http){
   //this factory is used by multiple controllers!
-
   //a collection of random locations for the homepage bg display
   //moab
   //grand teton nat'l park
@@ -252,7 +251,7 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
-
+    //The below is for the star rating. Needs added functionality and user input!
 .directive('starRating', function () {
     return {
         restrict: 'A',
