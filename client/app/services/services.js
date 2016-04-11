@@ -9,7 +9,7 @@ angular.module('trailApp.services', ['ngCookies'])
   //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
     showTrails.location = params;
-   // console.log('userLocation service: ', showTrails.location);
+    // console.log('userLocation service: ', showTrails.location);
   }
 
   //get trails using location (city, state) as parameters
@@ -45,6 +45,10 @@ angular.module('trailApp.services', ['ngCookies'])
   var setTrail = function(trail) {
     showTrails.trail = trail;
     return showTrails.trail;
+  }
+
+  var getTrailList = function () {
+
   }
 
   return {
@@ -158,7 +162,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('addFav service result:', result);
+      // console.log('addFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -167,14 +171,14 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
-    //console.log('services getFav is working')
+    // console.log('services getFav is working')
     return $http({
       method: 'GET',
       url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('getFav service result:', result);
+      // console.log('getFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -254,6 +258,8 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
+
+    //below is for the star rating. It's ugly, but it works.
     //The below is for the star rating. Needs added functionality and user input!
 .directive('starRating', function () {
     return {

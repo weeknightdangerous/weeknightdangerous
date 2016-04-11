@@ -6,7 +6,7 @@ var trails = require('./api/trails');
 
 exports.checkCookie =  function(req, res) {
   var session = JSON.parse(req.cookies.trailrpark).session_id;
-  console.log('this is the session?:', session)
+  // console.log('this is the session?:', session)
   return dbhelpers.findUserBySession(session)
     .then(function(resp){
       console.log(resp)
@@ -56,7 +56,7 @@ exports.userFavs = function(req, res) {
       res.json(flattenResp);
     })
     .catch(function(err){
-      console.log('server userFav err:', err)
+      // console.log('server userFav err:', err)
     })
 };
 

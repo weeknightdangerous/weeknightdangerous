@@ -5,8 +5,8 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   //our map
   NgMap.getMap().then(function(map) {
     console.log(map.getCenter());
-    console.log('markers', map.markers);
-    console.log('shapes', map.shapes);
+    // console.log('markers', map.markers);
+    // console.log('shapes', map.shapes);
   });
   
   var profile = this;
@@ -16,8 +16,9 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   profile.loading = true;
   profile.myFavAdd = true;
   profile.showModal = false;
-  profile.rating;
 
+  profile.rating; 
+  
   //click image, show modal
   profile.open = function (slide) {
     profile.selected = slide
@@ -33,15 +34,14 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
       controller: 'ModalInstanceCtrl as viewer',
       resolve: {
         items: function(){
-          console.log(profile.selected)
+          // console.log(profile.selected)
           return profile.selected;
         }
       }
     })
   };
 
-  
-
+  //initialize the array for the rating's directive to be displayed on html
   $scope.ratings = [{
         current: profile.rating,
         max: 5
@@ -56,18 +56,13 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     profile.addFav = function() {
       return addFav.postFav()
         .then(function (result) {
-          console.log('addFavClient result:', result);
+          // console.log('addFavClient result:', result);
           profile.myFavAdd = false;
         })
         .catch(function (err) {
           console.error('addFavClient error:', err);
         })
     };
-
-    profile.addMap = function() {
-      
-    } ;
-
     
     //initialize the trail data
     profile.getTrail();
