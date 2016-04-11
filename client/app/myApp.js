@@ -1,7 +1,6 @@
 angular.module('trailApp', [
   'ui.bootstrap',
   'trailApp.services',
-  'trailApp.directives',
   'trailApp.intro',
   'trailApp.topNav',
   'trailApp.bkgd',
@@ -14,14 +13,6 @@ angular.module('trailApp', [
   'ngAnimate',
   'ngMap'
   ])
-
-// .config(function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//         //    key: 'your api key',
-//         v: '3.20', //defaults to latest 3.X anyhow
-//         libraries: 'weather,geometry,visualization'
-//     });
-// })
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
   $urlRouterProvider.otherwise('/home');
