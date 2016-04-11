@@ -102,7 +102,6 @@ angular.module('trailApp.services', ['ngCookies'])
 })
 
 .factory('commentForm', function($http, $state) {
-  var trailId = $state.params.trailId;
 
   var postComments = function(comment) {
     console.log('postComments is working', trailId, comment)

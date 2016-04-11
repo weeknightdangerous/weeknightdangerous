@@ -15,7 +15,8 @@ angular.module('trailApp.comment', [])
     }
 
     comments.getComments = function() {
-      return commentForm.getComments()
+      var trailId = $state.params.trailId;
+      return commentForm.getComments(trailId)
         .then(function (result) {
           console.log('getComments result client:', result)
           return comments.data = result;
