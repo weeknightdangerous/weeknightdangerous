@@ -41,13 +41,13 @@ exports.handleauth = function(req, res) {
                   return dbhelpers.addSession(user.uid, result.access_token)
                 })
                 .then(function(resp){
-                  res.cookie('trailrpark' , resp.session_id).redirect('/');
+                  res.cookie('trailrpark', JSON.stringify({session_id: resp.session_id, username: userObj.full_name})).redirect('/');
                 })
             } else {
               console.log("Returning User!", user);
               dbhelpers.addSession(user.uid, result.access_token)
                 .then(function(resp){
-                  res.cookie('trailrpark' , resp.session_id).redirect('/');
+                  res.cookie('trailrpark', JSON.stringify({session_id: resp.session_id, username: userObj.full_name})).redirect('/');
                   
                 })   
             }
@@ -56,7 +56,7 @@ exports.handleauth = function(req, res) {
   });
 };
 
- 
+ //res.cookie('trailrpark', JSON.stringify({session_id: resp.session_id, username: userObj.username})).redirect('/');
  
 
 

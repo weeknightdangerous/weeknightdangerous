@@ -17,12 +17,12 @@ block content
             a(ng-click="nav.signOut()") Sign Out
           li(ng-if="nav.signInToggle")
             a(ng-click="nav.myFav()") My Favorites
-        p.navbar-text(ng-if="nav.signInToggle") Signed in as [Username]
+        h3.navbar-text(ng-if="nav.signInToggle") Hi, {{ nav.user }}
 
   .intro(ui-view="intro") 
   .trailList(ui-view="trailsList")
   .trailProfile(ui-view="trail")
-  .trailList(ui-view="myFav") 
+  .myFav(ui-view="myFav") 
   .bkgd(ui-view="bkgd") 
   .comment(ui-view="comment")
 

@@ -67,12 +67,19 @@ angular.module('trailApp.services', ['ngCookies'])
 
   var checkUser = function () {
     cookie = $cookies.get('trailrpark');
-    console.log('service cookie: ', cookie)
+    
     if (cookie !== undefined) {
       isUser = true;
+      cookie = JSON.parse(cookie);
     }
-    console.log('checkUser service: ', isUser);
+
     return isUser;
+  };
+
+  var getUser = function () {
+    if (cookie !== undefined) {
+      return cookie.username;
+   }
   };
 
   var removeUser = function () {
@@ -83,6 +90,7 @@ angular.module('trailApp.services', ['ngCookies'])
 
   return {
     checkUser: checkUser,
+    getUser: getUser,
     removeUser: removeUser
   };  
 })
@@ -231,23 +239,30 @@ angular.module('trailApp.services', ['ngCookies'])
     return images;  
   }
   return imageServices;
-}]);
+}])
 
+.directive('starRating', function () {
+    return {
+        restrict: 'A',
+        template: '<ul class="rating">' +
+            '<li ng-repeat="star in stars" ng-class="star">' +
+            '\u2605' +
+            '</li>' +
+            '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '='
+        },
+        link: function (scope, elem, attrs) {
+            scope.stars = [];
+            for (var i = 0; i < scope.max; i++) {
+                scope.stars.push({
+                    filled: i < scope.ratingValue
+                });
+            }
+        }
+    }
+});
 
-// .factory('showImages', function($http){
-//   var getImages = function(){
-//     return $http({
-//       method: 'GET', 
-//       url: '/api/insta/geo',
-//       params: {"lat":'38.5733',"lon":'-109.5498'}
-//     }).then(function(result){
-//       return result;
-//       console.log(result);
-//     })
-//   }
-//   return {
-//     getImages: getImages
-//   }
-// })
 
 

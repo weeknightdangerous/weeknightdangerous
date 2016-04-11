@@ -3,8 +3,57 @@
   color: #fff;
   clear: both;
   padding: 20px;
-  button{float: right;margin-top: 20px;}
   p{font-size: 1.5em}
+
+  .infoWidget {
+    background-color: rgba(119, 119, 119, 0.44);
+    border-radius: 20px 0 30px 0;
+    border: 1px solid darkgrey;
+    margin-bottom: 30px;
+
+    .widget {
+      text-align: center;
+      padding: 10px 0;
+      margin: 0;
+      border-right: 1px solid darkgrey;
+      height: 79px;
+
+      .star-rating {
+        padding-top: 3px;        
+      }
+
+      ul.rating {
+          font-size: 1.5em;
+          padding: 14px 0 0 15px;
+        }
+
+      .length {
+        font-size: 2em;
+      }
+      .heart {
+        font-size: 2.8em;
+      }
+    }
+    
+    .widget.addFav {
+      border-right: none;
+      position: relative;
+      top: -5px;
+
+      a {
+        color: lightgrey;
+        font-size: 1.2em;
+        &:hover {
+          color: #0056e0;
+          text-decoration: none;
+        }
+      }
+      a.myFavAdded {
+        color: #0056e0;
+        pointer-events:none;
+      }
+    }
+  }
 }
 .profile_slides{
   background: #000;
@@ -25,3 +74,8 @@
   bottom: -75px;
   left: 35%;
 }
+
+#map {
+  height: 400px;
+}
+
