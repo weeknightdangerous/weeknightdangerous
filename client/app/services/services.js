@@ -9,7 +9,11 @@ angular.module('trailApp.services', ['ngCookies'])
 
   var userLocation = function(params) {
     showTrails.location = params;
+<<<<<<< HEAD
+    // console.log('userLocation service: ', showTrails.location);
+=======
    // console.log('userLocation service: ', showTrails.location);
+>>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
 
   }
 
@@ -46,10 +50,13 @@ angular.module('trailApp.services', ['ngCookies'])
     return showTrails.trail;
   }
 
+<<<<<<< HEAD
+=======
   var getTrailList = function () {
 
   }
 
+>>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
   return {
     userLocation: userLocation,
     getTrails: getTrails,
@@ -156,7 +163,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('addFav service result:', result);
+      // console.log('addFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -165,14 +172,14 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
-    console.log('services getFav is working')
+    // console.log('services getFav is working')
     return $http({
       method: 'GET',
       url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('getFav service result:', result);
+      // console.log('getFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -252,7 +259,11 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
+<<<<<<< HEAD
+    //below is for the star rating. It's ugly, but it works.
+=======
     //The below is for the star rating. Needs added functionality and user input!
+>>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
 .directive('starRating', function () {
     return {
         restrict: 'A',
