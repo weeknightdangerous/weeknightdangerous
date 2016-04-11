@@ -2,19 +2,20 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  //showTrails.trail = {};
   showTrails.trailId = 0;
   showTrails.list = {};
   showTrails.location;
 
+  //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
     showTrails.location = params;
-    console.log('userLocation service: ', showTrails.location);
+    //console.log('userLocation service: ', showTrails.location);
 
   }
 
+  //get trails using location (city, state) as parameters
   var getTrails = function() {
-    console.log('getLocation service location:', showTrails.location)
+    //console.log('getLocation service location:', showTrails.location)
     return $http({
       method: 'GET', 
       url: '/api/trails/alltrails',
@@ -23,15 +24,16 @@ angular.module('trailApp.services', ['ngCookies'])
     .then(function(result) {
       showTrails.list.data = result.data;
       showTrails.list.location = showTrails.location;
-      console.log("getLocation result: ", showTrails.list)
+      //console.log("getLocation result: ", showTrails.list)
       return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
 
+  //get trailId
   var getTrailId = function (trailId) {
     showTrails.trailId = trailId;
-    console.log('showTrails.trailId:', showTrails.trailId)
+    //console.log('showTrails.trailId:', showTrails.trailId)
   };
 
 
@@ -45,11 +47,6 @@ angular.module('trailApp.services', ['ngCookies'])
     showTrails.trail = trail;
     return showTrails.trail;
   }
-
-  var getTrailList = function () {
-
-  }
-
 
   return {
     userLocation: userLocation,
@@ -65,7 +62,9 @@ angular.module('trailApp.services', ['ngCookies'])
   var cookie;
   var isUser = false;
 
+  //check if there's cookie -ie if the user is logged in
   var checkUser = function () {
+    //store cookie object in cookie
     cookie = $cookies.get('trailrpark');
     
     if (cookie !== undefined) {
@@ -76,17 +75,19 @@ angular.module('trailApp.services', ['ngCookies'])
     return isUser;
   };
 
+  //get user name info
   var getUser = function () {
     if (cookie !== undefined) {
       return cookie.username;
    }
   };
+  //get user image
   var getImage = function () {
     if (cookie !== undefined) {
       return cookie.image;
    }
   };
-
+  //destroy cookie when user signs out
   var removeUser = function () {
     $cookies.remove("trailrpark");
     return isUser = false;
@@ -103,9 +104,9 @@ angular.module('trailApp.services', ['ngCookies'])
 
 
 .factory('commentForm', function($http) {
-
+  //post comments
   var postComments = function(comment, trailId) {
-    console.log('postComments is working', trailId, comment)
+    //console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
       url: '/comment',
@@ -113,7 +114,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('comment service:', result);
+      //console.log('comment service:', result);
       return result;
     })
     .catch(function (err) {
@@ -121,8 +122,9 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
+  //get comments
   var getComments = function(trailId) {
-    console.log('getComments trailId: ', trailId);
+    //console.log('getComments trailId: ', trailId);
     return $http({
       method: 'POST',
       url: '/commentList',
@@ -130,7 +132,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('get comment service:', result.data);
+      //console.log('get comment service:', result.data);
       return result.data;
     })
     .catch(function (err) {
@@ -157,7 +159,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('addFav service result:', result);
+      //console.log('addFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -166,14 +168,14 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
-    console.log('services getFav is working')
+    //console.log('services getFav is working')
     return $http({
       method: 'GET',
       url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('getFav service result:', result);
+      //console.log('getFav service result:', result);
       return result;
     })
     .catch(function (err) {

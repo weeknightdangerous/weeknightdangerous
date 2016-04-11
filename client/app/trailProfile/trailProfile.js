@@ -16,6 +16,7 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   profile.loading = true;
   profile.myFavAdd = true;
   profile.showModal = false;
+  profile.rating;
 
   //click image, show modal
   profile.open = function (slide) {
@@ -39,7 +40,7 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     })
   };
 
-  profile.rating;
+  
 
   $scope.ratings = [{
         current: profile.rating,

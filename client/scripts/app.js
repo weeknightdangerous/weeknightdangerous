@@ -97,19 +97,20 @@ angular.module('trailApp.services', ['ngCookies'])
 
 .factory('showTrails', function($http) {
   var showTrails = this;
-  //showTrails.trail = {};
   showTrails.trailId = 0;
   showTrails.list = {};
   showTrails.location;
 
+  //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
     showTrails.location = params;
-    console.log('userLocation service: ', showTrails.location);
+    //console.log('userLocation service: ', showTrails.location);
 
   }
 
+  //get trails using location (city, state) as parameters
   var getTrails = function() {
-    console.log('getLocation service location:', showTrails.location)
+    //console.log('getLocation service location:', showTrails.location)
     return $http({
       method: 'GET', 
       url: '/api/trails/alltrails',
@@ -118,15 +119,16 @@ angular.module('trailApp.services', ['ngCookies'])
     .then(function(result) {
       showTrails.list.data = result.data;
       showTrails.list.location = showTrails.location;
-      console.log("getLocation result: ", showTrails.list)
+      //console.log("getLocation result: ", showTrails.list)
       return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
   };
 
+  //get trailId
   var getTrailId = function (trailId) {
     showTrails.trailId = trailId;
-    console.log('showTrails.trailId:', showTrails.trailId)
+    //console.log('showTrails.trailId:', showTrails.trailId)
   };
 
 
@@ -140,11 +142,6 @@ angular.module('trailApp.services', ['ngCookies'])
     showTrails.trail = trail;
     return showTrails.trail;
   }
-
-  var getTrailList = function () {
-
-  }
-
 
   return {
     userLocation: userLocation,
@@ -160,7 +157,9 @@ angular.module('trailApp.services', ['ngCookies'])
   var cookie;
   var isUser = false;
 
+  //check if there's cookie -ie if the user is logged in
   var checkUser = function () {
+    //store cookie object in cookie
     cookie = $cookies.get('trailrpark');
     
     if (cookie !== undefined) {
@@ -171,17 +170,19 @@ angular.module('trailApp.services', ['ngCookies'])
     return isUser;
   };
 
+  //get user name info
   var getUser = function () {
     if (cookie !== undefined) {
       return cookie.username;
    }
   };
+  //get user image
   var getImage = function () {
     if (cookie !== undefined) {
       return cookie.image;
    }
   };
-
+  //destroy cookie when user signs out
   var removeUser = function () {
     $cookies.remove("trailrpark");
     return isUser = false;
@@ -196,10 +197,11 @@ angular.module('trailApp.services', ['ngCookies'])
   };  
 })
 
-.factory('commentForm', function($http) {
 
+.factory('commentForm', function($http) {
+  //post comments
   var postComments = function(comment, trailId) {
-    console.log('postComments is working', trailId, comment)
+    //console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
       url: '/comment',
@@ -207,7 +209,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('comment service:', result);
+      //console.log('comment service:', result);
       return result;
     })
     .catch(function (err) {
@@ -215,8 +217,9 @@ angular.module('trailApp.services', ['ngCookies'])
     })    
   };
 
+  //get comments
   var getComments = function(trailId) {
-    console.log('getComments trailId: ', trailId);
+    //console.log('getComments trailId: ', trailId);
     return $http({
       method: 'POST',
       url: '/commentList',
@@ -224,7 +227,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('get comment service:', result.data);
+      //console.log('get comment service:', result.data);
       return result.data;
     })
     .catch(function (err) {
@@ -251,7 +254,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('addFav service result:', result);
+      //console.log('addFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -260,14 +263,14 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
-    console.log('services getFav is working')
+    //console.log('services getFav is working')
     return $http({
       method: 'GET',
       url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      console.log('getFav service result:', result);
+      //console.log('getFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -370,94 +373,58 @@ angular.module('trailApp.services', ['ngCookies'])
 angular.module('trailApp.intro', [])
 
 .controller('introCtrl', function($window, showTrails, imageService) {
-  // run the images service so the background can load
+  // run the images service so the background for intro view can load
   imageService.homeImages();
 
   var intro = this;
   var location = intro.location;
 
   intro.sendLocation = function(location) {
-    console.log('intro sendLocation: ', location)
+    //console.log('intro sendLocation: ', location)
+
+    //send location to service showTrails.userLocation so it can be stored in the service for other controllers to access
     showTrails.userLocation(location);
+    //redirect to /trailList
     $window.location.href = '/#/trailsList'
   }
-  intro.showlist = false;
-  intro.data = [];
-
-  //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
-  intro.getList = function(location) {
-    
-    //console.log('showlist is working: ', location)
-    //if(isValid) { 
-      //make sure the trailList header will have capitalized city and state regardless of user input.
-      intro.city = capitalize(location.city);
-      intro.state = capitalize(location.state);
-      //get placename for bg
-
-      var placename = {placename: intro.city + ',' + intro.state};
-      imageService.locImages(placename);
-      //end placename for bg
-
-      return showTrails.getLocation(location)
-      .then(function (result) {
-        //show list and hide intro form
-        intro.showList = true;
-        intro.data = result;
-
-
-      })
-      .catch(function(err) {
-        console.log('getLocation err: ', err);
-      })
-    //}
-  };
-
-  //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
-  // intro.getTrail = function(trail) {
-  //   //console.log('trail Info:',trail)
-  //   var trailGeo = {
-  //     "lat": trail.lat,
-  //     "lon": trail.lon,
-  //     "dist": '1000'
-  //   };
-  //   //console.log('geo loc for trail:', trailGeo);
-  //   imageService.trailImages(trailGeo);
-    
-  //   // call the service function that will store the trail in showTrails service.
-  //   showTrails.setTrail(trail);
-  //   var id = trail.unique_id;
-  //   //redirect to /trail and pass in the trail's unique_id as parameter
-  //   $state.go('trail', { trailId: id});
-    
-  // }
-  
-
 });
 
 var trailsApp = angular.module('trailApp.topNav', [])
 
 .controller('topNav', function($window, Auth) {
 	var nav = this;
-  nav.user,
+  nav.user;
   nav.image;
+
+  //set the signInToggle to the returned value of service function that checks
+  //if the user is signed. If user is signed in the signIn button and user profile on topNav
+  //should be hidden and vise versa. 
   nav.signInToggle = Auth.checkUser();; 
 
   nav.signIn = function () {
+    //redirect user to instagram to sign in
     $window.location.assign('/authorize_user');
   };
 
   nav.myFav = function () {
+    //redirect to the my favorites page
     $window.location.href = '/#/myFav';
   }
 
   nav.signOut = function () {
+    //call the service function to remove the cookie from the client side
     Auth.removeUser();
-    console.log('Auth.cookie', Auth.cookie)
+    //console.log('Auth.cookie', Auth.cookie)
+    
+    //set signInToggle to false to display the sign in button and hide the sign out button
     nav.signInToggle = !nav.signInToggle;
+    //redirect to home page
     $window.location.href = '/';
   }
 
+  //get user info so we can display user profile on the topNav
   nav.getUser = function () {
+    //get user's name and image from the Auth service
     nav.user = Auth.getUser();
     nav.image = Auth.getImage();
   }
@@ -583,27 +550,30 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
 
 angular.module('trailApp.comment', [])
 
-  .controller('commentsCtrl', function(Auth, commentForm, $stateParams, $state) {
+  .controller('commentsCtrl', function(Auth, commentForm, $state) {
     var comments = this;
+    //set default user status to false - to hide the commentForm view
     comments.user = false;
     comments.data = [];
+    //storage for username
     comments.username;
+    //get trailId from $state.params and store it in the trailId variable 
     var trailId = $state.params.trailId;
 
     comments.isUser = function() {
+      //set the comments.user status to the returned result of Auth.checkUser(), which will be either a true or false value
       comments.user = Auth.checkUser();
+      //save the username in comments.username so we can use it in the comments html
       comments.username= Auth.getUser();
-  
-      console.log('comments.user:', comments.user);
+      //console.log('comments.user:', comments.user);
       
     }
 
+    //get existing comments 
     comments.getComments = function() {
-      console.log('stateParams', $stateParams);
-      console.log('state.params',$state.params);
       return commentForm.getComments(trailId)
         .then(function (result) {
-          console.log('getComments result client:', result)
+          //console.log('getComments result client:', result)
           return comments.data = result;
         })
         .catch(function (err) {
@@ -611,12 +581,12 @@ angular.module('trailApp.comment', [])
         })
     }
 
+    //post a new comment
     comments.update = function(comment, isValid) {
-      // console.log('isValid', isValid)
       if (isValid) {
         return commentForm.postComments(comment,trailId)
           .then(function (result) {
-            console.log('post comments client result:', result);
+            //console.log('post comments client result:', result);
             comments.getComments();  
             comments.text = '';
           })
@@ -625,10 +595,10 @@ angular.module('trailApp.comment', [])
           })
       }
     };
-    //initialize user status: if user is signed in when this page is rendered
+    //initialize user status: if user is signed in on page render
     comments.isUser();
+    //initialize the existing comments on page render
     comments.getComments();
-
   });
 angular.module('trailApp.trailsList', [])
 
@@ -707,7 +677,9 @@ var trailsApp = angular.module('trailApp.myFav', [])
 .controller('myFavCtrl', function(addFav, showTrails, $state, $scope, imageService) {
   var myFav = this;
   myFav.data;
+  myFav.noFav = false;
 
+  //initializes rating display array for the rating directive
   $scope.ratings = [{
         current: 0,
         max: 5
@@ -715,16 +687,20 @@ var trailsApp = angular.module('trailApp.myFav', [])
 
   myFav.getFavList = function() {
     console.log('myFave.getFavList is working')
+    //fires the loader during promise
     myFav.loader=true;
-    // var data = showTrails.getTrail();
-    // console.log('data', data);
-
+    //get favorite trailslist
     addFav.getFav()
       .then(function(result) {
-        console.log('getFavList client result:', result.data);
+        //console.log('getFavList client result:', result.data);      
+        //turn off loader after promise is resolved
         myFav.loader=false;
         myFav.data = result.data;
-        console.log('myFav.data:', myFav.data)
+        //console.log('myFav.data:', myFav.data)
+        //check if there's no record in myFav. if so, displays the no favorite message
+        if (myFav.data.length === 0) {
+          myFav.noFav = true;
+        }
       })
       .catch(function(err) {
         console.error('getFavList client error:', err);
@@ -746,6 +722,7 @@ var trailsApp = angular.module('trailApp.myFav', [])
   //initialize user's favorite trails list
   myFav.getFavList();
 
+  //initialize instagram background for myFav using the generic geo list for the intro page
   imageService.getImages()
   .then(function(data){
     $scope.pics = data;

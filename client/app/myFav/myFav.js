@@ -3,7 +3,9 @@ var trailsApp = angular.module('trailApp.myFav', [])
 .controller('myFavCtrl', function(addFav, showTrails, $state, $scope, imageService) {
   var myFav = this;
   myFav.data;
+  myFav.noFav = false;
 
+  //initializes rating display array for the rating directive
   $scope.ratings = [{
         current: 0,
         max: 5
@@ -11,16 +13,20 @@ var trailsApp = angular.module('trailApp.myFav', [])
 
   myFav.getFavList = function() {
     console.log('myFave.getFavList is working')
+    //fires the loader during promise
     myFav.loader=true;
-    // var data = showTrails.getTrail();
-    // console.log('data', data);
-
+    //get favorite trailslist
     addFav.getFav()
       .then(function(result) {
-        console.log('getFavList client result:', result.data);
+        //console.log('getFavList client result:', result.data);      
+        //turn off loader after promise is resolved
         myFav.loader=false;
         myFav.data = result.data;
-        console.log('myFav.data:', myFav.data)
+        //console.log('myFav.data:', myFav.data)
+        //check if there's no record in myFav. if so, displays the no favorite message
+        if (myFav.data.length === 0) {
+          myFav.noFav = true;
+        }
       })
       .catch(function(err) {
         console.error('getFavList client error:', err);
@@ -42,6 +48,7 @@ var trailsApp = angular.module('trailApp.myFav', [])
   //initialize user's favorite trails list
   myFav.getFavList();
 
+  //initialize instagram background for myFav using the generic geo list for the intro page
   imageService.getImages()
   .then(function(data){
     $scope.pics = data;
