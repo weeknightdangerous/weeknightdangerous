@@ -5,8 +5,8 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   //our map
   NgMap.getMap().then(function(map) {
     console.log(map.getCenter());
-    console.log('markers', map.markers);
-    console.log('shapes', map.shapes);
+    // console.log('markers', map.markers);
+    // console.log('shapes', map.shapes);
   });
   
   var profile = this;
@@ -16,7 +16,8 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   profile.loading = true;
   profile.myFavAdd = true;
   profile.showModal = false;
-
+  profile.rating; 
+  
   //click image, show modal
   profile.open = function (slide) {
     profile.selected = slide
@@ -39,7 +40,7 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     })
   };
 
-  profile.rating;
+ 
 
   $scope.ratings = [{
         current: profile.rating,
