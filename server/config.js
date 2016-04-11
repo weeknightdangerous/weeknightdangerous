@@ -22,6 +22,4 @@ config.GEO.KEY = 'abe6eb28bf565ca4aff97acb2b76db4c';
 //trails api key
 config.TRAILS.API_KEY = "5oxGUIheEmmshFrfXkj42LwWxlllp187YxejsnJlgk5J1ECCky";
 
-
-
 module.exports = config;
