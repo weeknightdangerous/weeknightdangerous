@@ -1,10 +1,11 @@
 angular.module('trailApp.comment', [])
 
-  .controller('commentsCtrl', function(Auth, commentForm, $location) {
+  .controller('commentsCtrl', function(Auth, commentForm, $stateParams, $state) {
     var comments = this;
     comments.user = false;
     comments.data = [];
     comments.username;
+    var trailId = $state.params.trailId;
 
     comments.isUser = function() {
       comments.user = Auth.checkUser();
@@ -15,7 +16,9 @@ angular.module('trailApp.comment', [])
     }
 
     comments.getComments = function() {
-      return commentForm.getComments()
+      console.log('stateParams', $stateParams);
+      console.log('state.params',$state.params);
+      return commentForm.getComments(trailId)
         .then(function (result) {
           console.log('getComments result client:', result)
           return comments.data = result;
@@ -26,9 +29,9 @@ angular.module('trailApp.comment', [])
     }
 
     comments.update = function(comment, isValid) {
-      console.log('isValid', isValid)
+      // console.log('isValid', isValid)
       if (isValid) {
-        return commentForm.postComments(comment)
+        return commentForm.postComments(comment,trailId)
           .then(function (result) {
             console.log('post comments client result:', result);
             comments.getComments();  
