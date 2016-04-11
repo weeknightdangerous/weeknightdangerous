@@ -14,6 +14,7 @@ dbhelpers.addUser = function(userObj) {
 };
 
 dbhelpers.findUserByName = function(username) {
+  console.log('check users table')
   return db('users').where({username: username})
     .then(function(resp){
       console.log("findUser response: ", resp);
