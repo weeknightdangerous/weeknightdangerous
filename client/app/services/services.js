@@ -240,7 +240,7 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
-
+    //below is for the star rating. It's ugly, but it works.
 .directive('starRating', function () {
     return {
         restrict: 'A',

@@ -62,11 +62,6 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
           console.error('addFavClient error:', err);
         })
     };
-
-    profile.addMap = function() {
-      
-    } ;
-
     
     //initialize the trail data
     profile.getTrail();
