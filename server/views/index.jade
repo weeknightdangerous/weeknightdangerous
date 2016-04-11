@@ -19,7 +19,7 @@ block content
             a(ng-click="nav.myFav()") My Favorites
         ul.navbar-right
           li
-            img.img-circle(src="{{nav.image}}")
+            img(ng-class="{'img-circle':nav.signInToggle}" src="{{nav.image}}")
             h3.navbar-text(ng-if="nav.signInToggle") Hi, {{ nav.user }}
 
   .intro(ui-view="intro") 
