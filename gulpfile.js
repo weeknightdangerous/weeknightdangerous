@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
+    //browser sync is not working at the moment
     browserSync = require('browser-sync').create(),
     shell = require('gulp-shell'),
     sass = require('gulp-sass'),
@@ -29,23 +30,19 @@ gulp.task('minify-css', function() {
 gulp.task('concat-dep', function() {
   return gulp.src(['bower_components/angular-animate/angular-animate.js','bower_components/angulargrid/angulargrid.js', 'bower_components/angular-cookies/angular-cookies.js','bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js','bower_components/ngmap/build/scripts/ng-map.min.js'])
     .pipe(concat('scripts.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('./client/scripts/'));
 });
 
 gulp.task('concat-app', function() {
-  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js', 'client/app/myFav/myFav.js','client/app/directives/modal.js'])
+  return gulp.src(['client/app/myApp.js','client/app/services/services.js','client/app/intro/intro.js','client/app/topNav/topNav.js','client/app/bkgd/bkgd.js','client/app/trailProfile/trailProfile.js','client/app/comment/comment.js','client/app/trailsList/trailsList.js', 'client/app/myFav/myFav.js'])
     .pipe(concat('app.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('./client/scripts'));
 });
 
-//uglify js
-gulp.task('uglify', function(){
-  return gulp.src('./client/scripts/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('client/scripts/'));
-})
-
 //sync browser with changes
+//this is not currently working
 gulp.task('browser-sync', function() {
     browserSync.init({
         server: {
@@ -91,5 +88,5 @@ gulp.task('watch', function() {
 
 //run our default task
 gulp.task('default', ['dev','sass','concat-dep','concat-app', 'minify-css','watch']);
-
+gulp.task('deploy',[])
 

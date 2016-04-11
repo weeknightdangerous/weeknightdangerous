@@ -67,7 +67,7 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     profile.getTrail();
 
 
-  //grab our images
+  //grab our background images
   imageService.getImages()
   .then(function(data){
     profile.slides = data;

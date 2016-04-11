@@ -8,7 +8,6 @@ exports.cleanTrails = function(data, type){
   var items = [];
   //console.log(data)
   for (var i = 0; i < data.length; i++) {
-    //console.log(data[i])
     var obj = {}
     var item = data[i];
     
@@ -41,7 +40,6 @@ exports.cleanTrails = function(data, type){
 //this cleans out the instagram json object a bit and removes data we aren't using
 //
 exports.cleanGrams = function(feed){
-  //console.log(feed);
   var grams = [];
   for (var i = 0; i < feed.data.length; i++) {
     var obj = {};

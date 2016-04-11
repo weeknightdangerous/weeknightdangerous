@@ -9,7 +9,11 @@ angular.module('trailApp.services', ['ngCookies'])
 
   var userLocation = function(params) {
     showTrails.location = params;
+<<<<<<< HEAD
     // console.log('userLocation service: ', showTrails.location);
+=======
+   // console.log('userLocation service: ', showTrails.location);
+>>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
 
   }
 
@@ -23,7 +27,7 @@ angular.module('trailApp.services', ['ngCookies'])
     .then(function(result) {
       showTrails.list.data = result.data;
       showTrails.list.location = showTrails.location;
-      console.log("getLocation result: ", showTrails.list)
+      // console.log("getLocation result: ", showTrails.list)
       return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
@@ -46,6 +50,13 @@ angular.module('trailApp.services', ['ngCookies'])
     return showTrails.trail;
   }
 
+<<<<<<< HEAD
+=======
+  var getTrailList = function () {
+
+  }
+
+>>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
   return {
     userLocation: userLocation,
     getTrails: getTrails,
@@ -183,33 +194,38 @@ angular.module('trailApp.services', ['ngCookies'])
 })
 
 .factory('imageService',['$q','$http',function($q,$http){
+  //this factory is used by multiple controllers!
+  //a collection of random locations for the homepage bg display
   //moab
   //grand teton nat'l park
   //yosemite
   //big sur
   var randomGeos = [{
-                      "lat": 47.9691,
-                      "lon": -123.4983,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 43.7904,
-                      "lon": -110.6818,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 37.748543,
-                      "lon": -119.588576,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 36.3615,
-                      "lon": -121.8563,
-                      "dist": 5000
-                    }];
+      "lat": 47.9691,
+      "lon": -123.4983,
+      "dist": 5000
+    },
+    {
+      "lat": 43.7904,
+      "lon": -110.6818,
+      "dist": 5000
+    },
+    {
+      "lat": 37.748543,
+      "lon": -119.588576,
+      "dist": 5000
+    },
+    {
+      "lat": 36.3615,
+      "lon": -121.8563,
+      "dist": 5000
+    }
+  ];
+  //pick a random location
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
   var images = {}
   var imageServices = {};
+  //get home images
   imageServices.homeImages = function(){
     //console.log('fired home images')
       images = $http({
@@ -218,6 +234,7 @@ angular.module('trailApp.services', ['ngCookies'])
         params: homeLoc
       })
   };
+  //get city/state images
   imageServices.locImages = function(placename){
     //console.log('fired locImages')
       images = $http({
@@ -226,6 +243,7 @@ angular.module('trailApp.services', ['ngCookies'])
         params: placename
       })
   };
+  //get trail images
   imageServices.trailImages = function(geo){
     //console.log('fired home images')
       images = $http({
@@ -240,7 +258,11 @@ angular.module('trailApp.services', ['ngCookies'])
   }
   return imageServices;
 }])
+<<<<<<< HEAD
     //below is for the star rating. It's ugly, but it works.
+=======
+    //The below is for the star rating. Needs added functionality and user input!
+>>>>>>> 521cf350ae16c665c791a56b131d858a36afda9e
 .directive('starRating', function () {
     return {
         restrict: 'A',

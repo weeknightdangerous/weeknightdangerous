@@ -35,8 +35,6 @@ var trailsApp = angular.module('trailApp.myFav', [])
     var id = trail.unique_id;
     //redirect to /trail and pass in the trail's unique_id as parameter
     $state.go('trail', { trailId: id});
-
-    
   }
 
   //initialize user's favorite trails list
