@@ -1,4 +1,6 @@
 var striptags = require('striptags');
+var Entities = require('html-entities').XmlEntities;
+entities = new Entities();
 //
 //this cleans out the trails json object a bit and removes data we aren't using
 //
@@ -12,7 +14,7 @@ exports.cleanTrails = function(data, type){
     
     obj.name = item.name;
     obj.unique_id = item.unique_id;
-    obj.directions = striptags(item.directions);
+    obj.directions = striptags(entities.decode(item.directions));
     obj.lat = item.lat;
     obj.lon = item.lon;
     obj.thumbnail = 'img/missing_image.jpg';
@@ -20,7 +22,7 @@ exports.cleanTrails = function(data, type){
     for (var j = 0; j < item.activities.length; j++) {
       if(item.activities[j].activity_type_id == type){
         obj.url = item.activities[j].url;
-        obj.description = striptags(item.activities[j].description);
+        obj.description = striptags(entities.decode(item.activities[j].description));
         obj.length = item.activities[j].length;
         if(item.activities[j].thumbnail){
           obj.thumbnail = item.activities[j].thumbnail;

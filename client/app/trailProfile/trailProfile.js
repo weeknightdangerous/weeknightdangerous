@@ -30,11 +30,9 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
           return profile.selected;
         }
       }
-
-  profile.toggleModal = function(){
-      profile.showModal = !profile.showModal;
-      console.log('toggled');
+    })
   };
+
   profile.rating;
 
   $scope.ratings = [{
@@ -67,16 +65,15 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     //initialize the trail data
     profile.getTrail();
 
-    //grab our images
-    imageService.getImages()
-    .then(function(data){
-      profile.slides = data;
-      profile.loading = false;
-    });
-  };
+
+  //grab our images
+  imageService.getImages()
+  .then(function(data){
+    profile.slides = data;
+    profile.loading = false;
+  });
 
 })
-
 .controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
 
     var viewer = this;
@@ -84,4 +81,3 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     //I want to get the vehicle data pass to populate the form myModalContent.html
     viewer.slide = items;
 })
-
