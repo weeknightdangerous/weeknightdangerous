@@ -5,20 +5,22 @@ config.TRAILS = {};
 config.GEO = {};
 
 //auth sandbox key
-config.INSTA.CLIENT_ID = "c1a9f0d89b214eaf9bf1007272c94511";
-config.INSTA.CLIENT_SECRET ="e3b7f57fa5d54507af11ed94cb34712e";
+config.INSTA.CLIENT_ID = process.env.TRAILAPP_CLIENT_ID;
+config.INSTA.CLIENT_SECRET = process.env.TRAILAPP_CLIENT_SECRET;
 
 
-config.REDIRECT_URL ="http://localhost:3000/handle_auth";
+
+config.REDIRECT_URL = process.env.TRAILAPP_REDIRECT_URL;
+//"http://localhost:3000/handle_auth";
 
 
 // the following id is not ours and should by no means be used on a public app!
-config.INSTA.PIRATE_ID = 'b59fbe4563944b6c88cced13495c0f49';
+config.INSTA.PIRATE_ID = process.env.TRAILAPP_BACKGROUND_ID;
 
 //helper geocode key
-config.GEO.KEY = 'abe6eb28bf565ca4aff97acb2b76db4c';
+config.GEO.KEY = process.env.TRAILAPP_GEO_KEY;
 
 //trails api key
-config.TRAILS.API_KEY = "5oxGUIheEmmshFrfXkj42LwWxlllp187YxejsnJlgk5J1ECCky";
+config.TRAILS.API_KEY = process.env.TRAILAPP_TRAILS_KEY;
 
 module.exports = config;
