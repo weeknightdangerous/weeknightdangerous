@@ -1,7 +1,6 @@
 angular.module('trailApp', [
   'ui.bootstrap',
   'trailApp.services',
-  'trailApp.directives',
   'trailApp.intro',
   'trailApp.topNav',
   'trailApp.bkgd',
@@ -14,14 +13,6 @@ angular.module('trailApp', [
   'ngAnimate',
   'ngMap'
   ])
-
-// .config(function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//         //    key: 'your api key',
-//         v: '3.20', //defaults to latest 3.X anyhow
-//         libraries: 'weather,geometry,visualization'
-//     });
-// })
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateparams) {
   $urlRouterProvider.otherwise('/home');
@@ -104,13 +95,12 @@ angular.module('trailApp.services', ['ngCookies'])
   //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
     showTrails.location = params;
-    //console.log('userLocation service: ', showTrails.location);
-
+    // console.log('userLocation service: ', showTrails.location);
   }
 
   //get trails using location (city, state) as parameters
   var getTrails = function() {
-    //console.log('getLocation service location:', showTrails.location)
+    // console.log('getLocation service location:', showTrails.location)
     return $http({
       method: 'GET', 
       url: '/api/trails/alltrails',
@@ -119,7 +109,7 @@ angular.module('trailApp.services', ['ngCookies'])
     .then(function(result) {
       showTrails.list.data = result.data;
       showTrails.list.location = showTrails.location;
-      //console.log("getLocation result: ", showTrails.list)
+      // console.log("getLocation result: ", showTrails.list)
       return showTrails.list;
     })
     .catch(function(err) { console.log('postLocation error: ', err)})
@@ -128,7 +118,7 @@ angular.module('trailApp.services', ['ngCookies'])
   //get trailId
   var getTrailId = function (trailId) {
     showTrails.trailId = trailId;
-    //console.log('showTrails.trailId:', showTrails.trailId)
+    // console.log('showTrails.trailId:', showTrails.trailId)
   };
 
 
@@ -141,6 +131,10 @@ angular.module('trailApp.services', ['ngCookies'])
   var setTrail = function(trail) {
     showTrails.trail = trail;
     return showTrails.trail;
+  }
+
+  var getTrailList = function () {
+
   }
 
   return {
@@ -201,7 +195,7 @@ angular.module('trailApp.services', ['ngCookies'])
 .factory('commentForm', function($http) {
   //post comments
   var postComments = function(comment, trailId) {
-    //console.log('postComments is working', trailId, comment)
+    // console.log('postComments is working', trailId, comment)
     return $http({
       method: 'POST',
       url: '/comment',
@@ -209,7 +203,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('comment service:', result);
+      // console.log('comment service:', result);
       return result;
     })
     .catch(function (err) {
@@ -219,7 +213,7 @@ angular.module('trailApp.services', ['ngCookies'])
 
   //get comments
   var getComments = function(trailId) {
-    //console.log('getComments trailId: ', trailId);
+    // console.log('getComments trailId: ', trailId);
     return $http({
       method: 'POST',
       url: '/commentList',
@@ -227,7 +221,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('get comment service:', result.data);
+      // console.log('get comment service:', result.data);
       return result.data;
     })
     .catch(function (err) {
@@ -254,7 +248,7 @@ angular.module('trailApp.services', ['ngCookies'])
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('addFav service result:', result);
+      // console.log('addFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -263,14 +257,14 @@ angular.module('trailApp.services', ['ngCookies'])
   };
 
   var getFav = function() {
-    //console.log('services getFav is working')
+    // console.log('services getFav is working')
     return $http({
       method: 'GET',
       url: '/myfavs',
       headers: {'Content-Type': 'application/json'}
     })
     .then(function (result) {
-      //console.log('getFav service result:', result);
+      // console.log('getFav service result:', result);
       return result;
     })
     .catch(function (err) {
@@ -286,33 +280,38 @@ angular.module('trailApp.services', ['ngCookies'])
 })
 
 .factory('imageService',['$q','$http',function($q,$http){
+  //this factory is used by multiple controllers!
+  //a collection of random locations for the homepage bg display
   //moab
   //grand teton nat'l park
   //yosemite
   //big sur
   var randomGeos = [{
-                      "lat": 47.9691,
-                      "lon": -123.4983,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 43.7904,
-                      "lon": -110.6818,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 37.748543,
-                      "lon": -119.588576,
-                      "dist": 5000
-                    },
-                    {
-                      "lat": 36.3615,
-                      "lon": -121.8563,
-                      "dist": 5000
-                    }];
+      "lat": 47.9691,
+      "lon": -123.4983,
+      "dist": 5000
+    },
+    {
+      "lat": 43.7904,
+      "lon": -110.6818,
+      "dist": 5000
+    },
+    {
+      "lat": 37.748543,
+      "lon": -119.588576,
+      "dist": 5000
+    },
+    {
+      "lat": 36.3615,
+      "lon": -121.8563,
+      "dist": 5000
+    }
+  ];
+  //pick a random location
   var homeLoc = randomGeos[Math.floor(Math.random()*randomGeos.length)];
   var images = {}
   var imageServices = {};
+  //get home images
   imageServices.homeImages = function(){
     //console.log('fired home images')
       images = $http({
@@ -321,6 +320,7 @@ angular.module('trailApp.services', ['ngCookies'])
         params: homeLoc
       })
   };
+  //get city/state images
   imageServices.locImages = function(placename){
     //console.log('fired locImages')
       images = $http({
@@ -329,6 +329,7 @@ angular.module('trailApp.services', ['ngCookies'])
         params: placename
       })
   };
+  //get trail images
   imageServices.trailImages = function(geo){
     //console.log('fired home images')
       images = $http({
@@ -344,6 +345,8 @@ angular.module('trailApp.services', ['ngCookies'])
   return imageServices;
 }])
 
+    //below is for the star rating. It's ugly, but it works.
+    //The below is for the star rating. Needs added functionality and user input!
 .directive('starRating', function () {
     return {
         restrict: 'A',
@@ -373,7 +376,7 @@ angular.module('trailApp.services', ['ngCookies'])
 angular.module('trailApp.intro', [])
 
 .controller('introCtrl', function($window, showTrails, imageService) {
-  // run the images service so the background for intro view can load
+  // hit the images service so the background can load
   imageService.homeImages();
 
   var intro = this;
@@ -429,16 +432,15 @@ var trailsApp = angular.module('trailApp.topNav', [])
     nav.image = Auth.getImage();
   }
 
-  //initialize user information
   nav.getUser();
 
 })
 
 angular.module('trailApp.bkgd', [])
-
+//this controller loads up the background
 .controller('bkgdCtrl', ['$scope','imageService', function ($scope,imageService) {
+  //setup our empty object
   $scope.pics = {};
-    
   //get our initianl images
   imageService.getImages()
   .then(function(data){
@@ -449,7 +451,7 @@ angular.module('trailApp.bkgd', [])
   $scope.$watch(function(){
     return imageService.getImages(); // This returns a promise
   }, function(images, oldImages){
-    if(images !== oldImages){ // According to your implementation, your images promise changes reference
+    if(images !== oldImages){ // if images promise changes reference
       images.then(function(data){
         $scope.pics = data;
         //console.log('here is our data:',$scope.pics);
@@ -465,8 +467,8 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   //our map
   NgMap.getMap().then(function(map) {
     console.log(map.getCenter());
-    console.log('markers', map.markers);
-    console.log('shapes', map.shapes);
+    // console.log('markers', map.markers);
+    // console.log('shapes', map.shapes);
   });
   
   var profile = this;
@@ -477,6 +479,8 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
   profile.myFavAdd = true;
   profile.showModal = false;
 
+  profile.rating; 
+  
   //click image, show modal
   profile.open = function (slide) {
     profile.selected = slide
@@ -492,15 +496,14 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
       controller: 'ModalInstanceCtrl as viewer',
       resolve: {
         items: function(){
-          console.log(profile.selected)
+          // console.log(profile.selected)
           return profile.selected;
         }
       }
     })
   };
 
-  profile.rating;
-
+  //initialize the array for the rating's directive to be displayed on html
   $scope.ratings = [{
         current: profile.rating,
         max: 5
@@ -515,24 +518,19 @@ angular.module('trailApp.profile', ['ui.bootstrap'])
     profile.addFav = function() {
       return addFav.postFav()
         .then(function (result) {
-          console.log('addFavClient result:', result);
+          // console.log('addFavClient result:', result);
           profile.myFavAdd = false;
         })
         .catch(function (err) {
           console.error('addFavClient error:', err);
         })
     };
-
-    profile.addMap = function() {
-      
-    } ;
-
     
     //initialize the trail data
     profile.getTrail();
 
 
-  //grab our images
+  //grab our background images
   imageService.getImages()
   .then(function(data){
     profile.slides = data;
@@ -604,24 +602,22 @@ angular.module('trailApp.trailsList', [])
 
 .controller('TrailsListCtrl', function (showTrails, imageService, $state, $scope) {
 	var trails = this;
-
 	trails.data = [];
   trails.city;
   trails.state;
   trails.noTrials= false;
-
+  //the below array is for the star ratings! Vital. Div will collapse if not here!
   $scope.ratings = [{
         current: 0,
         max: 5
   }];
-
   //to get all the trails based on user's selected city and state (collected in the location object that's passed in)
   trails.getList = function() {
     trails.loader=true;
    
       return showTrails.getTrails()
       .then(function (result) {
-        console.log('trailsList ctrl result:', result.data)
+        // console.log('trailsList ctrl result:', result.data)
 
         if (result.data.length === 0) {
           trails.noTrials = true;
@@ -633,18 +629,14 @@ angular.module('trailApp.trailsList', [])
         trails.city = capitalize(location.city);
         trails.state = capitalize(location.state);
         //get placename for bg
-
         var placename = {placename: trails.city + ',' + trails.state};
         imageService.locImages(placename);
         //end placename for bg
-
-
       })
       .catch(function(err) {
         console.log('getLocation err: ', err);
       })
   };
-
   //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
   trails.getTrail = function(trail) {
     // call the service function that will store the trail in showTrails service.
@@ -655,21 +647,16 @@ angular.module('trailApp.trailsList', [])
     };
     //console.log('geo loc for trail:', trailGeo);
     imageService.trailImages(trailGeo);
-
     showTrails.setTrail(trail);
     var id = trail.unique_id;
     //redirect to /trail and pass in the trail's unique_id as parameter
     $state.go('trail', { trailId: id});
-
   }
-
   //helper function to make sure the city and state inputed by the user are capitalized
   function capitalize (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
   trails.getList()
-
 });
 
 var trailsApp = angular.module('trailApp.myFav', [])
@@ -686,8 +673,8 @@ var trailsApp = angular.module('trailApp.myFav', [])
   }];
 
   myFav.getFavList = function() {
-    console.log('myFave.getFavList is working')
     //fires the loader during promise
+    // console.log('myFave.getFavList is working')
     myFav.loader=true;
     //get favorite trailslist
     addFav.getFav()
@@ -695,12 +682,17 @@ var trailsApp = angular.module('trailApp.myFav', [])
         //console.log('getFavList client result:', result.data);      
         //turn off loader after promise is resolved
         myFav.loader=false;
+        //get favorite trailslist
         myFav.data = result.data;
         //console.log('myFav.data:', myFav.data)
         //check if there's no record in myFav. if so, displays the no favorite message
         if (myFav.data.length === 0) {
           myFav.noFav = true;
         }
+        // console.log('getFavList client result:', result.data);
+        myFav.loader=false;
+        myFav.data = result.data;
+        // console.log('myFav.data:', myFav.data)
       })
       .catch(function(err) {
         console.error('getFavList client error:', err);
@@ -710,13 +702,11 @@ var trailsApp = angular.module('trailApp.myFav', [])
   //to get the trail information from the one user clicks on through ng-click and send to the showTrails service
   myFav.getTrail = function(trail) {
     // call the service function that will store the trail in showTrails service.
-    console.log('myFav.getTrail trail:', trail)
+    // console.log('myFav.getTrail trail:', trail)
     showTrails.setTrail(trail);
     var id = trail.unique_id;
     //redirect to /trail and pass in the trail's unique_id as parameter
     $state.go('trail', { trailId: id});
-
-    
   }
 
   //initialize user's favorite trails list
@@ -729,8 +719,3 @@ var trailsApp = angular.module('trailApp.myFav', [])
   });
    
 })
-
-angular.module('trailApp.directives', [])
-.directive('gramModal', function () {
-    
-});
