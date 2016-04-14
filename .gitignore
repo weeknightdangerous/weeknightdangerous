@@ -31,12 +31,11 @@ bower_components/
 db/
 
 # ignore generated files from gulp
-# client/scripts/app.js
-# client/scripts/scripts.js
-<<<<<<< HEAD
-# client/styles/main.css
+client/scripts/app.js
+client/scripts/scripts.js
+client/styles/main.css
+trailenv.sh
 
+trailenv.sh
 
-=======
-# client/styles/main.css
->>>>>>> 70fbbd9a18b6eba37e671beada34ba360be1f58b
+.DS_Store

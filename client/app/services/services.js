@@ -6,8 +6,10 @@ angular.module('trailApp.services', ['ngCookies'])
   showTrails.list = {};
   showTrails.location;
 
+      // TODO - rename w/ better name - unclear if this is searched loc or users' current loc
   //store the user's location query (city, state) in showTrails.location
   var userLocation = function(params) {
+		console.log('in usrLoc:',params)
     showTrails.location = params;
     // console.log('userLocation service: ', showTrails.location);
   }
@@ -81,7 +83,12 @@ angular.module('trailApp.services', ['ngCookies'])
   //get user name info
   var getUser = function () {
     if (cookie !== undefined) {
-      return cookie.username;
+      if (!cookie.username) {
+        return "Friend"
+      }
+      else {
+        return cookie.username;
+      }
    }
   };
   //get user image
@@ -234,9 +241,19 @@ angular.module('trailApp.services', ['ngCookies'])
         params: homeLoc
       })
   };
+	
+//	imageServices.emptyImg = function(){
+//		console.log('before emptyImg:', images)
+//		images = {};
+//		console.log('after emptyImg:', images)
+//		return Promise.resolve(images);
+//	}
+//	
+	
+	
   //get city/state images
   imageServices.locImages = function(placename){
-    //console.log('fired locImages')
+    console.log('fired locImages')
       images = $http({
         method: 'GET', 
         url: '/api/geo/loc',
